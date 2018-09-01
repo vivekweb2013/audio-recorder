@@ -1,0 +1,37 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+
+#built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Windows thumbnail db
+Thumbs.db
+
+# Android Studio
+.navigation
+output.json
+
+#NDK
+obj/
+
+# secret files
+/app/google-services.json
+/app/keystore.properties
+/app/*.keystore
