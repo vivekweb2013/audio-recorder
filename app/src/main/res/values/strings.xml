@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Audio Recorder</string>
+    <string name="image_play_pause">Play Pause Button</string>
+    <string name="image_replay_button">Replay Button</string>
+    <string name="line_visualizer">Line Visualizer</string>
+    <string name="bar_visualizer">Bar Visualizer</string>
+    <string name="circle_visualizer">Circle Visualizer</string>
+    <string name="circle_bar_visualizer">Circle Bar Visualizer</string>
+    <string name="line_bar_visualizer">Line Bar Visualizer</string>
+    <string name="activity_with_service">Activity With Service</string>
 </resources>
