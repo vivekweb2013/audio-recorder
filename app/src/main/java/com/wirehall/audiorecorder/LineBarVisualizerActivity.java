@@ -16,16 +16,6 @@ public class LineBarVisualizerActivity extends VisualizerBaseActivity {
         lineBarVisualizer.setPlayer(mediaPlayer.getAudioSessionId());
     }
 
-    public void replay(View view) {
-        if (mediaPlayer != null) {
-            mediaPlayer.seekTo(0);
-        }
-    }
-
-    public void playPause(View view) {
-        playPauseBtnClicked((ImageButton) view);
-    }
-
     @Override
     protected int getLayout() {
         return R.layout.main_activity;
