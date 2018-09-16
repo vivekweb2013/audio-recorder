@@ -5,15 +5,14 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.wirehall.visualizer.VisualizerBaseFragment;
+import com.wirehall.visualizer.VisualizerFragment;
 
-public class MainActivity extends AppCompatActivity implements VisualizerBaseFragment.Media {
+public class MainActivity extends AppCompatActivity implements VisualizerFragment.VisualizerMPSession {
 
     public static final int AUDIO_PERMISSION_REQUEST_CODE = 102;
 
@@ -28,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements VisualizerBaseFra
         super.onCreate(savedInstanceState);
         initialize();
         setContentView(R.layout.main_activity);
-
-
     }
 
 
@@ -39,18 +36,6 @@ public class MainActivity extends AppCompatActivity implements VisualizerBaseFra
             requestPermissions(WRITE_EXTERNAL_STORAGE_PERMS, AUDIO_PERMISSION_REQUEST_CODE);
         } else {
             setPlayer();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case AUDIO_PERMISSION_REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    setPlayer();
-                } else {
-                    this.finish();
-                }
         }
     }
 
@@ -84,6 +69,18 @@ public class MainActivity extends AppCompatActivity implements VisualizerBaseFra
     @Override
     public int getAudioSessionIdOfMediaPlayer() {
         return mediaPlayer.getAudioSessionId();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case AUDIO_PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    setPlayer();
+                } else {
+                    this.finish();
+                }
+        }
     }
 
 }

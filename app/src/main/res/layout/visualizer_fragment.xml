@@ -2,14 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorAccent"
+    android:orientation="vertical"
     tools:context="com.wirehall.visualizer.VisualizerFragment">
-
-    <com.wirehall.visualizer.LineBarVisualizer
-        android:id="@+id/visualizer"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:visibility="visible" />
 
 </LinearLayout>
