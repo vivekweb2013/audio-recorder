@@ -69,22 +69,24 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
     @NonNull
     private List<BaseVisualizer> instantiateAllVisualizers() {
         BarVisualizer barVisualizer = new BarVisualizer(getActivity());
-        barVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+        barVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.visualizerColor));
+        barVisualizer.setDensity(100);
 
         CircleBarVisualizer circleBarVisualizer = new CircleBarVisualizer(getActivity());
-        circleBarVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+        circleBarVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.visualizerColor));
 
         CircleVisualizer circleVisualizer = new CircleVisualizer(getActivity());
-        circleVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+        circleVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.visualizerColor));
 
         LineBarVisualizer lineBarVisualizer = new LineBarVisualizer(getActivity());
-        lineBarVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+        lineBarVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.visualizerColor));
+        lineBarVisualizer.setDensity(100);
 
         LineVisualizer lineVisualizer = new LineVisualizer(getActivity());
-        lineVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+        lineVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.visualizerColor));
 
         BlazingColorVisualizer blazingColorVisualizer = new BlazingColorVisualizer(getActivity());
-        blazingColorVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+        blazingColorVisualizer.setColor(ContextCompat.getColor(getActivity(), R.color.visualizerColor));
 
         visualizers.add(barVisualizer);
         visualizers.add(circleBarVisualizer);

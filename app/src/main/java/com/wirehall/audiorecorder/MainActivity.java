@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
         setContentView(R.layout.main_activity);
     }
 
-
     private void initialize() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
                 && checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
@@ -44,26 +43,17 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
         mediaPlayer.setLooping(false);
     }
 
-    public void playPauseBtnClicked(ImageButton btnPlayPause) {
+    public void recordPauseBtnClicked(View view) {
+        ImageButton btnRecordPause = (ImageButton) view;
         if (mediaPlayer != null) {
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
-                btnPlayPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_play_red_48dp));
+                btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_mic_black_24dp));
             } else {
                 mediaPlayer.start();
-                btnPlayPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_pause_red_48dp));
+                btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_pause_black_24dp));
             }
         }
-    }
-
-    public void replay(View view) {
-        if (mediaPlayer != null) {
-            mediaPlayer.seekTo(0);
-        }
-    }
-
-    public void playPause(View view) {
-        playPauseBtnClicked((ImageButton) view);
     }
 
     @Override
@@ -82,5 +72,4 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
                 }
         }
     }
-
 }
