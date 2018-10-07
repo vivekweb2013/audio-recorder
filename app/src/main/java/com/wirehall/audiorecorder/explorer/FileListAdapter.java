@@ -1,4 +1,4 @@
-package com.wirehall.explorer;
+package com.wirehall.audiorecorder.explorer;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

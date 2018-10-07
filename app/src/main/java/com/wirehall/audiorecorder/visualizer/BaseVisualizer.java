@@ -1,4 +1,4 @@
-package com.wirehall.visualizer;
+package com.wirehall.audiorecorder.visualizer;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -19,9 +19,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.wirehall.explorer.FileListFragment;
-import com.wirehall.explorer.FileUtils;
-import com.wirehall.visualizer.VisualizerFragment;
+import com.wirehall.audiorecorder.explorer.FileListFragment;
+import com.wirehall.audiorecorder.explorer.FileUtils;
+import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 import java.io.IOException;
 

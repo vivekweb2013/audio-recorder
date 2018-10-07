@@ -1,4 +1,4 @@
-package com.wirehall.explorer;
+package com.wirehall.audiorecorder.explorer;
 
 import java.io.File;
 import java.io.FilenameFilter;
