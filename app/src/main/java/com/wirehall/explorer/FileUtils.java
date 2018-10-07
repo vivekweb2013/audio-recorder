@@ -24,6 +24,7 @@ public class FileUtils {
 
         if (files == null) {
             //Means pathname does not denote a directory, or if an I/O error occurs.
+            // Or could be due to missing storage permissions
             throw new IllegalArgumentException("Problem accessing path: " + path);
         }
 

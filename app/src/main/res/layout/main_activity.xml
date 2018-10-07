@@ -58,33 +58,19 @@
     </RelativeLayout>
 
     <FrameLayout
+        android:id="@+id/visualizer_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:layout_margin="15dp"
         android:background="@drawable/view_segment"
-        android:orientation="vertical">
-
-        <fragment
-            android:id="@+id/visualizer_fragment"
-            android:name="com.wirehall.visualizer.VisualizerFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/visualizer_fragment" />
-    </FrameLayout>
+        android:orientation="vertical" />
 
     <FrameLayout
+        android:id="@+id/list_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="15dp"
         android:background="@drawable/view_segment"
-        android:orientation="vertical">
-
-        <fragment
-            android:id="@+id/file_list_fragment"
-            android:name="com.wirehall.explorer.FileListFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/file_list_fragment" />
-    </FrameLayout>
+        android:orientation="vertical" />
 
 </LinearLayout>

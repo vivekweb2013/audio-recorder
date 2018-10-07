@@ -2,6 +2,8 @@ package com.wirehall.audiorecorder;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
-    private MediaPlayer mediaPlayer = new MediaPlayer();;
+    private MediaPlayer mediaPlayer = new MediaPlayer();
     private MediaRecorder mediaRecorder;
 
     private enum MediaRecorderState {STARTED, PAUSED, STOPPED}
@@ -101,13 +103,21 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        boolean permissionToRecordAccepted = false;
+        boolean isPermissionAccepted = false;
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
-                permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                isPermissionAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
-        if (!permissionToRecordAccepted) finish();
+        if (isPermissionAccepted) {
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.list_fragment_container, FileListFragment.newInstance());
+            ft.add(R.id.visualizer_fragment_container, VisualizerFragment.newInstance());
+            ft.commit();
+        } else {
+            finish();
+        }
     }
 
     @Override

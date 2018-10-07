@@ -1,12 +1,16 @@
 package com.wirehall.explorer;
 
+import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.ListFragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
+
+import com.wirehall.audiorecorder.R;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -21,10 +25,22 @@ public class FileListFragment extends ListFragment implements AdapterView.OnItem
     List<File> fileList;
     public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Rec/Collection";
 
+
+    public static FileListFragment newInstance() {
+        FileListFragment fileListFragment = new FileListFragment();
+        return fileListFragment;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (FileListFragmentListener) context;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.file_list_fragment, container, false);
+        return view;
     }
 
     @Override

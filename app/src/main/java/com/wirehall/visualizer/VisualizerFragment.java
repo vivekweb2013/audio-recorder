@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.wirehall.audiorecorder.R;
+import com.wirehall.explorer.FileListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,16 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
 
     VisualizerMPSession activity;
 
-    List<BaseVisualizer> visualizers = new ArrayList<>();
-    int currentVisualizerIndex = 0;
+    private List<BaseVisualizer> visualizers = new ArrayList<>();
+    private int currentVisualizerIndex = 0;
 
     public VisualizerFragment() {
         // Required empty public constructor
+    }
+
+    public static VisualizerFragment newInstance() {
+        VisualizerFragment visualizerFragment = new VisualizerFragment();
+        return visualizerFragment;
     }
 
     @Nullable
