@@ -24,8 +24,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/round_button"
-            android:src="@drawable/ic_stop_black_24dp"
-            android:contentDescription="Stop Recording" />
+            android:contentDescription="Stop Recording"
+            android:onClick="stopBtnClicked"
+            android:src="@drawable/ic_stop_black_24dp" />
 
 
         <ImageButton
@@ -35,9 +36,9 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:background="@drawable/round_button"
-            android:src="@drawable/ic_mic_black_24dp"
+            android:contentDescription="Start/Pause Recording"
             android:onClick="recordPauseBtnClicked"
-            android:contentDescription="Start/Pause Recording" />
+            android:src="@drawable/ic_mic_black_24dp" />
 
 
         <ImageButton
@@ -50,8 +51,9 @@
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/round_button"
-            android:src="@drawable/ic_delete_black_24dp"
-            android:contentDescription="Delete Recording" />
+            android:contentDescription="Delete Recording"
+            android:onClick="deleteBtnClicked"
+            android:src="@drawable/ic_delete_black_24dp" />
 
     </RelativeLayout>
 
@@ -68,6 +70,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/visualizer_fragment" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:background="@drawable/view_segment"
+        android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/file_list_fragment"
+            android:name="com.wirehall.explorer.FileListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/file_list_fragment" />
     </FrameLayout>
 
 </LinearLayout>

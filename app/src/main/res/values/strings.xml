@@ -8,4 +8,16 @@
     <string name="circle_bar_visualizer">Circle Bar Visualizer</string>
     <string name="line_bar_visualizer">Line Bar Visualizer</string>
     <string name="activity_with_service">Activity With Service</string>
+
+    <string-array name="Planets">
+        <item>Sun</item>
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 </resources>
