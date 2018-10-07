@@ -2,8 +2,6 @@ package com.wirehall.audiorecorder;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -12,6 +10,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
                 break;
         }
         if (isPermissionAccepted) {
-            FragmentManager fm = getFragmentManager();
+            FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ft.add(R.id.list_fragment_container, FileListFragment.newInstance());
             ft.add(R.id.visualizer_fragment_container, VisualizerFragment.newInstance());
