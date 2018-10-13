@@ -2,7 +2,11 @@ package com.wirehall.audiorecorder;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
@@ -36,43 +40,78 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private MediaRecorder mediaRecorder;
 
-    private enum MediaRecorderState {STARTED, PAUSED, STOPPED}
+    private enum MediaRecorderState {RECORDING, PAUSED, STOPPED}
 
-    private static MediaRecorderState mediaRecorderState;
+    private static MediaRecorderState mediaRecorderState = MediaRecorderState.STOPPED;
+
+    ImageButton btnRecordPause, btnDelete, btnStop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityCompat.requestPermissions(this, APP_PERMS, PERMISSION_REQUEST_CODE);
         setContentView(R.layout.main_activity);
+        ActivityCompat.requestPermissions(this, APP_PERMS, PERMISSION_REQUEST_CODE);
+
+        btnRecordPause = findViewById(R.id.ib_record);
+        btnRecordPause.setEnabled(true);
+        btnDelete = findViewById(R.id.ib_delete);
+        btnDelete.setEnabled(false);
+        btnStop = findViewById(R.id.ib_stop);
+        btnStop.setEnabled(false);
     }
 
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void recordPauseBtnClicked(View view) {
-        ImageButton btnRecordPause = (ImageButton) view;
-        if (mediaRecorder != null && mediaRecorderState.equals(MediaRecorderState.PAUSED)) {
-            mediaRecorder.pause();
-            btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_mic_black_24dp));
-        } else {
 
-            mediaRecorder = new MediaRecorder();
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        switch (mediaRecorderState) {
+            case RECORDING:
+                mediaRecorder.pause();
+                mediaRecorderState = MediaRecorderState.PAUSED;
+                btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_mic_black_24dp));
+                btnRecordPause.setEnabled(true);
+                btnStop.setEnabled(true);
+                break;
 
-            String fullFilePath = FileListFragment.STORAGE_PATH + '/' + FileUtils.generateFileName();
-            Log.d("filename", fullFilePath);
+            case PAUSED:
+                mediaRecorder.resume();
+                mediaRecorderState = MediaRecorderState.RECORDING;
+                btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_pause_black_24dp));
+                btnRecordPause.setEnabled(true);
+                btnStop.setEnabled(true);
+                break;
 
-            mediaRecorder.setOutputFile(fullFilePath);
-            try {
-                mediaRecorder.prepare();
-                mediaRecorder.start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            case STOPPED:
+                mediaRecorder = new MediaRecorder();
+                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
-            btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_pause_black_24dp));
+                String fullFilePath = FileListFragment.STORAGE_PATH + '/' + FileUtils.generateFileName();
+                Log.d("filename", fullFilePath);
+
+                mediaRecorder.setOutputFile(fullFilePath);
+                try {
+                    mediaRecorder.prepare();
+                    mediaRecorder.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                mediaRecorderState = MediaRecorderState.RECORDING;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_pause_black_24dp));
+                    btnRecordPause.setEnabled(true);
+                } else {
+                    btnRecordPause.setEnabled(false);
+                }
+
+                //setImageButtonEnabled(true, btnStop, R.drawable.ic_stop_black_24dp);
+                btnStop.setEnabled(true);
+
+            default:
+                break;
         }
     }
 
@@ -81,8 +120,6 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     }
 
     public void stopBtnClicked(View view) {
-        ImageButton btnStop = (ImageButton) view;
-
         try {
             mediaRecorder.stop();
             mediaRecorder.release();
@@ -90,9 +127,14 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
             e.printStackTrace();
         }
         mediaRecorder = null;
-        Toast.makeText(this, "Recording saved successfully.", Toast.LENGTH_SHORT).show();
 
-        // TODO: Enable the record button, Disable the Stop button
+        btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_mic_black_24dp));
+        btnRecordPause.setEnabled(true);
+        //setImageButtonEnabled(false, btnStop, R.drawable.ic_stop_black_24dp);
+        btnStop.setEnabled(false);
+        mediaRecorderState = MediaRecorderState.STOPPED;
+
+        Toast.makeText(this, "Recording saved successfully.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -125,5 +167,37 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
         RecordingUtils.playAudio(filePath, mediaPlayer);
     }
 
+
+    /**
+     * Sets the specified image button to the given state, while modifying or
+     * "graying-out" the icon as well
+     *
+     * @param enabled     The state of the menu imageButton
+     * @param imageButton The menu imageButton to modify
+     * @param iconResId   The icon ID
+     */
+    public void setImageButtonEnabled(boolean enabled, ImageButton imageButton, int iconResId) {
+        imageButton.setEnabled(enabled);
+        Drawable originalIcon = getResources().getDrawable(iconResId);
+        Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
+        imageButton.setImageDrawable(icon);
+    }
+
+    /**
+     * Mutates and applies a filter that converts the given drawable to a Gray
+     * image. This method may be used to simulate the color of disable icons in
+     * Honeycomb's ActionBar.
+     *
+     * @return a mutated version of the given drawable with a color filter
+     * applied.
+     */
+    public Drawable convertDrawableToGrayScale(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
+        Drawable res = drawable.mutate();
+        res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+        return res;
+    }
 
 }
