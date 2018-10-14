@@ -1,10 +1,14 @@
 package com.wirehall.audiorecorder.explorer;
 
+import android.support.annotation.NonNull;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
 public class FileUtils {
@@ -15,6 +19,7 @@ public class FileUtils {
         return filename;
     }
 
+    @NonNull
     public static List<File> getAllFilesFromDirectory(String path, FilenameFilter filenameFilter) {
         File directory = new File(path);
         if (!directory.exists()) {
@@ -28,6 +33,13 @@ public class FileUtils {
             throw new IllegalArgumentException("Problem accessing path: " + path);
         }
 
-        return Arrays.asList(files);
+
+        Arrays.sort(files, new Comparator<File>() {
+            public int compare(File f1, File f2) {
+                return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
+            }
+        });
+
+        return new ArrayList<>(Arrays.asList(files));
     }
 }

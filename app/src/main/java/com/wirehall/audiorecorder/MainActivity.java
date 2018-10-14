@@ -2,7 +2,6 @@ package com.wirehall.audiorecorder;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -107,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
                     btnRecordPause.setEnabled(false);
                 }
 
-                //setImageButtonEnabled(true, btnStop, R.drawable.ic_stop_black_24dp);
                 btnStop.setEnabled(true);
 
             default:
@@ -130,9 +128,13 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
 
         btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_mic_black_24dp));
         btnRecordPause.setEnabled(true);
-        //setImageButtonEnabled(false, btnStop, R.drawable.ic_stop_black_24dp);
         btnStop.setEnabled(false);
         mediaRecorderState = MediaRecorderState.STOPPED;
+
+        FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.list_fragment_container);
+        if (fileListFragment != null) {
+            fileListFragment.refreshAdapter();
+        }
 
         Toast.makeText(this, "Recording saved successfully.", Toast.LENGTH_SHORT).show();
     }
@@ -165,39 +167,6 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     @Override
     public void onFileItemClicked(String filePath) {
         RecordingUtils.playAudio(filePath, mediaPlayer);
-    }
-
-
-    /**
-     * Sets the specified image button to the given state, while modifying or
-     * "graying-out" the icon as well
-     *
-     * @param enabled     The state of the menu imageButton
-     * @param imageButton The menu imageButton to modify
-     * @param iconResId   The icon ID
-     */
-    public void setImageButtonEnabled(boolean enabled, ImageButton imageButton, int iconResId) {
-        imageButton.setEnabled(enabled);
-        Drawable originalIcon = getResources().getDrawable(iconResId);
-        Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
-        imageButton.setImageDrawable(icon);
-    }
-
-    /**
-     * Mutates and applies a filter that converts the given drawable to a Gray
-     * image. This method may be used to simulate the color of disable icons in
-     * Honeycomb's ActionBar.
-     *
-     * @return a mutated version of the given drawable with a color filter
-     * applied.
-     */
-    public Drawable convertDrawableToGrayScale(Drawable drawable) {
-        if (drawable == null) {
-            return null;
-        }
-        Drawable res = drawable.mutate();
-        res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
-        return res;
     }
 
 }

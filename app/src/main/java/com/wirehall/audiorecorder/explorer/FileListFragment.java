@@ -21,8 +21,9 @@ public class FileListFragment extends ListFragment implements AdapterView.OnItem
         void onFileItemClicked(String filePath);
     }
 
-    FileListFragmentListener activity;
-    List<File> fileList;
+    private FileListFragmentListener activity;
+    private FileListAdapter fileListAdapter;
+    private List<File> fileList;
     public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Rec/Collection";
 
 
@@ -47,7 +48,7 @@ public class FileListFragment extends ListFragment implements AdapterView.OnItem
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         fileList = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
-        FileListAdapter fileListAdapter = new FileListAdapter(getContext(), fileList);
+        fileListAdapter = new FileListAdapter(getContext(), fileList);
         setListAdapter(fileListAdapter);
         getListView().setOnItemClickListener(this);
     }
@@ -56,6 +57,13 @@ public class FileListFragment extends ListFragment implements AdapterView.OnItem
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
         activity.onFileItemClicked(fileList.get(position).getPath());
+    }
+
+    public void refreshAdapter(){
+        List<File> fileList = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
+        fileListAdapter.clear();
+        fileListAdapter.addAll(fileList);
+        fileListAdapter.notifyDataSetChanged();
     }
 
 
