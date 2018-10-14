@@ -3,9 +3,6 @@ package com.wirehall.audiorecorder;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
@@ -70,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
                 btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_mic_black_24dp));
                 btnRecordPause.setEnabled(true);
                 btnStop.setEnabled(true);
+                Toast.makeText(getApplicationContext(), "Recording Paused", Toast.LENGTH_SHORT).show();
                 break;
 
             case PAUSED:
@@ -78,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
                 btnRecordPause.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_pause_black_24dp));
                 btnRecordPause.setEnabled(true);
                 btnStop.setEnabled(true);
+                Toast.makeText(getApplicationContext(), "Recording Resumed", Toast.LENGTH_SHORT).show();
                 break;
 
             case STOPPED:
@@ -91,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
 
                 mediaRecorder.setOutputFile(fullFilePath);
                 try {
+                    mediaRecorder.setAudioSamplingRate(16000);
                     mediaRecorder.prepare();
                     mediaRecorder.start();
                 } catch (IOException e) {
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
                 }
 
                 btnStop.setEnabled(true);
+                Toast.makeText(getApplicationContext(), "Recording Started", Toast.LENGTH_SHORT).show();
 
             default:
                 break;
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
             fileListFragment.refreshAdapter();
         }
 
-        Toast.makeText(this, "Recording saved successfully.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Recording Saved Successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override

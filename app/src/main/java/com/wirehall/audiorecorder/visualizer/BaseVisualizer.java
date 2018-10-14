@@ -36,7 +36,7 @@ abstract public class BaseVisualizer extends View {
     /**
      * set color to visualizer with color resource id.
      *
-     * @param color color resource id.
+     * @param color resource id of color.
      */
     public void setColor(int color) {
         this.color = color;
