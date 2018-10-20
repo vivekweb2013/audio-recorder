@@ -15,11 +15,13 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.wirehall.audiorecorder.explorer.FileListFragment;
+import com.wirehall.audiorecorder.mp.MediaPlayerController;
+import com.wirehall.audiorecorder.mr.RecordingController;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 public class MainActivity extends AppCompatActivity implements VisualizerFragment.VisualizerMPSession, FileListFragment.FileListFragmentListener {
 
-    public static final int PERMISSION_REQUEST_CODE = 102;
+    public static final int PERMISSION_REQUEST_CODE = 111;
     public static final String[] APP_PERMS = {
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -39,19 +41,17 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void recordPauseBtnClicked(View view) {
-        mediaPlayerController.stop();
-        recordingController.startPauseRecording();
+        mediaPlayerController.stopPlaying();
+        recordingController.startPauseRecording(this);
     }
-
 
     public void deleteBtnClicked(View view) {
         ImageButton btnDelete = (ImageButton) view;
     }
 
     public void stopBtnClicked(View view) {
-        recordingController.stopRecording();
+        recordingController.stopRecording(this);
     }
-
 
     @Override
     public int getAudioSessionIdOfMediaPlayer() {
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
 
     @Override
     public void onFileItemClicked(String filePath) {
-        mediaPlayerController.playAudio(filePath);
+        mediaPlayerController.playAudio(this, filePath);
     }
 
     @Override

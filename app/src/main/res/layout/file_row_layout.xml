@@ -9,7 +9,6 @@
         android:id="@+id/tvFileName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textColor="@color/filenameTextColor"
         android:textSize="25sp" />
 </LinearLayout>

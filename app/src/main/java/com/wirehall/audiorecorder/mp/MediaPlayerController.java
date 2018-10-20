@@ -1,7 +1,11 @@
-package com.wirehall.audiorecorder;
+package com.wirehall.audiorecorder.mp;
 
 import android.media.MediaPlayer;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import com.wirehall.audiorecorder.R;
+import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 import java.io.IOException;
 
@@ -26,13 +30,14 @@ public class MediaPlayerController {
         return mediaPlayerController;
     }
 
-    public void playAudio(String audioFilePath) {
+    public void playAudio(AppCompatActivity activity, String audioFilePath) {
         try {
             Log.d(TAG, "Playing audio file: " + audioFilePath);
             mediaPlayer.reset();
             mediaPlayer.setDataSource(audioFilePath);
             mediaPlayer.prepare();
             mediaPlayer.start();
+            setMPVisualizerView(activity);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
@@ -42,11 +47,18 @@ public class MediaPlayerController {
         }
     }
 
-    public void stop() {
+    public void stopPlaying() {
         mediaPlayer.stop();
     }
 
     public int getAudioSessionId() {
         return mediaPlayer.getAudioSessionId();
+    }
+
+    private void setMPVisualizerView(AppCompatActivity activity) {
+        VisualizerFragment visualizerFragment = (VisualizerFragment) activity.getSupportFragmentManager().findFragmentById(R.id.visualizer_fragment_container);
+        if (visualizerFragment != null) {
+            visualizerFragment.setMPVisualizerView();
+        }
     }
 }

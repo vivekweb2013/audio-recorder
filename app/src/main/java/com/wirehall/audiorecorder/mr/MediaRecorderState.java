@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder;
+package com.wirehall.audiorecorder.mr;
 
 public enum MediaRecorderState {
     RECORDING, PAUSED, STOPPED

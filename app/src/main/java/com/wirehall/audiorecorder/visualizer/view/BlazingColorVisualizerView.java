@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder.visualizer;
+package com.wirehall.audiorecorder.visualizer.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,18 +8,18 @@ import android.graphics.Shader;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
-class BlazingColorVisualizer extends BaseVisualizer {
+public class BlazingColorVisualizerView extends BaseVisualizerView {
     private Shader shader;
 
-    public BlazingColorVisualizer(Context context) {
+    public BlazingColorVisualizerView(Context context) {
         super(context);
     }
 
-    public BlazingColorVisualizer(Context context, @Nullable AttributeSet attrs) {
+    public BlazingColorVisualizerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public BlazingColorVisualizer(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public BlazingColorVisualizerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

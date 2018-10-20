@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder.visualizer;
+package com.wirehall.audiorecorder.visualizer.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,20 +6,20 @@ import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
-public class CircleBarVisualizer extends BaseVisualizer {
+public class CircleBarVisualizerView extends BaseVisualizerView {
     private float[] points;
     private Paint circlePaint;
     private int radius;
 
-    public CircleBarVisualizer(Context context) {
+    public CircleBarVisualizerView(Context context) {
         super(context);
     }
 
-    public CircleBarVisualizer(Context context, @Nullable AttributeSet attrs) {
+    public CircleBarVisualizerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CircleBarVisualizer(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CircleBarVisualizerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

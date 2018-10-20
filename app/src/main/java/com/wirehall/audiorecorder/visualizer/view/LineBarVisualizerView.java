@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder.visualizer;
+package com.wirehall.audiorecorder.visualizer.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,20 +7,20 @@ import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
-public class LineBarVisualizer extends BaseVisualizer {
+public class LineBarVisualizerView extends BaseVisualizerView {
     private Paint middleLine;
     private float density;
     private int gap;
 
-    public LineBarVisualizer(Context context) {
+    public LineBarVisualizerView(Context context) {
         super(context);
     }
 
-    public LineBarVisualizer(Context context, @Nullable AttributeSet attrs) {
+    public LineBarVisualizerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public LineBarVisualizer(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LineBarVisualizerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

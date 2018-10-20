@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder.visualizer;
+package com.wirehall.audiorecorder.visualizer.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,20 +6,20 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
-public class LineVisualizer extends BaseVisualizer {
+public class LineVisualizerView extends BaseVisualizerView {
     private float[] points;
     private Rect rect = new Rect();
     private float strokeWidth = 0.005f;
 
-    public LineVisualizer(Context context) {
+    public LineVisualizerView(Context context) {
         super(context);
     }
 
-    public LineVisualizer(Context context, @Nullable AttributeSet attrs) {
+    public LineVisualizerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public LineVisualizer(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public LineVisualizerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

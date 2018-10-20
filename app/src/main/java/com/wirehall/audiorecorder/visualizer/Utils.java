@@ -5,6 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 
 import com.wirehall.audiorecorder.R;
+import com.wirehall.audiorecorder.visualizer.view.BarVisualizerView;
+import com.wirehall.audiorecorder.visualizer.view.BaseVisualizerView;
+import com.wirehall.audiorecorder.visualizer.view.BlazingColorVisualizerView;
+import com.wirehall.audiorecorder.visualizer.view.CircleBarVisualizerView;
+import com.wirehall.audiorecorder.visualizer.view.CircleVisualizerView;
+import com.wirehall.audiorecorder.visualizer.view.LineBarVisualizerView;
+import com.wirehall.audiorecorder.visualizer.view.LineVisualizerView;
+import com.wirehall.audiorecorder.visualizer.view.RecorderVisualizerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,38 +20,39 @@ import java.util.List;
 public final class Utils {
 
     @NonNull
-    public static List<BaseVisualizer> getAllMPVisualizerViews(Context context) {
-        List<BaseVisualizer> visualizers = new ArrayList<>();
+    public static List<BaseVisualizerView> getAllMPVisualizerViews(Context context) {
+        List<BaseVisualizerView> visualizers = new ArrayList<>();
 
-        BarVisualizer barVisualizer = new BarVisualizer(context);
-        barVisualizer.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
-        barVisualizer.setDensity(100);
-        visualizers.add(barVisualizer);
+        BarVisualizerView barVisualizerView = new BarVisualizerView(context);
+        barVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        barVisualizerView.setDensity(100);
+        visualizers.add(barVisualizerView);
 
-        CircleBarVisualizer circleBarVisualizer = new CircleBarVisualizer(context);
-        circleBarVisualizer.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
-        visualizers.add(circleBarVisualizer);
+        CircleBarVisualizerView circleBarVisualizerView = new CircleBarVisualizerView(context);
+        circleBarVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        visualizers.add(circleBarVisualizerView);
 
-        CircleVisualizer circleVisualizer = new CircleVisualizer(context);
-        circleVisualizer.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
-        visualizers.add(circleVisualizer);
+        CircleVisualizerView circleVisualizerView = new CircleVisualizerView(context);
+        circleVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        visualizers.add(circleVisualizerView);
 
-        LineBarVisualizer lineBarVisualizer = new LineBarVisualizer(context);
-        lineBarVisualizer.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
-        lineBarVisualizer.setDensity(100);
-        visualizers.add(lineBarVisualizer);
+        LineBarVisualizerView lineBarVisualizerView = new LineBarVisualizerView(context);
+        lineBarVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        lineBarVisualizerView.setDensity(100);
+        visualizers.add(lineBarVisualizerView);
 
-        LineVisualizer lineVisualizer = new LineVisualizer(context);
-        lineVisualizer.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
-        visualizers.add(lineVisualizer);
+        LineVisualizerView lineVisualizerView = new LineVisualizerView(context);
+        lineVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        visualizers.add(lineVisualizerView);
 
-        BlazingColorVisualizer blazingColorVisualizer = new BlazingColorVisualizer(context);
-        blazingColorVisualizer.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
-        visualizers.add(blazingColorVisualizer);
+        BlazingColorVisualizerView blazingColorVisualizerView = new BlazingColorVisualizerView(context);
+        blazingColorVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        visualizers.add(blazingColorVisualizerView);
 
         return visualizers;
     }
 
+    @NonNull
     public static RecorderVisualizerView getRecorderVisualizerView(Context context) {
         return new RecorderVisualizerView(context, null);
     }

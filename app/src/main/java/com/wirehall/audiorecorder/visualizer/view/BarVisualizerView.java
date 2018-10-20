@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder.visualizer;
+package com.wirehall.audiorecorder.visualizer.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,20 +6,20 @@ import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
-public class BarVisualizer extends BaseVisualizer {
+public class BarVisualizerView extends BaseVisualizerView {
 
     private float density = 50;
     private int gap;
 
-    public BarVisualizer(Context context) {
+    public BarVisualizerView(Context context) {
         super(context);
     }
 
-    public BarVisualizer(Context context, @Nullable AttributeSet attrs) {
+    public BarVisualizerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public BarVisualizer(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public BarVisualizerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

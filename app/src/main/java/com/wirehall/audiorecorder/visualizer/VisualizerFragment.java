@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.wirehall.audiorecorder.R;
+import com.wirehall.audiorecorder.visualizer.view.BaseVisualizerView;
+import com.wirehall.audiorecorder.visualizer.view.RecorderVisualizerView;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
     private VisualizerMPSession activity;
     private LinearLayout visualizerLayout;
 
-    private List<BaseVisualizer> visualizers;
+    private List<BaseVisualizerView> visualizerViews;
     private int visualizerViewIndex = -1;
 
     public VisualizerFragment() {
@@ -43,17 +45,11 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
 
         visualizerLayout = (LinearLayout) inflater.inflate(R.layout.visualizer_fragment, container, false);
         visualizerLayout.setOnClickListener(this);
-        initVisualizerViews();
+        visualizerViews = Utils.getAllMPVisualizerViews(getContext());
+        visualizerViewIndex = 0;
+        setMPVisualizerView();
 
         return visualizerLayout;
-    }
-
-    public void initVisualizerViews() {
-        visualizers = Utils.getAllMPVisualizerViews(getContext());
-        visualizerViewIndex = 0;
-        BaseVisualizer baseVisualizer = visualizers.get(visualizerViewIndex);
-        baseVisualizer.setPlayer(activity.getAudioSessionIdOfMediaPlayer());
-        addReplaceView(baseVisualizer);
     }
 
     @Override
@@ -69,11 +65,11 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
         }
 
         visualizerViewIndex++;
-        visualizerViewIndex = visualizerViewIndex % visualizers.size();
+        visualizerViewIndex = visualizerViewIndex % visualizerViews.size();
 
-        BaseVisualizer baseVisualizer = visualizers.get(visualizerViewIndex);
-        baseVisualizer.setPlayer(activity.getAudioSessionIdOfMediaPlayer());
-        addReplaceView(baseVisualizer);
+        BaseVisualizerView baseVisualizerView = visualizerViews.get(visualizerViewIndex);
+        baseVisualizerView.setPlayer(activity.getAudioSessionIdOfMediaPlayer());
+        addReplaceView(baseVisualizerView);
     }
 
     public void addReplaceView(View view) {
@@ -82,7 +78,13 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
         visualizerLayout.addView(view);
     }
 
-    public View getCurrentVisualizerView() {
-        return currentVisualizerView;
+    public void setMPVisualizerView() {
+        BaseVisualizerView baseVisualizerView = visualizerViews.get(visualizerViewIndex);
+        baseVisualizerView.setPlayer(activity.getAudioSessionIdOfMediaPlayer());
+        addReplaceView(baseVisualizerView);
+    }
+
+    public void removeAllViews() {
+        visualizerLayout.removeAllViews();
     }
 }

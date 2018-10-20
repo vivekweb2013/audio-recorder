@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder.visualizer;
+package com.wirehall.audiorecorder.visualizer.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,23 +12,23 @@ import android.view.View;
  * base class that contains common implementation for all visualizers.
  */
 
-abstract public class BaseVisualizer extends View {
+abstract public class BaseVisualizerView extends View {
     protected byte[] bytes;
     protected Paint paint = new Paint();
     protected Visualizer visualizer;
     protected int color = Color.BLUE;
 
-    public BaseVisualizer(Context context) {
+    public BaseVisualizerView(Context context) {
         super(context);
         init(null);
     }
 
-    public BaseVisualizer(Context context, @Nullable AttributeSet attrs) {
+    public BaseVisualizerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public BaseVisualizer(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public BaseVisualizerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
@@ -51,7 +51,7 @@ abstract public class BaseVisualizer extends View {
         visualizer.setDataCaptureListener(new Visualizer.OnDataCaptureListener() {
             @Override
             public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
-                BaseVisualizer.this.bytes = bytes;
+                BaseVisualizerView.this.bytes = bytes;
                 invalidate();
             }
 
@@ -73,7 +73,7 @@ abstract public class BaseVisualizer extends View {
     }
 
     public void setBytes(byte[] bytes) {
-        BaseVisualizer.this.bytes = bytes;
+        BaseVisualizerView.this.bytes = bytes;
     }
 
     protected abstract void init(@Nullable AttributeSet attributeSet);

@@ -1,24 +1,24 @@
-package com.wirehall.audiorecorder.visualizer;
+package com.wirehall.audiorecorder.visualizer.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
-public class CircleVisualizer extends BaseVisualizer {
+public class CircleVisualizerView extends BaseVisualizerView {
     private float[] points;
     private float radiusMultiplier = 1;
     private float strokeWidth = 0.005f;
 
-    public CircleVisualizer(Context context) {
+    public CircleVisualizerView(Context context) {
         super(context);
     }
 
-    public CircleVisualizer(Context context, @Nullable AttributeSet attrs) {
+    public CircleVisualizerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CircleVisualizer(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CircleVisualizerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
