@@ -63,12 +63,17 @@ abstract public class BaseVisualizer extends View {
         visualizer.setEnabled(true);
     }
 
+
     public void release() {
         visualizer.release();
     }
 
     public Visualizer getVisualizer() {
         return visualizer;
+    }
+
+    public void setBytes(byte[] bytes) {
+        BaseVisualizer.this.bytes = bytes;
     }
 
     protected abstract void init(@Nullable AttributeSet attributeSet);

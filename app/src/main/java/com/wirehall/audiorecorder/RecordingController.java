@@ -1,9 +1,10 @@
 package com.wirehall.audiorecorder;
 
 import android.annotation.TargetApi;
-import android.support.annotation.RequiresApi;
 import android.media.MediaRecorder;
 import android.os.Build;
+import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,9 @@ import android.widget.Toast;
 
 import com.wirehall.audiorecorder.explorer.FileListFragment;
 import com.wirehall.audiorecorder.explorer.FileUtils;
+import com.wirehall.audiorecorder.visualizer.RecorderVisualizerView;
+import com.wirehall.audiorecorder.visualizer.Utils;
+import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 import java.io.IOException;
 
@@ -20,12 +24,14 @@ import java.io.IOException;
  */
 public class RecordingController {
     private static final String TAG = RecordingController.class.getName();
+    private RecorderVisualizerView recorderVisualizerView;
 
     private static RecordingController recordingController;
+    private Handler handler = new Handler();
 
     private AppCompatActivity activity;
     private MediaRecorder mediaRecorder;
-    private MediaRecorderState mediaRecorderState = MediaRecorderState.STOPPED;
+    public static MediaRecorderState MEDIA_REC_STATE = MediaRecorderState.STOPPED;
     private ImageButton btnRecordPause, btnDelete, btnStop;
 
     private RecordingController() {
@@ -45,6 +51,9 @@ public class RecordingController {
         btnDelete = activity.findViewById(R.id.ib_delete);
         btnStop = activity.findViewById(R.id.ib_stop);
 
+        recorderVisualizerView = Utils.getRecorderVisualizerView(activity.getApplicationContext());
+
+
         if (btnRecordPause != null && btnDelete != null && btnStop != null) {
             btnRecordPause.setEnabled(true);
             btnDelete.setEnabled(false);
@@ -57,10 +66,10 @@ public class RecordingController {
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void startPauseRecording() {
-        switch (mediaRecorderState) {
+        switch (MEDIA_REC_STATE) {
             case RECORDING:
                 mediaRecorder.pause();
-                mediaRecorderState = MediaRecorderState.PAUSED;
+                MEDIA_REC_STATE = MediaRecorderState.PAUSED;
                 btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic_black_24dp));
                 btnRecordPause.setEnabled(true);
                 btnStop.setEnabled(true);
@@ -69,7 +78,7 @@ public class RecordingController {
 
             case PAUSED:
                 mediaRecorder.resume();
-                mediaRecorderState = MediaRecorderState.RECORDING;
+                MEDIA_REC_STATE = MediaRecorderState.RECORDING;
                 btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_black_24dp));
                 btnRecordPause.setEnabled(true);
                 btnStop.setEnabled(true);
@@ -94,7 +103,7 @@ public class RecordingController {
                     e.printStackTrace();
                 }
 
-                mediaRecorderState = MediaRecorderState.RECORDING;
+                MEDIA_REC_STATE = MediaRecorderState.RECORDING;
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_black_24dp));
@@ -104,6 +113,13 @@ public class RecordingController {
                 }
 
                 btnStop.setEnabled(true);
+
+                VisualizerFragment visualizerFragment = (VisualizerFragment) activity.getSupportFragmentManager().findFragmentById(R.id.visualizer_fragment_container);
+                if (visualizerFragment != null) {
+                    visualizerFragment.addReplaceView(recorderVisualizerView);
+                    handler.post(updateVisualizer);
+                }
+
                 Toast.makeText(activity, "Recording Started", Toast.LENGTH_SHORT).show();
 
             default:
@@ -123,14 +139,41 @@ public class RecordingController {
         btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic_black_24dp));
         btnRecordPause.setEnabled(true);
         btnStop.setEnabled(false);
-        mediaRecorderState = MediaRecorderState.STOPPED;
+        MEDIA_REC_STATE = MediaRecorderState.STOPPED;
 
         FileListFragment fileListFragment = (FileListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.list_fragment_container);
         if (fileListFragment != null) {
             fileListFragment.refreshAdapter();
         }
-
         Toast.makeText(activity, "Recording Saved Successfully", Toast.LENGTH_SHORT).show();
     }
 
+    public void releaseRecorder() {
+        if (mediaRecorder != null) {
+            MEDIA_REC_STATE = MediaRecorderState.STOPPED;
+            handler.removeCallbacks(updateVisualizer);
+            recorderVisualizerView.clear();
+            mediaRecorder.stop();
+            mediaRecorder.reset();
+            mediaRecorder.release();
+            mediaRecorder = null;
+        }
+    }
+
+    // updates the visualizer every 50 milliseconds
+    Runnable updateVisualizer = new Runnable() {
+        @Override
+        public void run() {
+            if (MEDIA_REC_STATE == MediaRecorderState.RECORDING) // if we are already recording
+            {
+                // get the current amplitude
+                int x = mediaRecorder.getMaxAmplitude();
+                recorderVisualizerView.addAmplitude(x); // update the VisualizeView
+                recorderVisualizerView.invalidate(); // refresh the VisualizerView
+
+                // update in few milliseconds
+                handler.postDelayed(this, 40);
+            }
+        }
+    };
 }

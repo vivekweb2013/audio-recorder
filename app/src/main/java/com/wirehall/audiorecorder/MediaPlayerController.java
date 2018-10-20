@@ -42,6 +42,10 @@ public class MediaPlayerController {
         }
     }
 
+    public void stop() {
+        mediaPlayer.stop();
+    }
+
     public int getAudioSessionId() {
         return mediaPlayer.getAudioSessionId();
     }

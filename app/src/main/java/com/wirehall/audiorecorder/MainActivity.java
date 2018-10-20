@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void recordPauseBtnClicked(View view) {
+        mediaPlayerController.stop();
         recordingController.startPauseRecording();
     }
 
@@ -82,4 +83,9 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
         mediaPlayerController.playAudio(filePath);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        recordingController.releaseRecorder();
+    }
 }
