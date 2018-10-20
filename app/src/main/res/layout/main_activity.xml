@@ -58,12 +58,28 @@
     </RelativeLayout>
 
     <FrameLayout
-        android:id="@+id/visualizer_fragment_container"
+        android:id="@+id/vis_timer_container"
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:layout_margin="15dp"
         android:background="@drawable/view_segment"
-        android:orientation="vertical" />
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/visualizer_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:background="@drawable/view_segment"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:gravity="center"
+            android:textColor="@color/filenameTextColor" />
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/list_fragment_container"

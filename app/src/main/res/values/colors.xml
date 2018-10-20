@@ -6,6 +6,7 @@
 
     <color name="appBackgroundColor">#303030</color>
     <color name="filenameTextColor">#FFFFFF</color>
+    <color name="timerTextColor">#FFFFFF</color>
     <color name="visualizerColor">#FFFFFF</color>
     <color name="visualizerBackgroundColor">#444444</color>
 </resources>

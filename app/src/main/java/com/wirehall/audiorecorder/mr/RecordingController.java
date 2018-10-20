@@ -4,11 +4,13 @@ import android.annotation.TargetApi;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wirehall.audiorecorder.R;
@@ -31,6 +33,11 @@ public class RecordingController {
 
     private Handler handler = new Handler();
     private RecorderVisualizerView recorderVisualizerView;
+    private Runnable visualizerRunnable;
+
+    private long totalRecTime = 0L;
+    private long recStartTime = 0L;
+    private long recPauseTime = 0L;
 
     private RecordingController() {
         // Private Constructor
@@ -44,11 +51,11 @@ public class RecordingController {
     }
 
     public void init(AppCompatActivity activity) {
-        ImageButton btnRecordPause, btnDelete, btnStop;
 
-        btnRecordPause = activity.findViewById(R.id.ib_record);
-        btnDelete = activity.findViewById(R.id.ib_delete);
-        btnStop = activity.findViewById(R.id.ib_stop);
+        ImageButton btnRecordPause = activity.findViewById(R.id.ib_record);
+        ImageButton btnDelete = activity.findViewById(R.id.ib_delete);
+        ImageButton btnStop = activity.findViewById(R.id.ib_stop);
+        TextView timerTextView = activity.findViewById(R.id.tv_timer);
 
         if (btnRecordPause != null && btnDelete != null && btnStop != null) {
             btnRecordPause.setEnabled(true);
@@ -57,6 +64,8 @@ public class RecordingController {
         } else {
             Log.e(TAG, "some of the resources are not found! btnRecordPause:" + btnRecordPause + " btnDelete:" + btnDelete + " btnStop:" + btnStop);
         }
+
+        setVisualizerRunnable(timerTextView);
     }
 
     @TargetApi(Build.VERSION_CODES.N)
@@ -94,6 +103,7 @@ public class RecordingController {
             mediaRecorder.setOutputFile(fullFilePath);
             mediaRecorder.prepare();
             mediaRecorder.start();
+            recStartTime = SystemClock.uptimeMillis();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,6 +126,7 @@ public class RecordingController {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void resumeRecording(AppCompatActivity activity, ImageButton btnRecordPause, ImageButton btnStop) {
         mediaRecorder.resume();
+        recPauseTime = SystemClock.uptimeMillis() - recStartTime - totalRecTime;
         MEDIA_REC_STATE = MediaRecorderState.RECORDING;
         btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_black_24dp));
         btnRecordPause.setEnabled(true);
@@ -136,7 +147,6 @@ public class RecordingController {
 
     public void stopRecording(AppCompatActivity activity) {
         ImageButton btnRecordPause, btnDelete, btnStop;
-
         btnRecordPause = activity.findViewById(R.id.ib_record);
         btnDelete = activity.findViewById(R.id.ib_delete);
         btnStop = activity.findViewById(R.id.ib_stop);
@@ -144,6 +154,7 @@ public class RecordingController {
         try {
             removeRecorderVisualizerView(activity);
             releaseRecorder();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -173,7 +184,7 @@ public class RecordingController {
     public void releaseRecorder() {
         if (mediaRecorder != null) {
             MEDIA_REC_STATE = MediaRecorderState.STOPPED;
-            handler.removeCallbacks(updateVisualizer);
+            handler.removeCallbacks(visualizerRunnable);
             recorderVisualizerView.clear();
             recorderVisualizerView = null;
             mediaRecorder.stop();
@@ -195,7 +206,7 @@ public class RecordingController {
         if (visualizerFragment != null) {
             recorderVisualizerView = Utils.getRecorderVisualizerView(activity.getApplicationContext());
             visualizerFragment.addReplaceView(recorderVisualizerView);
-            handler.post(updateVisualizer);
+            handler.post(visualizerRunnable);
         }
     }
 
@@ -207,6 +218,13 @@ public class RecordingController {
         if (visualizerFragment != null) {
             visualizerFragment.removeAllViews();
         }
+
+        // Reset Timer
+        totalRecTime = 0;
+        recPauseTime = 0;
+        recStartTime = 0;
+        TextView timerTextView = activity.findViewById(R.id.tv_timer);
+        timerTextView.setText("");
     }
 
 
@@ -218,16 +236,24 @@ public class RecordingController {
     }
 
     // updates the visualizer every few milliseconds
-    Runnable updateVisualizer = new Runnable() {
-        @Override
-        public void run() {
-            if (mediaRecorder != null && recorderVisualizerView != null && MEDIA_REC_STATE == MediaRecorderState.RECORDING) {
-                int x = mediaRecorder.getMaxAmplitude();  // get the current amplitude
-                recorderVisualizerView.addAmplitude(x); // update the VisualizeView
-                recorderVisualizerView.invalidate(); // refresh the VisualizerView
+    private void setVisualizerRunnable(final TextView timerTextView) {
+        visualizerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (mediaRecorder != null && recorderVisualizerView != null && MEDIA_REC_STATE == MediaRecorderState.RECORDING) {
+                    int x = mediaRecorder.getMaxAmplitude();  // get the current amplitude
+                    recorderVisualizerView.addAmplitude(x); // update the VisualizeView
+                    recorderVisualizerView.invalidate(); // refresh the VisualizerView
+
+                    totalRecTime = SystemClock.uptimeMillis() - recStartTime - recPauseTime;
+                    int secs = (int) (totalRecTime / 1000);
+                    int minutes = secs / 60;
+                    secs = secs % 60;
+                    timerTextView.setText("" + String.format("%02d", minutes) + ":" + String.format("%02d", secs));
+                }
+                // update in few milliseconds
+                handler.postDelayed(this, 40);
             }
-            // update in few milliseconds
-            handler.postDelayed(this, 40);
-        }
-    };
+        };
+    }
 }
