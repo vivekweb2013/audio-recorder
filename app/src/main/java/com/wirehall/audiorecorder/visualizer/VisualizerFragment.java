@@ -2,6 +2,7 @@ package com.wirehall.audiorecorder.visualizer;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,13 +35,12 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
     }
 
     public static VisualizerFragment newInstance() {
-        VisualizerFragment visualizerFragment = new VisualizerFragment();
-        return visualizerFragment;
+        return new VisualizerFragment();
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         visualizerLayout = (LinearLayout) inflater.inflate(R.layout.visualizer_fragment, container, false);

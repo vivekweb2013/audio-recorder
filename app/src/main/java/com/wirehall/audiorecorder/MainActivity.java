@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.wirehall.audiorecorder.explorer.FileListFragment;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         ActivityCompat.requestPermissions(this, APP_PERMS, PERMISSION_REQUEST_CODE);
+        mediaPlayerController.init(this);
         recordingController.init(this);
     }
 

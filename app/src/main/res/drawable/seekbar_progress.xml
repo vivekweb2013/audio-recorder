@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="line">
+            <stroke
+                android:width="@dimen/seekbarLineWidth"
+                android:color="@color/seekbarLineColor" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="line">
+                <stroke
+                    android:width="@dimen/seekbarLineWidth"
+                    android:color="@color/seekbarLineProgressColor" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>
