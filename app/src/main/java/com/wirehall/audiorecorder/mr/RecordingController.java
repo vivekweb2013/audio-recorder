@@ -183,6 +183,10 @@ public class RecordingController {
         }
     }
 
+    public MediaRecorderState getMediaRecorderState() {
+        return MEDIA_REC_STATE;
+    }
+
     /**
      * @param activity This method creates and adds the recorderVisualizerView to visualizer fragment
      */

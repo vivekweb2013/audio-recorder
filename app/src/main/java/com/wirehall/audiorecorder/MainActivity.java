@@ -13,9 +13,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.wirehall.audiorecorder.explorer.FileListFragment;
 import com.wirehall.audiorecorder.mp.MediaPlayerController;
+import com.wirehall.audiorecorder.mr.MediaRecorderState;
 import com.wirehall.audiorecorder.mr.RecordingController;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
@@ -80,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
 
     @Override
     public void onFileItemClicked(String filePath) {
+        if (recordingController.getMediaRecorderState() == MediaRecorderState.RECORDING) {
+            Toast.makeText(getApplicationContext(), "Can't play while recording. Stop the recording first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mediaPlayerController.playAudio(this, filePath);
     }
 
