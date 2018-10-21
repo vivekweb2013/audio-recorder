@@ -1,6 +1,7 @@
 package com.wirehall.audiorecorder.visualizer;
 
 import android.content.Context;
+import android.media.audiofx.Visualizer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
     private VisualizerMPSession activity;
     private LinearLayout visualizerLayout;
 
+    private Visualizer visualizer;
     private List<BaseVisualizerView> visualizerViews;
     private int visualizerViewIndex = -1;
 
@@ -68,7 +70,7 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
         visualizerViewIndex = visualizerViewIndex % visualizerViews.size();
 
         BaseVisualizerView baseVisualizerView = visualizerViews.get(visualizerViewIndex);
-        baseVisualizerView.setPlayer(activity.getAudioSessionIdOfMediaPlayer());
+        setBaseVisualizerViewUpdater(baseVisualizerView, activity.getAudioSessionIdOfMediaPlayer());
         addReplaceView(baseVisualizerView);
     }
 
@@ -80,11 +82,45 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
 
     public void setMPVisualizerView() {
         BaseVisualizerView baseVisualizerView = visualizerViews.get(visualizerViewIndex);
-        baseVisualizerView.setPlayer(activity.getAudioSessionIdOfMediaPlayer());
+        setBaseVisualizerViewUpdater(baseVisualizerView, activity.getAudioSessionIdOfMediaPlayer());
         addReplaceView(baseVisualizerView);
+    }
+
+    private void setBaseVisualizerViewUpdater(final BaseVisualizerView baseVisualizerView, int audioSessionId) {
+        releaseVisualizer();
+        visualizer = new Visualizer(audioSessionId);
+        visualizer.setEnabled(false);
+        visualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
+
+        visualizer.setDataCaptureListener(new Visualizer.OnDataCaptureListener() {
+            @Override
+            public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
+                baseVisualizerView.setBytes(bytes);
+                baseVisualizerView.invalidate();
+            }
+
+            @Override
+            public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
+            }
+        }, Visualizer.getMaxCaptureRate() / 2, true, false);
+
+        visualizer.setEnabled(true);
+    }
+
+    public void releaseVisualizer() {
+        if (visualizer != null) {
+            visualizer.setEnabled(false);
+            visualizer.release();
+        }
     }
 
     public void removeAllViews() {
         visualizerLayout.removeAllViews();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        releaseVisualizer();
     }
 }

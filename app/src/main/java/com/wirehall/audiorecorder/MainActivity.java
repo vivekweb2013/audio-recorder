@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.wirehall.audiorecorder.explorer.FileListFragment;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void recordPauseBtnClicked(View view) {
-        mediaPlayerController.stopPlaying();
+        mediaPlayerController.releaseMediaPlayer(); // Stop Media Player
         recordingController.startPauseRecording(this);
     }
 
@@ -94,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mediaPlayerController.releaseMediaPlayer();
         recordingController.releaseRecorder();
     }
 }

@@ -15,7 +15,6 @@ import android.view.View;
 abstract public class BaseVisualizerView extends View {
     protected byte[] bytes;
     protected Paint paint = new Paint();
-    protected Visualizer visualizer;
     protected int color = Color.BLUE;
 
     public BaseVisualizerView(Context context) {
@@ -41,35 +40,6 @@ abstract public class BaseVisualizerView extends View {
     public void setColor(int color) {
         this.color = color;
         this.paint.setColor(this.color);
-    }
-
-    public void setPlayer(int audioSessionId) {
-        visualizer = new Visualizer(audioSessionId);
-        visualizer.setEnabled(false);
-        visualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
-
-        visualizer.setDataCaptureListener(new Visualizer.OnDataCaptureListener() {
-            @Override
-            public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
-                BaseVisualizerView.this.bytes = bytes;
-                invalidate();
-            }
-
-            @Override
-            public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
-            }
-        }, Visualizer.getMaxCaptureRate() / 2, true, false);
-
-        visualizer.setEnabled(true);
-    }
-
-
-    public void release() {
-        visualizer.release();
-    }
-
-    public Visualizer getVisualizer() {
-        return visualizer;
     }
 
     public void setBytes(byte[] bytes) {

@@ -2,7 +2,6 @@ package com.wirehall.audiorecorder.mp;
 
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.SeekBar;
@@ -23,6 +22,7 @@ public class MediaPlayerController {
 
     private static MediaPlayerController mediaPlayerController;
     private MediaPlayer mediaPlayer = new MediaPlayer();
+    private MediaPlayer.OnCompletionListener mPlayerOnCompletionListener;
 
     private Handler handler = new Handler();
 
@@ -41,7 +41,25 @@ public class MediaPlayerController {
         final TextView timerTextView = activity.findViewById(R.id.tv_timer);
         final SeekBar seekBar = activity.findViewById(R.id.sb_mp_seek_bar);
         seekBar.setEnabled(false);
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        activity.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    seekBar.setMax(0);
+                    final int totalMediaDuration = mediaPlayer.getDuration();
+                    seekBar.setMax(totalMediaDuration);
+                    int currentPosition = mediaPlayer.getCurrentPosition();
+                    String currentPositionString = getFormattedTimeString(currentPosition);
+                    final String totalMediaDurationString = getFormattedTimeString(totalMediaDuration);
+                    String playbackTimerString = currentPositionString + "/" + totalMediaDurationString;
+                    timerTextView.setText(playbackTimerString);
+                    seekBar.setProgress(currentPosition);
+                }
+                handler.postDelayed(this, 50);
+            }
+        });
+        mPlayerOnCompletionListener = new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 seekBar.setMax(0);
@@ -49,7 +67,7 @@ public class MediaPlayerController {
                 seekBar.setEnabled(false);
                 timerTextView.setText("");
             }
-        });
+        };
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -70,36 +88,25 @@ public class MediaPlayerController {
 
     public void playAudio(AppCompatActivity activity, String audioFilePath) {
         final SeekBar seekBar = activity.findViewById(R.id.sb_mp_seek_bar);
-        final TextView timerTextView = activity.findViewById(R.id.tv_timer);
         try {
+            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                releaseMediaPlayer();
+                mediaPlayer = new MediaPlayer();
+            } else if (mediaPlayer == null) {
+                mediaPlayer = new MediaPlayer();
+            }
+
+            mediaPlayer.setOnCompletionListener(mPlayerOnCompletionListener);
             Log.d(TAG, "Playing audio file: " + audioFilePath);
             mediaPlayer.reset();
             mediaPlayer.setDataSource(audioFilePath);
             mediaPlayer.prepare();
             seekBar.setMax(0);
-            final int totalMediaDuration = mediaPlayer.getDuration();
-            final String totalMediaDurationString = getFormattedTimeString(totalMediaDuration);
-            seekBar.setMax(totalMediaDuration);
+            seekBar.setMax(mediaPlayer.getDuration());
             seekBar.setEnabled(true);
             mediaPlayer.start();
             setMPVisualizerView(activity);
 
-            activity.runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (mediaPlayer.isPlaying()) {
-                        seekBar.setMax(0);
-                        seekBar.setMax(totalMediaDuration);
-                        int currentPosition = mediaPlayer.getCurrentPosition();
-                        String currentPositionString = getFormattedTimeString(currentPosition);
-                        String playbackTimerString = currentPositionString + "/" + totalMediaDurationString;
-                        timerTextView.setText(playbackTimerString);
-                        seekBar.setProgress(currentPosition);
-                        handler.postDelayed(this, 50);
-                    }
-                }
-            });
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (IllegalStateException e) {
@@ -109,8 +116,12 @@ public class MediaPlayerController {
         }
     }
 
-    public void stopPlaying() {
-        mediaPlayer.stop();
+    public void releaseMediaPlayer() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     public int getAudioSessionId() {
