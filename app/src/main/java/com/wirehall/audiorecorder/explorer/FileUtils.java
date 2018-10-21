@@ -82,6 +82,13 @@ public class FileUtils {
         return formattedDate;
     }
 
+    public static String humanReadableDate(long timestamp) {
+        Date date = new Date(timestamp);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy, hh:mm aa");
+        String formattedDate = dateFormat.format(date);
+        return formattedDate;
+    }
+
     public static String humanReadableDuration(String mediaPath) {
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(mediaPath);

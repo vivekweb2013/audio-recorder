@@ -21,7 +21,7 @@ public class FileListAdapter extends ArrayAdapter<File> {
     private final Context context;
     private final List<File> fileList;
 
-    public FileListAdapter(@NonNull Context context, List<File> fileList) {
+    FileListAdapter(@NonNull Context context, List<File> fileList) {
         super(context, R.layout.file_row_layout, fileList);
         this.fileList = fileList;
         this.context = context;
@@ -30,23 +30,47 @@ public class FileListAdapter extends ArrayAdapter<File> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.file_row_layout, parent, false);
-        TextView fileNameTextView = rowView.findViewById(R.id.tv_filename);
-        fileNameTextView.setText(fileList.get(position).getName());
-        TextView fileSizeTextView = rowView.findViewById(R.id.tv_file_size);
-        String fileSize = FileUtils.humanReadableByteCount(fileList.get(position).length(), true);
-        fileSizeTextView.setText(fileSize);
+        ViewHolder viewHolder;
+        if (convertView == null) {
 
-        Date fileModifiedDate = new Date(fileList.get(position).lastModified());
-        String formattedDate = FileUtils.humanReadableDate(fileModifiedDate);
-        TextView fileDateModifiedTextView = rowView.findViewById(R.id.tv_file_date_modified);
-        fileDateModifiedTextView.setText(formattedDate);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.file_row_layout, parent, false);
 
-        TextView fileDurationTextView = rowView.findViewById(R.id.tv_file_duration);
-        String fileDuration = FileUtils.humanReadableDuration(fileList.get(position).getPath());
-        fileDurationTextView.setText(fileDuration);
+            viewHolder = new ViewHolder();
 
-        return rowView;
+            viewHolder.fileNameTextView = convertView.findViewById(R.id.tv_filename);
+            viewHolder.fileSizeTextView = convertView.findViewById(R.id.tv_file_size);
+            viewHolder.fileDateModifiedTextView = convertView.findViewById(R.id.tv_file_date_modified);
+            viewHolder.fileDurationTextView = convertView.findViewById(R.id.tv_file_duration);
+
+            convertView.setTag(viewHolder);
+
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        File fileItem = fileList.get(position);
+
+        viewHolder.fileNameTextView.setText(fileItem.getName());
+
+        String fileSize = FileUtils.humanReadableByteCount(fileItem.length(), true);
+        viewHolder.fileSizeTextView.setText(fileSize);
+
+        String formattedDate = FileUtils.humanReadableDate(fileItem.lastModified());
+        viewHolder.fileDateModifiedTextView.setText(formattedDate);
+
+        String fileDuration = FileUtils.humanReadableDuration(fileItem.getPath());
+        viewHolder.fileDurationTextView.setText(fileDuration);
+
+        return convertView;
     }
+
+    static class ViewHolder {
+        TextView fileNameTextView;
+        TextView fileSizeTextView;
+        TextView fileDateModifiedTextView;
+        TextView fileDurationTextView;
+
+    }
+
 }
