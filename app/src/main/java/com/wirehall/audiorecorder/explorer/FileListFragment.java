@@ -40,7 +40,7 @@ public class FileListFragment extends ListFragment implements AdapterView.OnItem
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.file_list_fragment, container, false);
+        View view = inflater.inflate(R.layout.file_list_fragment, container, false);
         return view;
     }
 
@@ -59,7 +59,7 @@ public class FileListFragment extends ListFragment implements AdapterView.OnItem
         activity.onFileItemClicked(fileList.get(position).getPath());
     }
 
-    public void refreshAdapter(){
+    public void refreshAdapter() {
         List<File> fileList = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
         fileListAdapter.clear();
         fileListAdapter.addAll(fileList);

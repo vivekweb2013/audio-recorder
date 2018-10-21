@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="seekbarLineWidth">2dp</dimen>
+    <dimen name="file_row_footer_text_size">12sp</dimen>
+    <dimen name="file_row_header_text_size">25sp</dimen>
 </resources>
