@@ -8,6 +8,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.wirehall.audiorecorder.R;
+import com.wirehall.audiorecorder.explorer.FileListFragment;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class MediaPlayerController {
      *
      * @param activity Activity required for internal operations
      */
-    public void init(AppCompatActivity activity) {
+    public void init(final AppCompatActivity activity) {
         final TextView timerTextView = activity.findViewById(R.id.tv_timer);
         final SeekBar seekBar = activity.findViewById(R.id.sb_mp_seek_bar);
         seekBar.setEnabled(false);
@@ -70,10 +71,7 @@ public class MediaPlayerController {
         mPlayerOnCompletionListener = new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                seekBar.setMax(0);
-                seekBar.setProgress(0);
-                seekBar.setEnabled(false);
-                timerTextView.setText("");
+                onMediaHalt(activity);
             }
         };
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -127,6 +125,32 @@ public class MediaPlayerController {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Stops the media playback
+     *
+     * @param activity Activity required for internal operations
+     */
+    public void stopPlaying(AppCompatActivity activity) {
+        releaseMediaPlayer();
+        onMediaHalt(activity);
+    }
+
+    // Performs the operations required after the audio play is halted
+    private void onMediaHalt(AppCompatActivity activity) {
+        final TextView timerTextView = activity.findViewById(R.id.tv_timer);
+        final SeekBar seekBar = activity.findViewById(R.id.sb_mp_seek_bar);
+
+        seekBar.setMax(0);
+        seekBar.setProgress(0);
+        seekBar.setEnabled(false);
+        timerTextView.setText("");
+
+        FileListFragment fileListFragment = (FileListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.list_fragment_container);
+        if (fileListFragment != null) {
+            fileListFragment.resetRowSelection();
         }
     }
 

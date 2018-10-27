@@ -60,15 +60,26 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
      * @param newFileList The list of files to use in file list view
      */
     public void updateData(List<File> newFileList) {
+        resetRowSelection();
         fileList.clear();
         fileList.addAll(newFileList);
         notifyDataSetChanged();
     }
 
     private void refreshRowSelection(int selectedRowPosition) {
-        notifyItemChanged(this.selectedRowPosition);
+        int oldSelectedRowPosition = this.selectedRowPosition;
         this.selectedRowPosition = selectedRowPosition;
+        notifyItemChanged(oldSelectedRowPosition);
         notifyItemChanged(selectedRowPosition);
+    }
+
+    /**
+     * Clears any row selection
+     */
+    public void resetRowSelection() {
+        int oldSelectedRowPosition = this.selectedRowPosition;
+        this.selectedRowPosition = RecyclerView.NO_POSITION;
+        notifyItemChanged(oldSelectedRowPosition);
     }
 
     /**

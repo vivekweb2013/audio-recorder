@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void recordPauseBtnClicked(View view) {
-        mediaPlayerController.releaseMediaPlayer(); // Stop Media Player
+        mediaPlayerController.stopPlaying(this);
         recordingController.startPauseRecording(this);
     }
 

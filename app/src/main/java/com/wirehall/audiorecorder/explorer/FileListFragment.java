@@ -72,6 +72,13 @@ public class FileListFragment extends Fragment {
     }
 
     /**
+     * Clears any row selection
+     */
+    public void resetRowSelection() {
+        fileListAdapter.resetRowSelection();
+    }
+
+    /**
      * Interface used to invoke the file item's click handler from activity
      */
     public interface FileListFragmentListener {
