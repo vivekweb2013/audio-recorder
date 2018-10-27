@@ -25,16 +25,23 @@ public class BlazingColorVisualizerView extends BaseVisualizerView {
 
     @Override
     protected void init(@Nullable AttributeSet attrs) {
-        shader = new LinearGradient(0, 0, 0, getHeight(), Color.BLUE, Color.GREEN, Shader.TileMode.MIRROR /*or REPEAT*/);
+    }
+
+    @Override
+    protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld) {
+        super.onSizeChanged(xNew, yNew, xOld, yOld);
+
+        shader = new LinearGradient(0, 0, 0, yNew, Color.BLUE, Color.WHITE, Shader.TileMode.MIRROR /*or REPEAT*/);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         if (bytes != null) {
             paint.setShader(shader);
-            for (int i = 0, k = 0; i < (bytes.length - 1) && k < bytes.length; i++, k++) {
+            float lineXWidth = (float) canvas.getWidth() / bytes.length;
+            for (int i = 0, k = 0; i < (bytes.length - 1) && k < (bytes.length - 1); i++, k++) {
                 int top = canvas.getHeight() + ((byte) (Math.abs(bytes[k]) + 128)) * canvas.getHeight() / 128;
-                canvas.drawLine(i, getHeight(), i, top, paint);
+                canvas.drawLine(i * lineXWidth, getHeight(), i * lineXWidth + lineXWidth, top, paint);
             }
             super.onDraw(canvas);
         }

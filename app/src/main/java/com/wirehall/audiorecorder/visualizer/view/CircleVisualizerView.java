@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 
 public class CircleVisualizerView extends BaseVisualizerView {
     private float[] points;
-    private float radiusMultiplier = 1;
+    private float radiusMultiplier;
     private float strokeWidth = 0.005f;
 
     public CircleVisualizerView(Context context) {
@@ -48,6 +48,10 @@ public class CircleVisualizerView extends BaseVisualizerView {
     @Override
     protected void onDraw(Canvas canvas) {
         if (bytes != null) {
+            if (this.radiusMultiplier == 0) {
+                this.radiusMultiplier = getHeight() < getWidth() ? getHeight() : getWidth();
+                this.radiusMultiplier = (this.radiusMultiplier * 0.65f / 200);
+            }
             paint.setStrokeWidth(getHeight() * strokeWidth);
             if (points == null || points.length < bytes.length * 4) {
                 points = new float[bytes.length * 4];
