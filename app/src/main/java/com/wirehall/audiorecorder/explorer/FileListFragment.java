@@ -18,12 +18,15 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.List;
 
-public class FileListFragment extends Fragment { // implements AdapterView.OnItemClickListener {
+public class FileListFragment extends Fragment {
     public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Rec/Collection";
     private FileListFragmentListener activity;
     private FileListAdapter fileListAdapter;
     private List<File> fileList;
 
+    /**
+     * @return The singleton instance of FileListFragment
+     */
     public static FileListFragment newInstance() {
         return new FileListFragment();
     }
@@ -57,22 +60,26 @@ public class FileListFragment extends Fragment { // implements AdapterView.OnIte
         };
         fileListAdapter = new FileListAdapter(fileList, recyclerViewClickListener);
         recyclerView.setAdapter(fileListAdapter);
-
-
     }
 
+    /**
+     * Refresh the file list view by updating the adapter associated with it
+     */
     public void refreshAdapter() {
         List<File> fileList = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
         fileListAdapter.updateData(fileList);
         fileListAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Interface used to invoke the file item's click handler from activity
+     */
     public interface FileListFragmentListener {
         void onFileItemClicked(String filePath);
     }
 
     /**
-     * Class to filter files with .mp3 extension
+     * Class used to filter files with .rec extension
      */
     class FileExtensionFilter implements FilenameFilter {
         public boolean accept(File dir, String name) {

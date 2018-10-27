@@ -16,12 +16,20 @@ import java.util.concurrent.TimeUnit;
 
 public class FileUtils {
 
+    /**
+     * @return The current time string in "yyyy-MM-dd-hh-mm-ss a" format
+     */
     public static String generateFileName() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss a");
         String filename = df.format(Calendar.getInstance().getTime()).concat(".rec");
         return filename;
     }
 
+    /**
+     * @param path           Files are scanned from this specified path. Note: It is not a recursive
+     * @param filenameFilter Used to filter the file matching the filter criteria
+     * @return List of files from specified path which are matching the filter passed
+     */
     @NonNull
     public static List<File> getAllFilesFromDirectory(String path, FilenameFilter filenameFilter) {
         File directory = new File(path);
@@ -35,8 +43,6 @@ public class FileUtils {
             // Or could be due to missing storage permissions
             throw new IllegalArgumentException("Problem accessing path: " + path);
         }
-
-
         Arrays.sort(files, new Comparator<File>() {
             public int compare(File f1, File f2) {
                 return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
@@ -76,12 +82,20 @@ public class FileUtils {
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
+    /**
+     * @param date The date to be formatted to string
+     * @return The date in "dd-MM-yyyy, hh:mm aa" format
+     */
     public static String humanReadableDate(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy, hh:mm aa");
         String formattedDate = dateFormat.format(date);
         return formattedDate;
     }
 
+    /**
+     * @param timestamp The timestamp to be formatted to string
+     * @return The date in "dd-MM-yyyy, hh:mm aa" format
+     */
     public static String humanReadableDate(long timestamp) {
         Date date = new Date(timestamp);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy, hh:mm aa");
@@ -89,6 +103,10 @@ public class FileUtils {
         return formattedDate;
     }
 
+    /**
+     * @param mediaPath The path of media file
+     * @return The duration of media file. The format is "%d min, %d sec" if minutes are available, if not then "%d sec" is the format
+     */
     public static String humanReadableDuration(String mediaPath) {
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(mediaPath);

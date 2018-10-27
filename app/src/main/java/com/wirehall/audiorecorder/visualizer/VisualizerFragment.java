@@ -68,12 +68,20 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
         addReplaceView(baseVisualizerView);
     }
 
+    /**
+     * @param view Add a view to visualizer container
+     *             Or replace if visualizer container already has a view
+     */
     public void addReplaceView(View view) {
         currentVisualizerView = view;
         visualizerLayout.removeAllViews();
         visualizerLayout.addView(view);
     }
 
+    /**
+     * Sets the Media Player Visualizer view to visualizer container
+     * The view pointed by the view index is set
+     */
     public void setMPVisualizerView() {
         BaseVisualizerView baseVisualizerView = visualizerViews.get(visualizerViewIndex);
         setBaseVisualizerViewUpdater(baseVisualizerView, activity.getAudioSessionIdOfMediaPlayer());
@@ -101,6 +109,9 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
         visualizer.setEnabled(true);
     }
 
+    /**
+     * Release the visualizer
+     */
     public void releaseVisualizer() {
         if (visualizer != null) {
             visualizer.setEnabled(false);
@@ -108,6 +119,10 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
         }
     }
 
+
+    /**
+     * Removes all the views from visualizer container
+     */
     public void removeAllViews() {
         visualizerLayout.removeAllViews();
     }
@@ -118,6 +133,10 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
         releaseVisualizer();
     }
 
+    /**
+     * Interface used to get the media player session from the activity
+     * The media player session is required for initializing the visualizer
+     */
     public interface VisualizerMPSession {
         int getAudioSessionIdOfMediaPlayer();
     }

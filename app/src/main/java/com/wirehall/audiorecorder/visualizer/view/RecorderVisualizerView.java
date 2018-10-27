@@ -35,12 +35,18 @@ public class RecorderVisualizerView extends View {
         amplitudes = new ArrayList<>(width / LINE_WIDTH);
     }
 
-    // clear all amplitudes to prepare for a new visualization
+
+    /**
+     * Clears all amplitudes to prepare for a new visualization
+     */
     public void clear() {
         amplitudes.clear();
     }
 
-    // add the given amplitude to the amplitudes ArrayList
+
+    /**
+     * @param amplitude Adds the given amplitude value to the amplitudes ArrayList
+     */
     public void addAmplitude(float amplitude) {
         amplitudes.add(amplitude); // add newest to the amplitudes ArrayList
 

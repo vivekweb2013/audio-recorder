@@ -54,6 +54,11 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         return this.fileList.size();
     }
 
+    /**
+     * Uses the list passed as a argument to this method for showing in file list view
+     *
+     * @param newFileList The list of files to use in file list view
+     */
     public void updateData(List<File> newFileList) {
         fileList.clear();
         fileList.addAll(newFileList);
@@ -66,6 +71,9 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         notifyItemChanged(selectedRowPosition);
     }
 
+    /**
+     * Used to keep the reference to list row elements to fetch faster. i.e. to avoid time consuming findViewById
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView fileNameTextView;
         TextView fileSizeTextView;
@@ -94,6 +102,5 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             recyclerViewClickListener.onClick(view, position);
         }
     }
-
 
 }

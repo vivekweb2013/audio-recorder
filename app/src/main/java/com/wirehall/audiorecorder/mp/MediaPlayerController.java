@@ -30,6 +30,9 @@ public class MediaPlayerController {
         // Private Constructor
     }
 
+    /**
+     * @return The singleton instance of MediaPlayerController
+     */
     public static MediaPlayerController getInstance() {
         if (mediaPlayerController == null) {
             mediaPlayerController = new MediaPlayerController();
@@ -37,6 +40,11 @@ public class MediaPlayerController {
         return mediaPlayerController;
     }
 
+    /**
+     * Initialize the MediaPlayerController
+     *
+     * @param activity Activity required for internal operations
+     */
     public void init(AppCompatActivity activity) {
         final TextView timerTextView = activity.findViewById(R.id.tv_timer);
         final SeekBar seekBar = activity.findViewById(R.id.sb_mp_seek_bar);
@@ -86,6 +94,12 @@ public class MediaPlayerController {
         });
     }
 
+    /**
+     * Plays the audio file, also operates the seekbar
+     *
+     * @param activity      Activity required for internal operations
+     * @param audioFilePath Path of the audio file to play
+     */
     public void playAudio(AppCompatActivity activity, String audioFilePath) {
         final SeekBar seekBar = activity.findViewById(R.id.sb_mp_seek_bar);
         try {
@@ -116,6 +130,9 @@ public class MediaPlayerController {
         }
     }
 
+    /**
+     * Release the media player instance
+     */
     public void releaseMediaPlayer() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
@@ -124,6 +141,9 @@ public class MediaPlayerController {
         }
     }
 
+    /**
+     * @return The audio session id of the media player instance
+     */
     public int getAudioSessionId() {
         return mediaPlayer.getAudioSessionId();
     }

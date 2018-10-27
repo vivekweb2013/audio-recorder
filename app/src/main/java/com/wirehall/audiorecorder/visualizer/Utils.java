@@ -19,6 +19,12 @@ import java.util.List;
 
 public final class Utils {
 
+    /**
+     * This utility method is used to instantiate and get the media player visualizer views
+     *
+     * @param context Context required for internal operations
+     * @return List<BaseVisualizerView> Returns the list of media player visualizer views
+     */
     @NonNull
     public static List<BaseVisualizerView> getAllMPVisualizerViews(Context context) {
         List<BaseVisualizerView> visualizers = new ArrayList<>();
@@ -52,6 +58,12 @@ public final class Utils {
         return visualizers;
     }
 
+    /**
+     * This utility method is used to instantiate and get the recorder visualizer view
+     *
+     * @param context Context required for internal operations
+     * @return RecorderVisualizerView Returns the recorder visualizer view
+     */
     @NonNull
     public static RecorderVisualizerView getRecorderVisualizerView(Context context) {
         return new RecorderVisualizerView(context, null);

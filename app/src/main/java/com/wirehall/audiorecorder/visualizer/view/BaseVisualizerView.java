@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * base class that contains common implementation for all visualizers.
+ * Base class that contains common implementation for all visualizer views.
  */
 
 abstract public class BaseVisualizerView extends View {
@@ -32,7 +32,7 @@ abstract public class BaseVisualizerView extends View {
     }
 
     /**
-     * set color to visualizer with color resource id.
+     * Set the color for visualizer view
      *
      * @param color resource id of color.
      */
@@ -41,6 +41,9 @@ abstract public class BaseVisualizerView extends View {
         this.paint.setColor(this.color);
     }
 
+    /**
+     * @param bytes The view is drawn based on this input
+     */
     public void setBytes(byte[] bytes) {
         BaseVisualizerView.this.bytes = bytes;
     }

@@ -23,7 +23,7 @@ import com.wirehall.audiorecorder.visualizer.view.RecorderVisualizerView;
 import java.io.IOException;
 
 /**
- * This is a singleton class for controlling the recording operations
+ * Singleton class for controlling the recording operations
  */
 public class RecordingController {
     private static final String TAG = RecordingController.class.getName();
@@ -50,6 +50,11 @@ public class RecordingController {
         return recordingController;
     }
 
+    /**
+     * Initialize the RecordingController
+     *
+     * @param activity Activity required for internal operations
+     */
     public void init(AppCompatActivity activity) {
 
         ImageButton btnRecordPause = activity.findViewById(R.id.ib_record);
@@ -68,6 +73,11 @@ public class RecordingController {
         setVisualizerRunnable(timerTextView);
     }
 
+    /**
+     * Start or pause the audio recording based on the last state.
+     *
+     * @param activity Activity required for internal operations
+     */
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void startPauseRecording(AppCompatActivity activity) {
@@ -145,6 +155,11 @@ public class RecordingController {
     }
 
 
+    /**
+     * Stop the audio recording
+     *
+     * @param activity Activity required for internal operations
+     */
     public void stopRecording(AppCompatActivity activity) {
         ImageButton btnRecordPause, btnDelete, btnStop;
         btnRecordPause = activity.findViewById(R.id.ib_record);
@@ -181,6 +196,9 @@ public class RecordingController {
         }
     }
 
+    /**
+     * Release the recorder instance
+     */
     public void releaseRecorder() {
         if (mediaRecorder != null) {
             MEDIA_REC_STATE = MediaRecorderState.STOPPED;
@@ -194,13 +212,13 @@ public class RecordingController {
         }
     }
 
+    /**
+     * @return The current state of media recorder
+     */
     public MediaRecorderState getMediaRecorderState() {
         return MEDIA_REC_STATE;
     }
 
-    /**
-     * @param activity This method creates and adds the recorderVisualizerView to visualizer fragment
-     */
     private void addRecorderVisualizerView(AppCompatActivity activity) {
         VisualizerFragment visualizerFragment = (VisualizerFragment) activity.getSupportFragmentManager().findFragmentById(R.id.visualizer_fragment_container);
         if (visualizerFragment != null) {
@@ -210,9 +228,6 @@ public class RecordingController {
         }
     }
 
-    /**
-     * @param activity This method removes recorderVisualizerView from visualizer fragment
-     */
     private void removeRecorderVisualizerView(AppCompatActivity activity) {
         VisualizerFragment visualizerFragment = (VisualizerFragment) activity.getSupportFragmentManager().findFragmentById(R.id.visualizer_fragment_container);
         if (visualizerFragment != null) {
