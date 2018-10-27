@@ -14,36 +14,9 @@ import java.util.List;
 
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
 
-
     private final List<File> fileList;
+    private int selectedRowPosition = RecyclerView.NO_POSITION;
     private RecyclerViewClickListener recyclerViewClickListener;
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private RecyclerViewClickListener recyclerViewClickListener;
-        TextView fileNameTextView;
-        TextView fileSizeTextView;
-        TextView fileDateModifiedTextView;
-        TextView fileDurationTextView;
-
-        private ViewHolder(@NonNull View itemView, RecyclerViewClickListener recyclerViewClickListener) {
-            super(itemView);
-            this.recyclerViewClickListener = recyclerViewClickListener;
-            itemView.setOnClickListener(this);
-
-            //Note: you can also use the setOnClickListener on below child views
-            //and perform the actions in onClick method using the instanceof check
-
-            fileNameTextView = itemView.findViewById(R.id.tv_filename);
-            fileSizeTextView = itemView.findViewById(R.id.tv_file_size);
-            fileDateModifiedTextView = itemView.findViewById(R.id.tv_file_date_modified);
-            fileDurationTextView = itemView.findViewById(R.id.tv_file_duration);
-        }
-
-        @Override
-        public void onClick(View view) {
-            recyclerViewClickListener.onClick(view, getAdapterPosition());
-        }
-    }
 
     FileListAdapter(List<File> fileList, RecyclerViewClickListener recyclerViewClickListener) {
         this.fileList = fileList;
@@ -60,6 +33,8 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        viewHolder.itemView.setSelected(selectedRowPosition == position);
+
         File fileItem = fileList.get(position);
 
         viewHolder.fileNameTextView.setText(fileItem.getName());
@@ -84,5 +59,41 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         fileList.addAll(newFileList);
         notifyDataSetChanged();
     }
+
+    private void refreshRowSelection(int selectedRowPosition) {
+        notifyItemChanged(this.selectedRowPosition);
+        this.selectedRowPosition = selectedRowPosition;
+        notifyItemChanged(selectedRowPosition);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView fileNameTextView;
+        TextView fileSizeTextView;
+        TextView fileDateModifiedTextView;
+        TextView fileDurationTextView;
+        private RecyclerViewClickListener recyclerViewClickListener;
+
+        private ViewHolder(@NonNull View itemView, RecyclerViewClickListener recyclerViewClickListener) {
+            super(itemView);
+            this.recyclerViewClickListener = recyclerViewClickListener;
+            itemView.setOnClickListener(this);
+
+            //Note: you can also use the setOnClickListener on below child views
+            //and perform the actions in onClick method using the instanceof check
+
+            fileNameTextView = itemView.findViewById(R.id.tv_filename);
+            fileSizeTextView = itemView.findViewById(R.id.tv_file_size);
+            fileDateModifiedTextView = itemView.findViewById(R.id.tv_file_date_modified);
+            fileDurationTextView = itemView.findViewById(R.id.tv_file_duration);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            refreshRowSelection(position);
+            recyclerViewClickListener.onClick(view, position);
+        }
+    }
+
 
 }

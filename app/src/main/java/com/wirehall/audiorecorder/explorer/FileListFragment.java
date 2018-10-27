@@ -3,6 +3,7 @@ package com.wirehall.audiorecorder.explorer;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,19 +19,13 @@ import java.io.FilenameFilter;
 import java.util.List;
 
 public class FileListFragment extends Fragment { // implements AdapterView.OnItemClickListener {
-    public interface FileListFragmentListener {
-        void onFileItemClicked(String filePath);
-    }
-
+    public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Rec/Collection";
     private FileListFragmentListener activity;
     private FileListAdapter fileListAdapter;
     private List<File> fileList;
-    public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Rec/Collection";
-
 
     public static FileListFragment newInstance() {
-        FileListFragment fileListFragment = new FileListFragment();
-        return fileListFragment;
+        return new FileListFragment();
     }
 
     @Override
@@ -40,7 +35,7 @@ public class FileListFragment extends Fragment { // implements AdapterView.OnIte
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.file_list_fragment, container, false);
         return view;
     }
@@ -72,6 +67,9 @@ public class FileListFragment extends Fragment { // implements AdapterView.OnIte
         fileListAdapter.notifyDataSetChanged();
     }
 
+    public interface FileListFragmentListener {
+        void onFileItemClicked(String filePath);
+    }
 
     /**
      * Class to filter files with .mp3 extension

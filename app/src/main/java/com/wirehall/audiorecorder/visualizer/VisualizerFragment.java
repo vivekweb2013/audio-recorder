@@ -19,15 +19,9 @@ import com.wirehall.audiorecorder.visualizer.view.RecorderVisualizerView;
 import java.util.List;
 
 public class VisualizerFragment extends Fragment implements OnClickListener {
-    public interface VisualizerMPSession {
-        int getAudioSessionIdOfMediaPlayer();
-    }
-
     private View currentVisualizerView;
-
     private VisualizerMPSession activity;
     private LinearLayout visualizerLayout;
-
     private Visualizer visualizer;
     private List<BaseVisualizerView> visualizerViews;
     private int visualizerViewIndex = -1;
@@ -122,5 +116,9 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
     public void onDestroy() {
         super.onDestroy();
         releaseVisualizer();
+    }
+
+    public interface VisualizerMPSession {
+        int getAudioSessionIdOfMediaPlayer();
     }
 }
