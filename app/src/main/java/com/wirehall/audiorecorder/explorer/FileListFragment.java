@@ -3,11 +3,12 @@ package com.wirehall.audiorecorder.explorer;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.wirehall.audiorecorder.R;
@@ -16,7 +17,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.List;
 
-public class FileListFragment extends ListFragment implements AdapterView.OnItemClickListener {
+public class FileListFragment extends Fragment { // implements AdapterView.OnItemClickListener {
     public interface FileListFragmentListener {
         void onFileItemClicked(String filePath);
     }
@@ -48,21 +49,26 @@ public class FileListFragment extends ListFragment implements AdapterView.OnItem
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         fileList = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
-        fileListAdapter = new FileListAdapter(getContext(), fileList);
-        setListAdapter(fileListAdapter);
-        getListView().setOnItemClickListener(this);
-    }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
-        activity.onFileItemClicked(fileList.get(position).getPath());
+        RecyclerView recyclerView = getActivity().findViewById(R.id.recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        RecyclerViewClickListener recyclerViewClickListener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+                activity.onFileItemClicked(fileList.get(position).getPath());
+            }
+        };
+        fileListAdapter = new FileListAdapter(fileList, recyclerViewClickListener);
+        recyclerView.setAdapter(fileListAdapter);
+
+
     }
 
     public void refreshAdapter() {
         List<File> fileList = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
-        fileListAdapter.clear();
-        fileListAdapter.addAll(fileList);
+        fileListAdapter.updateData(fileList);
         fileListAdapter.notifyDataSetChanged();
     }
 
