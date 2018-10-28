@@ -4,11 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF0000</color>
 
-    <color name="appBackgroundColor">#303030</color>
-    <color name="filenameTextColor">#FFFFFF</color>
-    <color name="timerTextColor">#FFFFFF</color>
-    <color name="visualizerColor">#FFFFFF</color>
-    <color name="visualizerBackgroundColor">#444444</color>
-    <color name="seekbarLineProgressColor">@color/colorAccent</color>
-    <color name="seekbarLineColor">#FFFFFF</color>
+    <color name="color_app_bg">#303030</color>
+    <color name="color_text_filename">#FFFFFF</color>
+    <color name="color_text_timer">#FFFFFF</color>
+    <color name="color_visualizer_view">#FFFFFF</color>
+    <color name="color_visualizer_bg">#444444</color>
+    <color name="color_seek_bar_line_progress">@color/colorAccent</color>
+    <color name="color_seek_bar_line">#FFFFFF</color>
 </resources>

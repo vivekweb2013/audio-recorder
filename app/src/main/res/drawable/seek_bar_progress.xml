@@ -3,16 +3,16 @@
     <item android:id="@android:id/background">
         <shape android:shape="line">
             <stroke
-                android:width="@dimen/seekbarLineWidth"
-                android:color="@color/seekbarLineColor" />
+                android:width="@dimen/width_seek_bar_line"
+                android:color="@color/color_seek_bar_line" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
         <clip>
             <shape android:shape="line">
                 <stroke
-                    android:width="@dimen/seekbarLineWidth"
-                    android:color="@color/seekbarLineProgressColor" />
+                    android:width="@dimen/width_seek_bar_line"
+                    android:color="@color/color_seek_bar_line_progress" />
             </shape>
         </clip>
     </item>

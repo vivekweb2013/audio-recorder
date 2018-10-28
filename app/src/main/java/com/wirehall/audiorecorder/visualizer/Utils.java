@@ -30,29 +30,29 @@ public final class Utils {
         List<BaseVisualizerView> visualizers = new ArrayList<>();
 
         BarVisualizerView barVisualizerView = new BarVisualizerView(context);
-        barVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        barVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
         barVisualizerView.setDensity(100);
         visualizers.add(barVisualizerView);
 
         CircleBarVisualizerView circleBarVisualizerView = new CircleBarVisualizerView(context);
-        circleBarVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        circleBarVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
         visualizers.add(circleBarVisualizerView);
 
         CircleVisualizerView circleVisualizerView = new CircleVisualizerView(context);
-        circleVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        circleVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
         visualizers.add(circleVisualizerView);
 
         LineBarVisualizerView lineBarVisualizerView = new LineBarVisualizerView(context);
-        lineBarVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        lineBarVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
         lineBarVisualizerView.setDensity(100);
         visualizers.add(lineBarVisualizerView);
 
         LineVisualizerView lineVisualizerView = new LineVisualizerView(context);
-        lineVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        lineVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
         visualizers.add(lineVisualizerView);
 
         BlazingColorVisualizerView blazingColorVisualizerView = new BlazingColorVisualizerView(context);
-        blazingColorVisualizerView.setColor(ContextCompat.getColor(context, R.color.visualizerColor));
+        blazingColorVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
         visualizers.add(blazingColorVisualizerView);
 
         return visualizers;

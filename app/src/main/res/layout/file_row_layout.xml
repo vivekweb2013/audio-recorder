@@ -14,8 +14,8 @@
             android:id="@+id/tv_filename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/filenameTextColor"
-            android:textSize="@dimen/file_row_header_text_size" />
+            android:textColor="@color/color_text_filename"
+            android:textSize="@dimen/size_text_file_row_header" />
 
         <TextView
             android:id="@+id/tv_file_duration"
@@ -24,8 +24,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:textColor="@color/filenameTextColor"
-            android:textSize="@dimen/file_row_header_text_size" />
+            android:textColor="@color/color_text_filename"
+            android:textSize="@dimen/size_text_file_row_header" />
 
     </RelativeLayout>
 
@@ -40,8 +40,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="@color/filenameTextColor"
-            android:textSize="@dimen/file_row_footer_text_size" />
+            android:textColor="@color/color_text_filename"
+            android:textSize="@dimen/size_text_file_row_footer" />
 
         <TextView
             android:id="@+id/tv_file_size"
@@ -50,8 +50,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:textColor="@color/filenameTextColor"
-            android:textSize="@dimen/file_row_footer_text_size" />
+            android:textColor="@color/color_text_filename"
+            android:textSize="@dimen/size_text_file_row_footer" />
     </RelativeLayout>
 
 </LinearLayout>

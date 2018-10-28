@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="seekbarLineWidth">2dp</dimen>
-    <dimen name="file_row_footer_text_size">12sp</dimen>
-    <dimen name="file_row_header_text_size">25sp</dimen>
+    <dimen name="width_seek_bar_line">2dp</dimen>
+    <dimen name="size_text_file_row_footer">10sp</dimen>
+    <dimen name="size_text_file_row_header">15sp</dimen>
+    <dimen name="padding_main_container">15dp</dimen>
+    <dimen name="margin_sub_container">15dp</dimen>
+    <dimen name="height_recorder_container">80dp</dimen>
+    <dimen name="height_vis_and_timer_container">80dp</dimen>
+    <dimen name="size_recorder_secondary_button">50dp</dimen>
+    <dimen name="size_recorder_primary_button">60dp</dimen>
+    <dimen name="margin_recorder_secondary_button">20dp</dimen>
 </resources>

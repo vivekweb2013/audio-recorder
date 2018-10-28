@@ -3,55 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appBackgroundColor"
+    android:background="@color/color_app_bg"
     android:orientation="vertical"
+    android:padding="@dimen/padding_main_container"
     tools:context=".MainActivity">
 
     <RelativeLayout
+        android:id="@+id/recorder_container"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_margin="15dp"
+        android:layout_height="@dimen/height_recorder_container"
+        android:layout_marginBottom="@dimen/margin_sub_container"
         android:background="@drawable/view_segment"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/ib_stop"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/size_recorder_secondary_button"
+            android:layout_height="@dimen/size_recorder_secondary_button"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginLeft="@dimen/margin_recorder_secondary_button"
+            android:layout_marginStart="@dimen/margin_recorder_secondary_button"
             android:background="@drawable/round_button"
-            android:contentDescription="Stop Recording"
+            android:contentDescription="@string/button_stop_description"
             android:onClick="stopBtnClicked"
             android:src="@drawable/ic_stop_black_24dp" />
 
 
         <ImageButton
             android:id="@+id/ib_record"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/size_recorder_primary_button"
+            android:layout_height="@dimen/size_recorder_primary_button"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:background="@drawable/round_button"
-            android:contentDescription="Start/Pause Recording"
+            android:contentDescription="@string/button_record_description"
             android:onClick="recordPauseBtnClicked"
             android:src="@drawable/ic_mic_black_24dp" />
 
 
         <ImageButton
             android:id="@+id/ib_delete"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/size_recorder_secondary_button"
+            android:layout_height="@dimen/size_recorder_secondary_button"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="@dimen/margin_recorder_secondary_button"
+            android:layout_marginRight="@dimen/margin_recorder_secondary_button"
             android:background="@drawable/round_button"
-            android:contentDescription="Delete Recording"
+            android:contentDescription="@string/button_delete_description"
             android:onClick="deleteBtnClicked"
             android:src="@drawable/ic_delete_black_24dp" />
 
@@ -60,15 +62,15 @@
     <FrameLayout
         android:id="@+id/vis_timer_container"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:layout_margin="15dp"
+        android:layout_height="@dimen/height_vis_and_timer_container"
+        android:layout_marginBottom="@dimen/margin_sub_container"
         android:background="@drawable/view_segment"
         android:orientation="vertical">
 
         <FrameLayout
             android:id="@+id/visualizer_fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="match_parent"
             android:background="@drawable/view_segment"
             android:orientation="vertical" />
 
@@ -78,20 +80,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|center"
             android:gravity="center"
-            android:textColor="@color/filenameTextColor" />
+            android:textColor="@color/color_text_timer" />
     </FrameLayout>
 
     <SeekBar
         android:id="@+id/sb_mp_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:progressDrawable="@drawable/seekbar_progress" />
+        android:layout_marginBottom="@dimen/margin_sub_container"
+        android:progressDrawable="@drawable/seek_bar_progress" />
 
     <FrameLayout
         android:id="@+id/list_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="15dp"
         android:background="@drawable/view_segment"
         android:orientation="vertical" />
 
