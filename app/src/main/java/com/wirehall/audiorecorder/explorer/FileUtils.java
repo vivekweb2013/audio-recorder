@@ -2,6 +2,9 @@ package com.wirehall.audiorecorder.explorer;
 
 import android.media.MediaMetadataRetriever;
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.wirehall.audiorecorder.explorer.model.Recording;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -15,6 +18,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class FileUtils {
+    private static final String TAG = FileUtils.class.getName();
 
     /**
      * @return The current time string in "yyyy-MM-dd-HH-mm-ss" format
@@ -31,25 +35,52 @@ public class FileUtils {
      * @return List of files from specified path which are matching the filter passed
      */
     @NonNull
-    public static List<File> getAllFilesFromDirectory(String path, FilenameFilter filenameFilter) {
-        File directory = new File(path);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-        File[] files = directory.listFiles(filenameFilter);
-
-        if (files == null) {
-            //Means pathname does not denote a directory, or if an I/O error occurs.
-            // Or could be due to missing storage permissions
-            throw new IllegalArgumentException("Problem accessing path: " + path);
-        }
-        Arrays.sort(files, new Comparator<File>() {
-            public int compare(File f1, File f2) {
-                return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
+    public static List<Recording> getAllFilesFromDirectory(String path, FilenameFilter filenameFilter) {
+        List<Recording> recordings = new ArrayList<>();
+        try {
+            File directory = new File(path);
+            if (!directory.exists()) {
+                directory.mkdirs();
             }
-        });
+            File[] files = directory.listFiles(filenameFilter);
 
-        return new ArrayList<>(Arrays.asList(files));
+            if (files == null) {
+                //Means pathname does not denote a directory, or if an I/O error occurs.
+                // Or could be due to missing storage permissions
+                throw new IllegalArgumentException("Problem accessing path: " + path);
+            }
+            Arrays.sort(files, new Comparator<File>() {
+                public int compare(File f1, File f2) {
+                    return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
+                }
+            });
+
+
+            for (File file : files) {
+                Recording rec = new Recording();
+                rec.setName(file.getName());
+                rec.setPath(file.getPath());
+                rec.setSize(file.length());
+                rec.setSizeInString(humanReadableByteCount(file.length(), true));
+                rec.setModifiedDateMilliSec(file.lastModified());
+                rec.setModifiedDateInString(humanReadableDate(file.lastModified()));
+
+
+                MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                mmr.setDataSource(file.getPath());
+                long duration = Long.parseLong(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+                mmr.release();
+                rec.setDuration(duration);
+
+                rec.setDurationInString(humanReadableDuration(duration));
+
+                recordings.add(rec);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error scanning files: " + e.getMessage());
+        }
+
+        return recordings;
     }
 
 
@@ -104,14 +135,11 @@ public class FileUtils {
     }
 
     /**
-     * @param mediaPath The path of media file
+     * @param duration The total duration in long value
      * @return The duration of media file. The format is "%d min, %d sec" if minutes are available, if not then "%d sec" is the format
      */
-    public static String humanReadableDuration(String mediaPath) {
-        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-        mmr.setDataSource(mediaPath);
-        long duration = Long.parseLong(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
-        mmr.release();
+    public static String humanReadableDuration(long duration) {
+
 
         if (TimeUnit.MILLISECONDS.toMinutes(duration) < 1) {
             return String.format("%d sec",

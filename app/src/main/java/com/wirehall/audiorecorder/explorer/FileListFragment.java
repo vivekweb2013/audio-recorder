@@ -13,16 +13,18 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.wirehall.audiorecorder.R;
+import com.wirehall.audiorecorder.explorer.model.Recording;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.List;
 
 public class FileListFragment extends Fragment {
-    public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Rec/Collection";
+    public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Recording/Collection";
+    private static final String TAG = FileListFragment.class.getName();
     private FileListFragmentListener activity;
     private FileListAdapter fileListAdapter;
-    private List<File> fileList;
+    private List<Recording> recordings;
 
     /**
      * @return The singleton instance of FileListFragment
@@ -46,7 +48,7 @@ public class FileListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        fileList = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
+        recordings = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
 
         RecyclerView recyclerView = getActivity().findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -55,10 +57,10 @@ public class FileListFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
-                activity.onFileItemClicked(fileList.get(position).getPath());
+                activity.onFileItemClicked(recordings.get(position).getPath());
             }
         };
-        fileListAdapter = new FileListAdapter(fileList, recyclerViewClickListener);
+        fileListAdapter = new FileListAdapter(recordings, recyclerViewClickListener);
         recyclerView.setAdapter(fileListAdapter);
     }
 
@@ -66,8 +68,8 @@ public class FileListFragment extends Fragment {
      * Refresh the file list view by updating the adapter associated with it
      */
     public void refreshAdapter() {
-        List<File> fileList = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
-        fileListAdapter.updateData(fileList);
+        List<Recording> recordings = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
+        fileListAdapter.updateData(recordings);
         fileListAdapter.notifyDataSetChanged();
     }
 

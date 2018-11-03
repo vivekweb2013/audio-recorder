@@ -8,18 +8,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wirehall.audiorecorder.R;
+import com.wirehall.audiorecorder.explorer.model.Recording;
 
-import java.io.File;
 import java.util.List;
 
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
+    private static final String TAG = FileListAdapter.class.getName();
 
-    private final List<File> fileList;
+    private final List<Recording> recordings;
     private int selectedRowPosition = RecyclerView.NO_POSITION;
     private RecyclerViewClickListener recyclerViewClickListener;
 
-    FileListAdapter(List<File> fileList, RecyclerViewClickListener recyclerViewClickListener) {
-        this.fileList = fileList;
+    FileListAdapter(List<Recording> recordings, RecyclerViewClickListener recyclerViewClickListener) {
+        this.recordings = recordings;
         this.recyclerViewClickListener = recyclerViewClickListener;
     }
 
@@ -35,34 +36,27 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         viewHolder.itemView.setSelected(selectedRowPosition == position);
 
-        File fileItem = fileList.get(position);
-
-        viewHolder.fileNameTextView.setText(fileItem.getName());
-
-        String fileSize = FileUtils.humanReadableByteCount(fileItem.length(), true);
-        viewHolder.fileSizeTextView.setText(fileSize);
-
-        String formattedDate = FileUtils.humanReadableDate(fileItem.lastModified());
-        viewHolder.fileDateModifiedTextView.setText(formattedDate);
-
-        String fileDuration = FileUtils.humanReadableDuration(fileItem.getPath());
-        viewHolder.fileDurationTextView.setText(fileDuration);
+        Recording recording = recordings.get(position);
+        viewHolder.fileNameTextView.setText(recording.getName());
+        viewHolder.fileSizeTextView.setText(recording.getSizeInString());
+        viewHolder.fileDateModifiedTextView.setText(recording.getModifiedDateInString());
+        viewHolder.fileDurationTextView.setText(recording.getDurationInString());
     }
 
     @Override
     public int getItemCount() {
-        return this.fileList.size();
+        return this.recordings.size();
     }
 
     /**
      * Uses the list passed as a argument to this method for showing in file list view
      *
-     * @param newFileList The list of files to use in file list view
+     * @param newRecordings The list of recordings to use in file list view
      */
-    public void updateData(List<File> newFileList) {
+    public void updateData(List<Recording> newRecordings) {
         resetRowSelection();
-        fileList.clear();
-        fileList.addAll(newFileList);
+        recordings.clear();
+        recordings.addAll(newRecordings);
         notifyDataSetChanged();
     }
 
