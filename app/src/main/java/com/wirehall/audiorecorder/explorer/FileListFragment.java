@@ -57,7 +57,7 @@ public class FileListFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
-                activity.onFileItemClicked(recordings.get(position).getPath());
+                activity.onFileItemClicked(recordings.get(position));
             }
         };
         fileListAdapter = new FileListAdapter(recordings, recyclerViewClickListener);
@@ -70,7 +70,6 @@ public class FileListFragment extends Fragment {
     public void refreshAdapter() {
         List<Recording> recordings = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
         fileListAdapter.updateData(recordings);
-        fileListAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -84,7 +83,7 @@ public class FileListFragment extends Fragment {
      * Interface used to invoke the file item's click handler from activity
      */
     public interface FileListFragmentListener {
-        void onFileItemClicked(String filePath);
+        void onFileItemClicked(Recording filePath);
     }
 
     /**

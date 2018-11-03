@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.FileListFragment;
+import com.wirehall.audiorecorder.explorer.model.Recording;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class MediaPlayerController {
     private MediaPlayer.OnCompletionListener mPlayerOnCompletionListener;
 
     private Handler handler = new Handler();
+
+    private Recording currentRecording = null;
 
     private MediaPlayerController() {
         // Private Constructor
@@ -95,28 +98,45 @@ public class MediaPlayerController {
     /**
      * Plays the audio file, also operates the seekbar
      *
-     * @param activity      Activity required for internal operations
-     * @param audioFilePath Path of the audio file to play
+     * @param activity     Activity required for internal operations
+     * @param newRecording The media file
      */
-    public void playAudio(AppCompatActivity activity, String audioFilePath) {
+    public void playPauseAudio(AppCompatActivity activity, Recording newRecording) {
+
         final SeekBar seekBar = activity.findViewById(R.id.sb_mp_seek_bar);
         try {
-            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                releaseMediaPlayer();
+            if (currentRecording != null) {
+                currentRecording.setPlaying(false);
+            }
+            if (mediaPlayer == null) {
                 mediaPlayer = new MediaPlayer();
-            } else if (mediaPlayer == null) {
+                currentRecording = newRecording;
+            } else if (mediaPlayer.isPlaying() && newRecording.equals(currentRecording)) {
+                mediaPlayer.pause();
+                currentRecording = newRecording;
+                newRecording.setPlaying(false);
+                return;
+            } else if (!mediaPlayer.isPlaying() && mediaPlayer.getCurrentPosition() > 1 && newRecording.equals(currentRecording)) {
+                mediaPlayer.start();
+                currentRecording = newRecording;
+                newRecording.setPlaying(true);
+                return;
+            } else {
+                currentRecording = newRecording;
+                releaseMediaPlayer();
                 mediaPlayer = new MediaPlayer();
             }
 
             mediaPlayer.setOnCompletionListener(mPlayerOnCompletionListener);
-            Log.d(TAG, "Playing audio file: " + audioFilePath);
+            Log.d(TAG, "Playing audio file: " + newRecording.getPath());
             mediaPlayer.reset();
-            mediaPlayer.setDataSource(audioFilePath);
+            mediaPlayer.setDataSource(newRecording.getPath());
             mediaPlayer.prepare();
             seekBar.setMax(0);
             seekBar.setMax(mediaPlayer.getDuration());
             seekBar.setEnabled(true);
             mediaPlayer.start();
+            newRecording.setPlaying(true);
             setMPVisualizerView(activity);
 
         } catch (IllegalArgumentException e) {
@@ -147,6 +167,9 @@ public class MediaPlayerController {
         seekBar.setProgress(0);
         seekBar.setEnabled(false);
         timerTextView.setText("");
+
+        if (currentRecording != null)
+            currentRecording.setPlaying(false);
 
         FileListFragment fileListFragment = (FileListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.list_fragment_container);
         if (fileListFragment != null) {

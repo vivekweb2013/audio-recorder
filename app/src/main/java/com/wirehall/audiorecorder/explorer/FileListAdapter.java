@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.wirehall.audiorecorder.R;
@@ -34,13 +35,21 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.itemView.setSelected(selectedRowPosition == position);
+        // Note: Do not use the passed position parameter. Instead use viewHolder.getAdapterPosition()
+        // as the position sometimes has the wrong value
+        viewHolder.itemView.setSelected(this.selectedRowPosition == viewHolder.getAdapterPosition());
 
-        Recording recording = recordings.get(position);
+        Recording recording = recordings.get(viewHolder.getAdapterPosition());
         viewHolder.fileNameTextView.setText(recording.getName());
         viewHolder.fileSizeTextView.setText(recording.getSizeInString());
         viewHolder.fileDateModifiedTextView.setText(recording.getModifiedDateInString());
         viewHolder.fileDurationTextView.setText(recording.getDurationInString());
+
+        if (recording.isPlaying()) {
+            viewHolder.filePlayPauseButton.setImageResource(R.drawable.ic_pause_black_24dp);
+        } else {
+            viewHolder.filePlayPauseButton.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+        }
     }
 
     @Override
@@ -63,7 +72,8 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     private void refreshRowSelection(int selectedRowPosition) {
         int oldSelectedRowPosition = this.selectedRowPosition;
         this.selectedRowPosition = selectedRowPosition;
-        notifyItemChanged(oldSelectedRowPosition);
+        if (oldSelectedRowPosition > -1)
+            notifyItemChanged(oldSelectedRowPosition);
         notifyItemChanged(selectedRowPosition);
     }
 
@@ -84,6 +94,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         TextView fileSizeTextView;
         TextView fileDateModifiedTextView;
         TextView fileDurationTextView;
+        ImageButton filePlayPauseButton;
         private RecyclerViewClickListener recyclerViewClickListener;
 
         private ViewHolder(@NonNull View itemView, RecyclerViewClickListener recyclerViewClickListener) {
@@ -98,6 +109,9 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             fileSizeTextView = itemView.findViewById(R.id.tv_file_size);
             fileDateModifiedTextView = itemView.findViewById(R.id.tv_file_date_modified);
             fileDurationTextView = itemView.findViewById(R.id.tv_file_duration);
+
+            filePlayPauseButton = itemView.findViewById(R.id.ib_file_play_pause);
+            filePlayPauseButton.setOnClickListener(this);
         }
 
         @Override

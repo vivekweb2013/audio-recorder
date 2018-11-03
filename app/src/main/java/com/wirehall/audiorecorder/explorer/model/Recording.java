@@ -97,4 +97,12 @@ public class Recording {
                 ", isPlaying=" + isPlaying +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object otherRecordingObject) {
+        if (otherRecordingObject !=null && this.path.equals(((Recording) otherRecordingObject).getPath())) {
+            return true;
+        }
+        return false;
+    }
 }
