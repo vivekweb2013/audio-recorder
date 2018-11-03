@@ -93,6 +93,7 @@
     <FrameLayout
         android:id="@+id/list_fragment_container"
         android:layout_width="match_parent"
+        android:padding="@dimen/padding_list_fragment_container"
         android:layout_height="match_parent"
         android:background="@drawable/view_segment"
         android:orientation="vertical" />

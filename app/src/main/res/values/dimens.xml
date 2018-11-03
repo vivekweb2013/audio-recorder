@@ -10,4 +10,5 @@
     <dimen name="size_recorder_secondary_button">50dp</dimen>
     <dimen name="size_recorder_primary_button">60dp</dimen>
     <dimen name="margin_recorder_secondary_button">20dp</dimen>
+    <dimen name="padding_list_fragment_container">1dp</dimen>
 </resources>
