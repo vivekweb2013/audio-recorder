@@ -3,17 +3,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
     android:background="@drawable/file_list_row_background"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/ib_file_play_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/color_file_button_bg"
+        android:contentDescription="@string/button_rec_play_pause_description"
+        android:gravity="center"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:src="@drawable/ic_play_arrow_white_24dp"
+        android:tag="file_play_pause_button"
+        android:textColor="@color/color_text_filename" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="5dp"
+        android:tag="file_row">
 
         <TextView
             android:id="@+id/tv_filename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/tv_file_duration"
+            android:layout_toStartOf="@+id/tv_file_duration"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/color_text_filename"
             android:textSize="@dimen/size_text_file_row_header" />
 
@@ -24,14 +49,10 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/color_text_filename"
             android:textSize="@dimen/size_text_file_row_header" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_file_date_modified"
@@ -40,6 +61,11 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_filename"
+            android:layout_toLeftOf="@+id/tv_file_size"
+            android:layout_toStartOf="@+id/tv_file_size"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/color_text_filename"
             android:textSize="@dimen/size_text_file_row_footer" />
 
@@ -50,8 +76,26 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_file_duration"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/color_text_filename"
             android:textSize="@dimen/size_text_file_row_footer" />
+
     </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/ib_file_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/color_file_button_bg"
+        android:contentDescription="@string/button_rec_file_menu_description"
+        android:gravity="center"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:src="@drawable/ic_more_vert_white_24dp"
+        android:tag="file_menu_button"
+        android:textColor="@color/color_text_filename" />
 
 </LinearLayout>

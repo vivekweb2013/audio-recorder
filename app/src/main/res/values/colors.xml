@@ -11,4 +11,5 @@
     <color name="color_visualizer_bg">#444444</color>
     <color name="color_seek_bar_line_progress">@color/colorAccent</color>
     <color name="color_seek_bar_line">#FFFFFF</color>
+    <color name="color_file_button_bg">#f8303030</color>
 </resources>

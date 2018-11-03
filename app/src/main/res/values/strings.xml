@@ -3,4 +3,6 @@
     <string name="button_delete_description">Delete Recording</string>
     <string name="button_record_description">Start/Pause Recording</string>
     <string name="button_stop_description">Stop Recording</string>
+    <string name="button_rec_play_pause_description">Play/Pause Recording</string>
+    <string name="button_rec_file_menu_description">Recording File Menu</string>
 </resources>

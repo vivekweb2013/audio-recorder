@@ -17,10 +17,10 @@ import java.util.concurrent.TimeUnit;
 public class FileUtils {
 
     /**
-     * @return The current time string in "yyyy-MM-dd-hh-mm-ss a" format
+     * @return The current time string in "yyyy-MM-dd-HH-mm-ss" format
      */
     public static String generateFileName() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss a");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         String filename = df.format(Calendar.getInstance().getTime()).concat(".rec");
         return filename;
     }
