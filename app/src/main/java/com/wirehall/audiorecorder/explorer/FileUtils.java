@@ -1,8 +1,13 @@
 package com.wirehall.audiorecorder.explorer;
 
+import android.content.Context;
 import android.media.MediaMetadataRetriever;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.FrameLayout;
 
 import com.wirehall.audiorecorder.explorer.model.Recording;
 
@@ -155,4 +160,46 @@ public class FileUtils {
         );
     }
 
+    public static int measureContentWidth(Adapter listAdapter, Context context) {
+        ViewGroup mMeasureParent = null;
+        int maxWidth = 0;
+        View itemView = null;
+        int itemType = 0;
+
+        final Adapter adapter = listAdapter;
+        final int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        final int count = adapter.getCount();
+        for (int i = 0; i < count; i++) {
+            final int positionType = adapter.getItemViewType(i);
+            if (positionType != itemType) {
+                itemType = positionType;
+                itemView = null;
+            }
+
+            if (mMeasureParent == null) {
+                mMeasureParent = new FrameLayout(context);
+            }
+
+            itemView = adapter.getView(i, itemView, mMeasureParent);
+            itemView.measure(widthMeasureSpec, heightMeasureSpec);
+
+            final int itemWidth = itemView.getMeasuredWidth();
+
+            if (itemWidth > maxWidth) {
+                maxWidth = itemWidth;
+            }
+        }
+
+        return maxWidth;
+    }
+
+    public static void deleteFile(String filePath) {
+        try {
+            File file = new File(filePath);
+            file.delete();
+        } catch (Exception e) {
+            Log.e(TAG, "Error deleting file: " + e.getMessage());
+        }
+    }
 }

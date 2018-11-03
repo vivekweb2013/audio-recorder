@@ -60,7 +60,7 @@ public class FileListFragment extends Fragment {
                 activity.onFileItemClicked(recordings.get(position));
             }
         };
-        fileListAdapter = new FileListAdapter(recordings, recyclerViewClickListener);
+        fileListAdapter = new FileListAdapter(getContext(), recordings, recyclerViewClickListener);
         recyclerView.setAdapter(fileListAdapter);
     }
 

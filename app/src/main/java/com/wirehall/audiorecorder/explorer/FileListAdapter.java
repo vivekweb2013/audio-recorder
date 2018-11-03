@@ -1,26 +1,34 @@
 package com.wirehall.audiorecorder.explorer;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.model.Recording;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
     private static final String TAG = FileListAdapter.class.getName();
 
+    private Context context;
     private final List<Recording> recordings;
     private int selectedRowPosition = RecyclerView.NO_POSITION;
     private RecyclerViewClickListener recyclerViewClickListener;
 
-    FileListAdapter(List<Recording> recordings, RecyclerViewClickListener recyclerViewClickListener) {
+    FileListAdapter(Context context, List<Recording> recordings, RecyclerViewClickListener recyclerViewClickListener) {
+        this.context = context;
         this.recordings = recordings;
         this.recyclerViewClickListener = recyclerViewClickListener;
     }
@@ -95,6 +103,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         TextView fileDateModifiedTextView;
         TextView fileDurationTextView;
         ImageButton filePlayPauseButton;
+        ImageButton fileOptionsMenuButton;
         private RecyclerViewClickListener recyclerViewClickListener;
 
         private ViewHolder(@NonNull View itemView, RecyclerViewClickListener recyclerViewClickListener) {
@@ -112,6 +121,51 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
 
             filePlayPauseButton = itemView.findViewById(R.id.ib_file_play_pause);
             filePlayPauseButton.setOnClickListener(this);
+
+            fileOptionsMenuButton = itemView.findViewById(R.id.ib_file_menu);
+
+            fileOptionsMenuButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final ListPopupWindow window;
+                    window = new ListPopupWindow(context);
+                    final List<String> data = new ArrayList<>();
+                    data.add("✖ Delete");
+                    data.add("ⅲ Info");
+                    data.add("✈ Share");
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
+                            R.layout.file_menu_item_layout, data);
+                    /* use ur custom layout which has only TextView along with style required*/
+                    window.setAdapter(adapter);
+                    window.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+                    window.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+                    window.setModal(false);
+                    window.setAnchorView(fileOptionsMenuButton);/*it will be the overflow view of yours*/
+                    window.setContentWidth(FileUtils.measureContentWidth(adapter, context));/* set width based on ur requirement*/
+                    window.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            String option = data.get(position);
+                            switch (option) {
+                                case "✖ Delete":
+                                    int adapterPosition = getAdapterPosition();
+                                    FileUtils.deleteFile(recordings.get(adapterPosition).getPath());
+                                    recordings.remove(adapterPosition);
+                                    notifyItemRemoved(adapterPosition);
+                                    window.dismiss();
+                                    break;
+                                case "ⅲ Info":
+                                    break;
+                                case "✈ Share":
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    });
+                    window.show();
+                }
+            });
         }
 
         @Override
