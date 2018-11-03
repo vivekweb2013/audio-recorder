@@ -123,7 +123,6 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             filePlayPauseButton.setOnClickListener(this);
 
             fileOptionsMenuButton = itemView.findViewById(R.id.ib_file_menu);
-
             fileOptionsMenuButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -146,15 +145,19 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             String option = data.get(position);
+                            int adapterPosition = getAdapterPosition();
                             switch (option) {
                                 case "✖ Delete":
-                                    int adapterPosition = getAdapterPosition();
                                     FileUtils.deleteFile(recordings.get(adapterPosition).getPath());
                                     recordings.remove(adapterPosition);
                                     notifyItemRemoved(adapterPosition);
                                     window.dismiss();
                                     break;
                                 case "ⅲ Info":
+                                    FileInformationDialog fileInformationDialog = new FileInformationDialog(context, recordings.get(adapterPosition));
+                                    fileInformationDialog.setTitle("Media Information");
+                                    window.dismiss();
+                                    fileInformationDialog.show();
                                     break;
                                 case "✈ Share":
                                     break;

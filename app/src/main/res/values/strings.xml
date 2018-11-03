@@ -5,4 +5,6 @@
     <string name="button_stop_description">Stop Recording</string>
     <string name="button_rec_play_pause_description">Play/Pause Recording</string>
     <string name="button_rec_file_menu_description">Recording File Menu</string>
+    <string name="tv_file_info">Name: <b>%1$s</b>\nSize: <b>%2$s</b>\nDuration: <b>%3$s</b>\nPath: <b>%4$s</b></string>
+    <string name="close">CLOSE</string>
 </resources>

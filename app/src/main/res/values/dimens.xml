@@ -11,4 +11,8 @@
     <dimen name="size_recorder_primary_button">60dp</dimen>
     <dimen name="margin_recorder_secondary_button">20dp</dimen>
     <dimen name="padding_list_fragment_container">1dp</dimen>
+    <dimen name="padding_file_info_dialog">8dp</dimen>
+    <dimen name="size_file_info_text_view">12sp</dimen>
+    <dimen name="size_file_menu">20sp</dimen>
+    <dimen name="padding_file_menu">5dp</dimen>
 </resources>
