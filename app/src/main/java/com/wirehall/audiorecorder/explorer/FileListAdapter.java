@@ -99,7 +99,8 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     public void resetRowSelection() {
         int oldSelectedRowPosition = this.selectedRowPosition;
         this.selectedRowPosition = RecyclerView.NO_POSITION;
-        notifyItemChanged(oldSelectedRowPosition);
+        if (oldSelectedRowPosition > -1)
+            notifyItemChanged(oldSelectedRowPosition);
     }
 
     /**
@@ -211,6 +212,11 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     private void deleteFile(int adapterPosition) {
         FileUtils.deleteFile(recordings.get(adapterPosition).getPath());
         recordings.remove(adapterPosition);
+        if (adapterPosition < selectedRowPosition) {
+            selectedRowPosition--;
+        } else if (adapterPosition == selectedRowPosition) {
+            selectedRowPosition = RecyclerView.NO_POSITION;
+        }
         notifyItemRemoved(adapterPosition);
     }
 
