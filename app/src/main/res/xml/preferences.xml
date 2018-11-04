@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:icon="@null">
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="confirm_delete"
+        android:summary="Show confirmation dialog when deleting file"
+        android:title="Confirmation for Delete" />
+
+    <android.support.v7.preference.ListPreference
+        android:defaultValue="2"
+        android:dialogTitle="Select Audio Quality"
+        android:entries="@array/entries_list_preference"
+        android:entryValues="@array/entry_values_list_preference"
+        android:key="list_audio_sampling_rate"
+        android:summary="Audio quality for recording"
+        android:title="Recording Audio Quality" />
+</android.support.v7.preference.PreferenceScreen>

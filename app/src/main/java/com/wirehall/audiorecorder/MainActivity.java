@@ -2,6 +2,8 @@ package com.wirehall.audiorecorder;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +13,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -20,6 +25,7 @@ import com.wirehall.audiorecorder.explorer.model.Recording;
 import com.wirehall.audiorecorder.mp.MediaPlayerController;
 import com.wirehall.audiorecorder.mr.MediaRecorderState;
 import com.wirehall.audiorecorder.mr.RecordingController;
+import com.wirehall.audiorecorder.setting.SettingActivity;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 public class MainActivity extends AppCompatActivity implements VisualizerFragment.VisualizerMPSession, FileListFragment.FileListFragmentListener {
@@ -40,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
         ActivityCompat.requestPermissions(this, APP_PERMS, PERMISSION_REQUEST_CODE);
         mediaPlayerController.init(this);
         recordingController.init(this);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        // Read settings
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean switchPref = sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
+        Toast.makeText(this, switchPref.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @TargetApi(Build.VERSION_CODES.N)
@@ -86,6 +98,25 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
             ft.commit();
         } else {
             finish();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.menu_item_settings:
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
