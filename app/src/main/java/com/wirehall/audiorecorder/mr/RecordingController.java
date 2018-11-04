@@ -43,6 +43,8 @@ public class RecordingController {
     private long recStartTime = 0L;
     private long recPauseTime = 0L;
 
+    private String recordingFilePath;
+
     private RecordingController() {
         // Private Constructor
     }
@@ -101,25 +103,25 @@ public class RecordingController {
                 break;
 
             case STOPPED:
-                startRecording(activity, btnRecordPause, btnStop);
+                startRecording(activity, btnRecordPause, btnStop, btnDelete);
 
             default:
                 break;
         }
     }
 
-    private void startRecording(AppCompatActivity activity, ImageButton btnRecordPause, ImageButton btnStop) {
-        String fullFilePath = FileListFragment.STORAGE_PATH + '/' + FileUtils.generateFileName();
-        Log.d("filename", fullFilePath);
+    private void startRecording(AppCompatActivity activity, ImageButton btnRecordPause, ImageButton btnStop, ImageButton btnDelete) {
+        recordingFilePath = FileListFragment.STORAGE_PATH + '/' + FileUtils.generateFileName();
+        Log.d("filename", recordingFilePath);
 
         initRecorder(activity);
         try {
-            mediaRecorder.setOutputFile(fullFilePath);
+            mediaRecorder.setOutputFile(recordingFilePath);
             mediaRecorder.prepare();
             mediaRecorder.start();
             recStartTime = SystemClock.uptimeMillis();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "ERROR: " + e.getMessage());
         }
 
         MEDIA_REC_STATE = MediaRecorderState.RECORDING;
@@ -130,6 +132,7 @@ public class RecordingController {
             btnRecordPause.setEnabled(false);
         }
         btnStop.setEnabled(true);
+        btnDelete.setEnabled(true);
 
         addRecorderVisualizerView(activity);
 
@@ -145,7 +148,6 @@ public class RecordingController {
         btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_black_24dp));
         btnRecordPause.setEnabled(true);
         btnStop.setEnabled(true);
-        Toast.makeText(activity, "Recording Resumed", Toast.LENGTH_SHORT).show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -155,7 +157,6 @@ public class RecordingController {
         btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic_black_24dp));
         btnRecordPause.setEnabled(true);
         btnStop.setEnabled(true);
-        Toast.makeText(activity, "Recording Paused", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -163,32 +164,36 @@ public class RecordingController {
      * Stop the audio recording
      *
      * @param activity Activity required for internal operations
+     * @param isDelete Indicates if the current active recording is to be deleted
      */
-    public void stopRecording(AppCompatActivity activity) {
+    public void stopRecording(AppCompatActivity activity, boolean isDelete) {
         ImageButton btnRecordPause, btnDelete, btnStop;
         btnRecordPause = activity.findViewById(R.id.ib_record);
         btnDelete = activity.findViewById(R.id.ib_delete);
         btnStop = activity.findViewById(R.id.ib_stop);
 
         try {
+            if (isDelete) {
+                FileUtils.deleteFile(recordingFilePath);
+            }
             removeRecorderVisualizerView(activity);
             releaseRecorder();
-
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "ERROR: " + e.getMessage());
         }
         mediaRecorder = null;
 
         btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic_black_24dp));
         btnRecordPause.setEnabled(true);
         btnStop.setEnabled(false);
+        btnDelete.setEnabled(false);
         MEDIA_REC_STATE = MediaRecorderState.STOPPED;
 
-        refreshFileListView(activity);
-
-        Toast.makeText(activity, "Recording Saved Successfully", Toast.LENGTH_SHORT).show();
+        if (!isDelete) {
+            refreshFileListView(activity);
+            Toast.makeText(activity, "Recording Saved Successfully", Toast.LENGTH_SHORT).show();
+        }
     }
-
 
     private void initRecorder(Context context) {
         if (mediaRecorder == null) {
@@ -282,4 +287,5 @@ public class RecordingController {
             }
         };
     }
+
 }

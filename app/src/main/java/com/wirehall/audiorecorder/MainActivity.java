@@ -59,15 +59,14 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
      * @param view The method is the click handler for recorder delete button
      */
     public void deleteBtnClicked(View view) {
-        ImageButton btnDelete = (ImageButton) view;
+        recordingController.stopRecording(this, true);
     }
-
 
     /**
      * @param view The method is the click handler for recorder stop button
      */
     public void stopBtnClicked(View view) {
-        recordingController.stopRecording(this);
+        recordingController.stopRecording(this, false);
     }
 
     @Override
