@@ -1,10 +1,14 @@
 package com.wirehall.audiorecorder.explorer;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +22,7 @@ import android.widget.TextView;
 
 import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.model.Recording;
+import com.wirehall.audiorecorder.setting.SettingActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -148,12 +153,26 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             String option = data.get(position);
-                            int adapterPosition = getAdapterPosition();
+                            final int adapterPosition = getAdapterPosition();
                             switch (option) {
                                 case "✖ Delete":
-                                    FileUtils.deleteFile(recordings.get(adapterPosition).getPath());
-                                    recordings.remove(adapterPosition);
-                                    notifyItemRemoved(adapterPosition);
+                                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+                                    Boolean confirmDelete = sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
+                                    if (confirmDelete) {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                        builder.setTitle("Are you sure?")
+                                                .setMessage("Do you want to delete this recording: " + recordings.get(adapterPosition).getPath())
+                                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        deleteFile(adapterPosition);
+                                                    }
+                                                })
+                                                .setNegativeButton("No", null)
+                                                .show();
+                                    } else {
+                                        deleteFile(adapterPosition);
+                                    }
                                     window.dismiss();
                                     break;
                                 case "ⅲ Info":
@@ -187,6 +206,12 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             refreshRowSelection(position);
             recyclerViewClickListener.onClick(view, position);
         }
+    }
+
+    private void deleteFile(int adapterPosition) {
+        FileUtils.deleteFile(recordings.get(adapterPosition).getPath());
+        recordings.remove(adapterPosition);
+        notifyItemRemoved(adapterPosition);
     }
 
 }

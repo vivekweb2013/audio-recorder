@@ -47,11 +47,6 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
         mediaPlayerController.init(this);
         recordingController.init(this);
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
-        // Read settings
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean switchPref = sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
-        Toast.makeText(this, switchPref.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @TargetApi(Build.VERSION_CODES.N)

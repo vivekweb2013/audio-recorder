@@ -23,6 +23,7 @@ public class FileInformationDialog extends Dialog implements android.view.View.O
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.file_info_dialog);
         Button closeButton = findViewById(R.id.btn_file_dialog_close);
         String fileInfoString = context.getResources().getString(R.string.tv_file_info, recording.getName(), recording.getSizeInString(), recording.getDurationInString(), recording.getPath());
