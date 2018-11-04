@@ -90,23 +90,26 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
 
     private void setBaseVisualizerViewUpdater(final BaseVisualizerView baseVisualizerView, int audioSessionId) {
         releaseVisualizer();
-        visualizer = new Visualizer(audioSessionId);
-        visualizer.setEnabled(false);
-        visualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
 
-        visualizer.setDataCaptureListener(new Visualizer.OnDataCaptureListener() {
-            @Override
-            public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
-                baseVisualizerView.setBytes(bytes);
-                baseVisualizerView.invalidate();
-            }
+        if (audioSessionId > 0) {
+            visualizer = new Visualizer(audioSessionId);
+            visualizer.setEnabled(false);
+            visualizer.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
 
-            @Override
-            public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
-            }
-        }, Visualizer.getMaxCaptureRate() / 2, true, false);
+            visualizer.setDataCaptureListener(new Visualizer.OnDataCaptureListener() {
+                @Override
+                public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
+                    baseVisualizerView.setBytes(bytes);
+                    baseVisualizerView.invalidate();
+                }
 
-        visualizer.setEnabled(true);
+                @Override
+                public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
+                }
+            }, Visualizer.getMaxCaptureRate() / 2, true, false);
+
+            visualizer.setEnabled(true);
+        }
     }
 
     /**

@@ -6,6 +6,7 @@
 
     <color name="colorSecondary">#A3A3A3</color>
     <color name="colorTextPrimary">#FFFFFF</color>
+    <color name="color_file_row_selection">@color/colorSecondary</color>
     <color name="color_app_bg">@color/colorPrimaryDark</color>
     <color name="color_text_filename">@color/colorTextPrimary</color>
     <color name="color_text_timer">@color/colorTextPrimary</color>

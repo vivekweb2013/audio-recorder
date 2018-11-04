@@ -58,6 +58,9 @@ public class MediaPlayerController {
             @Override
             public void run() {
                 if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                    if (!seekBar.isEnabled()) {
+                        seekBar.setEnabled(true);
+                    }
                     seekBar.setMax(0);
                     final int totalMediaDuration = mediaPlayer.getDuration();
                     seekBar.setMax(totalMediaDuration);
@@ -192,7 +195,7 @@ public class MediaPlayerController {
      * @return The audio session id of the media player instance
      */
     public int getAudioSessionId() {
-        return mediaPlayer.getAudioSessionId();
+        return mediaPlayer != null ? mediaPlayer.getAudioSessionId() : 0;
     }
 
     private void setMPVisualizerView(AppCompatActivity activity) {
