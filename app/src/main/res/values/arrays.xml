@@ -5,7 +5,7 @@
         <item>High</item>
     </string-array>
     <string-array name="entry_values_list_preference">
-        <item>8000</item>
-        <item>16000</item>
+        <item>NORMAL</item>
+        <item>HIGH</item>
     </string-array>
 </resources>

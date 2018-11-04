@@ -1,6 +1,8 @@
 package com.wirehall.audiorecorder.mr;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Handler;
@@ -8,6 +10,7 @@ import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.FileListFragment;
 import com.wirehall.audiorecorder.explorer.FileUtils;
+import com.wirehall.audiorecorder.setting.SettingActivity;
 import com.wirehall.audiorecorder.visualizer.Utils;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 import com.wirehall.audiorecorder.visualizer.view.RecorderVisualizerView;
@@ -108,7 +112,7 @@ public class RecordingController {
         String fullFilePath = FileListFragment.STORAGE_PATH + '/' + FileUtils.generateFileName();
         Log.d("filename", fullFilePath);
 
-        initRecorder();
+        initRecorder(activity);
         try {
             mediaRecorder.setOutputFile(fullFilePath);
             mediaRecorder.prepare();
@@ -186,13 +190,20 @@ public class RecordingController {
     }
 
 
-    private void initRecorder() {
+    private void initRecorder(Context context) {
         if (mediaRecorder == null) {
             mediaRecorder = new MediaRecorder();
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-            mediaRecorder.setAudioSamplingRate(16000);
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+            String audioQualityPref = sharedPref.getString(SettingActivity.KEY_PREF_LIST_AUDIO_QUALITY, "NORMAL");
+            if (audioQualityPref.equals("NORMAL")) {
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+                mediaRecorder.setAudioSamplingRate(8000);
+            } else {
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
+                mediaRecorder.setAudioSamplingRate(16000);
+            }
         }
     }
 

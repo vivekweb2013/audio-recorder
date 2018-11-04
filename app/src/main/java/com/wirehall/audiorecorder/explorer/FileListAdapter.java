@@ -103,6 +103,17 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             notifyItemChanged(oldSelectedRowPosition);
     }
 
+    private void deleteFile(int adapterPosition) {
+        FileUtils.deleteFile(recordings.get(adapterPosition).getPath());
+        recordings.remove(adapterPosition);
+        if (adapterPosition < selectedRowPosition) {
+            selectedRowPosition--;
+        } else if (adapterPosition == selectedRowPosition) {
+            selectedRowPosition = RecyclerView.NO_POSITION;
+        }
+        notifyItemRemoved(adapterPosition);
+    }
+
     /**
      * Used to keep the reference to list row elements to fetch faster. i.e. to avoid time consuming findViewById
      */
@@ -207,17 +218,6 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             refreshRowSelection(position);
             recyclerViewClickListener.onClick(view, position);
         }
-    }
-
-    private void deleteFile(int adapterPosition) {
-        FileUtils.deleteFile(recordings.get(adapterPosition).getPath());
-        recordings.remove(adapterPosition);
-        if (adapterPosition < selectedRowPosition) {
-            selectedRowPosition--;
-        } else if (adapterPosition == selectedRowPosition) {
-            selectedRowPosition = RecyclerView.NO_POSITION;
-        }
-        notifyItemRemoved(adapterPosition);
     }
 
 }

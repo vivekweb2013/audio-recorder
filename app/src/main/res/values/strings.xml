@@ -8,4 +8,5 @@
     <string name="tv_file_info">Name: <b>%1$s</b>\nSize: <b>%2$s</b>\nDuration: <b>%3$s</b>\nPath: <b>%4$s</b></string>
     <string name="close">CLOSE</string>
     <string name="tv_list_empty">No Recordings Found\nClick Record Button to Start Recording</string>
+    <string name="default_audio_quality">NORMAL</string>
 </resources>
