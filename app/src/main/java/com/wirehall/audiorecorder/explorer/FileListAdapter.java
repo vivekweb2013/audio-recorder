@@ -1,7 +1,10 @@
 package com.wirehall.audiorecorder.explorer;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,14 +19,14 @@ import android.widget.TextView;
 import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.model.Recording;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
     private static final String TAG = FileListAdapter.class.getName();
-
-    private Context context;
     private final List<Recording> recordings;
+    private Context context;
     private int selectedRowPosition = RecyclerView.NO_POSITION;
     private RecyclerViewClickListener recyclerViewClickListener;
 
@@ -160,6 +163,13 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                                     fileInformationDialog.show();
                                     break;
                                 case "✈ Share":
+                                    Uri uri = FileProvider.getUriForFile(context, "com.wirehall.fileprovider", new File(recordings.get(adapterPosition).getPath()));
+                                    Intent share = new Intent(Intent.ACTION_SEND);
+                                    share.setType("audio/*");
+                                    share.putExtra(Intent.EXTRA_STREAM, uri);
+                                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                    window.dismiss();
+                                    context.startActivity(Intent.createChooser(share, "Share Recording"));
                                     break;
                                 default:
                                     break;
