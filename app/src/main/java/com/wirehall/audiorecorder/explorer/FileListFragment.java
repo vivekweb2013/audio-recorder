@@ -19,7 +19,7 @@ import java.io.FilenameFilter;
 import java.util.List;
 
 public class FileListFragment extends Fragment {
-    public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Recording/Collection";
+    public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Audio/Recordings";
     private static final String TAG = FileListFragment.class.getName();
     private FileListFragmentListener activity;
     private FileListAdapter fileListAdapter;

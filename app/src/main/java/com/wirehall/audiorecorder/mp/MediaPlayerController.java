@@ -1,5 +1,6 @@
 package com.wirehall.audiorecorder.mp;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -65,9 +66,7 @@ public class MediaPlayerController {
                     final int totalMediaDuration = mediaPlayer.getDuration();
                     seekBar.setMax(totalMediaDuration);
                     int currentPosition = mediaPlayer.getCurrentPosition();
-                    String currentPositionString = getFormattedTimeString(currentPosition);
-                    final String totalMediaDurationString = getFormattedTimeString(totalMediaDuration);
-                    String playbackTimerString = currentPositionString + "/" + totalMediaDurationString;
+                    String playbackTimerString = getFormattedTimeString(activity, currentPosition, totalMediaDuration);
                     timerTextView.setText(playbackTimerString);
                     seekBar.setProgress(currentPosition);
                 }
@@ -207,8 +206,12 @@ public class MediaPlayerController {
         }
     }
 
-    private String getFormattedTimeString(int duration) {
-        String durationStr = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(duration), TimeUnit.MILLISECONDS.toSeconds(duration) % TimeUnit.MINUTES.toSeconds(1));
+    private String getFormattedTimeString(Context context, int currentPosition, int totalMediaDuration) {
+        long currentPositionMinutes = TimeUnit.MILLISECONDS.toMinutes(currentPosition);
+        long currentPositionSeconds = TimeUnit.MILLISECONDS.toSeconds(currentPosition) % 60;
+        long totalMediaDurationMinutes = TimeUnit.MILLISECONDS.toMinutes(totalMediaDuration);
+        long totalMediaDurationSeconds = TimeUnit.MILLISECONDS.toSeconds(totalMediaDuration) % 60;
+        String durationStr = context.getResources().getString(R.string.timer_duration_progress_in_minutes_seconds, currentPositionMinutes, currentPositionSeconds, totalMediaDurationMinutes, totalMediaDurationSeconds);
         return durationStr;
     }
 }

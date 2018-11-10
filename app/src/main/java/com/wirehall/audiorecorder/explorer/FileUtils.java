@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class FileUtils {
+    public static final String DEFAULT_FILENAME_EXTENSION = ".3gp";
     private static final String TAG = FileUtils.class.getName();
     private static final String DEFAULT_FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss";
-    public static final String DEFAULT_FILENAME_EXTENSION = ".3gp";
 
     /**
      * @return The current time string in "yyyy-MM-dd-HH-mm-ss" format

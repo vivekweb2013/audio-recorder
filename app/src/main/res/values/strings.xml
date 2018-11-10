@@ -27,7 +27,8 @@
     <string name="warn_stop_rec_to_play_audio">Audio can not be played while recording. Stop the recording first!</string>
     <string name="duration_in_seconds_only">%d sec</string>
     <string name="duration_in_minutes_seconds">%d min, %d sec</string>
+    <string name="timer_duration_in_minutes_seconds">%1$02d:%2$02d</string>
+    <string name="timer_duration_progress_in_minutes_seconds">%1$d:%2$02d/%3$d:%4$02d</string>
     <string name="message_recording_started">Recording Started</string>
     <string name="message_recording_saved">Recording Saved Successfully</string>
-
 </resources>

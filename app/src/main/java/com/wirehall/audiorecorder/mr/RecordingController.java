@@ -76,7 +76,7 @@ public class RecordingController {
             Log.e(TAG, "some of the resources are not found! btnRecordPause:" + btnRecordPause + " btnDelete:" + btnDelete + " btnStop:" + btnStop);
         }
 
-        setVisualizerRunnable(timerTextView);
+        setVisualizerRunnable(activity, timerTextView);
     }
 
     /**
@@ -270,7 +270,7 @@ public class RecordingController {
     }
 
     // updates the visualizer every few milliseconds
-    private void setVisualizerRunnable(final TextView timerTextView) {
+    private void setVisualizerRunnable(final Context context, final TextView timerTextView) {
         visualizerRunnable = new Runnable() {
             @Override
             public void run() {
@@ -283,7 +283,7 @@ public class RecordingController {
                     int secs = (int) (totalRecTime / 1000);
                     int minutes = secs / 60;
                     secs = secs % 60;
-                    timerTextView.setText("" + String.format("%02d", minutes) + ":" + String.format("%02d", secs));
+                    timerTextView.setText(context.getResources().getString(R.string.timer_duration_in_minutes_seconds, minutes, secs));
                 }
                 // update in few milliseconds
                 handler.postDelayed(this, 40);
