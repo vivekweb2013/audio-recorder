@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     @Override
     public void onFileItemClicked(Recording recording) {
         if (recordingController.getMediaRecorderState() != MediaRecorderState.STOPPED) {
-            Toast.makeText(getApplicationContext(), "Can't play while recording. Stop the recording first!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.warn_stop_rec_to_play_audio), Toast.LENGTH_SHORT).show();
             return;
         }
         mediaPlayerController.playPauseAudio(this, recording);

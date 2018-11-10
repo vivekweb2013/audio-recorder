@@ -138,7 +138,7 @@ public class RecordingController {
 
         addRecorderVisualizerView(activity);
 
-        Toast.makeText(activity, "Recording Started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, activity.getString(R.string.message_recording_started), Toast.LENGTH_SHORT).show();
     }
 
     @TargetApi(Build.VERSION_CODES.N)
@@ -193,7 +193,7 @@ public class RecordingController {
 
         if (!isDelete) {
             refreshFileListView(activity);
-            Toast.makeText(activity, "Recording Saved Successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, activity.getString(R.string.message_recording_saved), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -203,8 +203,9 @@ public class RecordingController {
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-            String audioQualityPref = sharedPref.getString(SettingActivity.KEY_PREF_LIST_AUDIO_QUALITY, "NORMAL");
-            if (audioQualityPref.equals("NORMAL")) {
+            String audioQualityNormal = context.getResources().getString(R.string.audio_quality_normal);
+            String audioQualityPref = sharedPref.getString(SettingActivity.KEY_PREF_LIST_AUDIO_QUALITY, audioQualityNormal);
+            if (audioQualityPref.equals(audioQualityNormal)) {
                 mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
                 mediaRecorder.setAudioSamplingRate(8000);
             } else {

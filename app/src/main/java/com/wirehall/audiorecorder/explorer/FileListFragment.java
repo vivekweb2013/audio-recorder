@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.model.Recording;
@@ -48,7 +47,7 @@ public class FileListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        recordings = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
+        recordings = FileUtils.getAllFilesFromDirectory(getContext(), STORAGE_PATH, new FileExtensionFilter());
 
         RecyclerView recyclerView = getActivity().findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -56,7 +55,6 @@ public class FileListFragment extends Fragment {
         RecyclerViewClickListener recyclerViewClickListener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
                 activity.onFileItemClicked(recordings.get(position));
             }
         };
@@ -68,7 +66,7 @@ public class FileListFragment extends Fragment {
      * Refresh the file list view by updating the adapter associated with it
      */
     public void refreshAdapter() {
-        List<Recording> recordings = FileUtils.getAllFilesFromDirectory(STORAGE_PATH, new FileExtensionFilter());
+        List<Recording> recordings = FileUtils.getAllFilesFromDirectory(getContext(), STORAGE_PATH, new FileExtensionFilter());
         fileListAdapter.updateData(recordings);
     }
 

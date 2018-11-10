@@ -26,7 +26,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_file_info_dialog"
-            android:background="@color/colorSecondary"
+            android:background="@color/colorPrimaryLight"
             android:text="@string/close"
             android:textColor="@color/colorTextPrimary" />
     </LinearLayout>

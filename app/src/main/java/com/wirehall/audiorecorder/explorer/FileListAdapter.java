@@ -142,6 +142,12 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             filePlayPauseButton = itemView.findViewById(R.id.ib_file_play_pause);
             filePlayPauseButton.setOnClickListener(this);
 
+            final String fileMenuOptionDelete = context.getResources().getString(R.string.file_menu_option_delete);
+            final String fileMenuOptionInfo = context.getResources().getString(R.string.file_menu_option_info);
+            final String fileMenuOptionShare = context.getResources().getString(R.string.file_menu_option_share);
+            final String deleteDialogTitle = context.getResources().getString(R.string.delete_dialog_title);
+            final String yes = context.getResources().getString(R.string.yes);
+            final String no = context.getResources().getString(R.string.no);
             fileOptionsMenuButton = itemView.findViewById(R.id.ib_file_menu);
             fileOptionsMenuButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,11 +155,10 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                     final ListPopupWindow window;
                     window = new ListPopupWindow(context);
                     final List<String> data = new ArrayList<>();
-                    data.add("✖ Delete");
-                    data.add("ⅲ Info");
-                    data.add("✈ Share");
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-                            R.layout.file_menu_item_layout, data);
+                    data.add(fileMenuOptionDelete);
+                    data.add(fileMenuOptionInfo);
+                    data.add(fileMenuOptionShare);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.file_menu_item_layout, data);
                     /* use ur custom layout which has only TextView along with style required*/
                     window.setAdapter(adapter);
                     window.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
@@ -166,44 +171,40 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             String option = data.get(position);
                             final int adapterPosition = getAdapterPosition();
-                            switch (option) {
-                                case "✖ Delete":
-                                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-                                    Boolean confirmDelete = sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
-                                    if (confirmDelete) {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                        builder.setTitle("Are you sure?")
-                                                .setMessage("Do you want to delete this recording: " + recordings.get(adapterPosition).getPath())
-                                                .setIcon(R.drawable.ic_warning_black_24dp)
-                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        deleteFile(adapterPosition);
-                                                    }
-                                                })
-                                                .setNegativeButton("No", null)
-                                                .show();
-                                    } else {
-                                        deleteFile(adapterPosition);
-                                    }
-                                    window.dismiss();
-                                    break;
-                                case "ⅲ Info":
-                                    FileInformationDialog fileInformationDialog = new FileInformationDialog(context, recordings.get(adapterPosition));
-                                    fileInformationDialog.setTitle("Media Information");
-                                    window.dismiss();
-                                    fileInformationDialog.show();
-                                    break;
-                                case "✈ Share":
-                                    Uri uri = FileProvider.getUriForFile(context, "com.wirehall.fileprovider", new File(recordings.get(adapterPosition).getPath()));
-                                    Intent share = new Intent(Intent.ACTION_SEND);
-                                    share.setType("audio/*");
-                                    share.putExtra(Intent.EXTRA_STREAM, uri);
-                                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    window.dismiss();
-                                    context.startActivity(Intent.createChooser(share, "Share Recording"));
-                                    break;
-                                default:
-                                    break;
+
+                            if (option.equals(fileMenuOptionDelete)) {
+                                final String deleteDialogMessage = context.getResources().getString(R.string.delete_dialog_message, recordings.get(adapterPosition).getPath());
+                                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+                                Boolean confirmDelete = sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
+                                if (confirmDelete) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                    builder.setTitle(deleteDialogTitle)
+                                            .setMessage(deleteDialogMessage)
+                                            .setIcon(R.drawable.ic_warning_black_24dp)
+                                            .setPositiveButton(yes, new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    deleteFile(adapterPosition);
+                                                }
+                                            })
+                                            .setNegativeButton(no, null)
+                                            .show();
+                                } else {
+                                    deleteFile(adapterPosition);
+                                }
+                                window.dismiss();
+                            } else if (option.equals(fileMenuOptionInfo)) {
+                                FileInformationDialog fileInformationDialog = new FileInformationDialog(context, recordings.get(adapterPosition));
+                                window.dismiss();
+                                fileInformationDialog.show();
+                            } else if (option.equals(fileMenuOptionShare)) {
+                                Uri uri = FileProvider.getUriForFile(context, "com.wirehall.fileprovider", new File(recordings.get(adapterPosition).getPath()));
+                                Intent share = new Intent(Intent.ACTION_SEND);
+                                share.setType("audio/*");
+                                share.putExtra(Intent.EXTRA_STREAM, uri);
+                                share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                window.dismiss();
+                                String shareRec = context.getResources().getString(R.string.share_recording);
+                                context.startActivity(Intent.createChooser(share, shareRec));
                             }
                         }
                     });

@@ -4,15 +4,15 @@
     <android.support.v7.preference.SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="confirm_delete"
-        android:summary="Show confirmation dialog when deleting file"
-        android:title="Confirmation for Delete" />
+        android:summary="@string/pref_confirm_delete_summary"
+        android:title="@string/pref_confirm_delete_title" />
 
     <android.support.v7.preference.ListPreference
-        android:defaultValue="@string/default_audio_quality"
-        android:dialogTitle="Select Audio Quality"
+        android:defaultValue="@string/audio_quality_normal"
+        android:dialogTitle="@string/pref_list_audio_quality_dialog_title"
         android:entries="@array/entries_list_preference"
-        android:entryValues="@array/entry_values_list_preference"
+        android:entryValues="@array/entries_list_preference"
         android:key="list_audio_quality"
-        android:summary="Audio quality for recording"
-        android:title="Recording Audio Quality" />
+        android:summary="@string/pref_list_audio_quality_summary"
+        android:title="@string/pref_list_audio_quality_title" />
 </android.support.v7.preference.PreferenceScreen>

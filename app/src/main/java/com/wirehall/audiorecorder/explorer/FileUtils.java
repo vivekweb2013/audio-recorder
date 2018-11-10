@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.FrameLayout;
 
+import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.model.Recording;
 
 import java.io.File;
@@ -35,12 +36,13 @@ public class FileUtils {
     }
 
     /**
+     * @param context
      * @param path           Files are scanned from this specified path. Note: It is not a recursive
      * @param filenameFilter Used to filter the file matching the filter criteria
      * @return List of files from specified path which are matching the filter passed
      */
     @NonNull
-    public static List<Recording> getAllFilesFromDirectory(String path, FilenameFilter filenameFilter) {
+    public static List<Recording> getAllFilesFromDirectory(Context context, String path, FilenameFilter filenameFilter) {
         List<Recording> recordings = new ArrayList<>();
         try {
             File directory = new File(path);
@@ -77,7 +79,7 @@ public class FileUtils {
                 mmr.release();
                 rec.setDuration(duration);
 
-                rec.setDurationInString(humanReadableDuration(duration));
+                rec.setDurationInString(humanReadableDuration(context, duration));
 
                 recordings.add(rec);
             }
@@ -143,30 +145,26 @@ public class FileUtils {
      * @param duration The total duration in long value
      * @return The duration of media file. The format is "%d min, %d sec" if minutes are available, if not then "%d sec" is the format
      */
-    public static String humanReadableDuration(long duration) {
+    public static String humanReadableDuration(Context context, long duration) {
 
 
         if (TimeUnit.MILLISECONDS.toMinutes(duration) < 1) {
-            return String.format("%d sec",
-                    TimeUnit.MILLISECONDS.toSeconds(duration) -
-                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))
-            );
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration));
+            return context.getResources().getString(R.string.duration_in_seconds_only, seconds);
+
         }
 
-        return String.format("%d min, %d sec",
-                TimeUnit.MILLISECONDS.toMinutes(duration),
-                TimeUnit.MILLISECONDS.toSeconds(duration) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))
-        );
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration));
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+        return context.getResources().getString(R.string.duration_in_minutes_seconds, minutes, seconds);
     }
 
-    public static int measureContentWidth(Adapter listAdapter, Context context) {
+    public static int measureContentWidth(final Adapter adapter, Context context) {
         ViewGroup mMeasureParent = null;
         int maxWidth = 0;
         View itemView = null;
         int itemType = 0;
 
-        final Adapter adapter = listAdapter;
         final int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         final int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         final int count = adapter.getCount();
