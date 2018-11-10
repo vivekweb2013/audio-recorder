@@ -31,4 +31,8 @@
     <string name="timer_duration_progress_in_minutes_seconds">%1$d:%2$02d/%3$d:%4$02d</string>
     <string name="message_recording_started">Recording Started</string>
     <string name="message_recording_saved">Recording Saved Successfully</string>
+    <string name="version_text">version: %1$s</string>
+    <string name="usage_notice">This software is provided \"As Is\" and without any express or implied warranties. The risk of any loss, damage, or unsatisfactory performance of this software rests with you as the user</string>
+    <string name="label_dev_name">Developer: Vivek L</string>
+    <string name="about">About</string>
 </resources>

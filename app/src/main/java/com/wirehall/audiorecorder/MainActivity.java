@@ -111,6 +111,10 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
                 Intent intent = new Intent(this, SettingActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.menu_item_about:
+                AboutDialog aboutDialog = new AboutDialog(this);
+                aboutDialog.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

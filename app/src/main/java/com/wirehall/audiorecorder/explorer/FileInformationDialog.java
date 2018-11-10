@@ -13,12 +13,10 @@ import com.wirehall.audiorecorder.explorer.model.Recording;
 
 
 public class FileInformationDialog extends Dialog implements android.view.View.OnClickListener {
-    private Context context;
     private Recording recording;
 
     public FileInformationDialog(Context context, Recording recording) {
         super(context);
-        this.context = context;
         this.recording = recording;
     }
 
@@ -28,7 +26,7 @@ public class FileInformationDialog extends Dialog implements android.view.View.O
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.file_info_dialog);
         Button closeButton = findViewById(R.id.btn_file_dialog_close);
-        String fileInfoString = context.getResources().getString(R.string.tv_file_info, recording.getName(), recording.getSizeInString(), recording.getDurationInString(), recording.getPath());
+        String fileInfoString = getContext().getResources().getString(R.string.tv_file_info, recording.getName(), recording.getSizeInString(), recording.getDurationInString(), recording.getPath());
         TextView fileInfoTextView = findViewById(R.id.tv_file_info);
         fileInfoTextView.setText(fileInfoString);
         closeButton.setOnClickListener(this);

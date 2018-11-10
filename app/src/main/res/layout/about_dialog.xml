@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="@dimen/standard_dialog_padding">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/about_app_icon_image_bg"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/size_about_dialog_app_name_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_about_dialog_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/size_version_label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/label_dev_name"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/size_label_dev_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/usage_notice"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/size_usage_notice_text" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_about_dialog_close"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_dialog_padding"
+            android:background="@color/colorPrimaryLight"
+            android:text="@string/close"
+            android:textColor="@color/colorTextPrimary" />
+    </LinearLayout>
+
+</LinearLayout>
