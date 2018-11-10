@@ -143,11 +143,13 @@ public class MediaPlayerController {
             setMPVisualizerView(activity);
 
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            Log.e(TAG, "ERROR: IllegalArgumentException: " + e.getMessage());
         } catch (IllegalStateException e) {
-            e.printStackTrace();
+            Log.e(TAG, "ERROR: IllegalStateException: " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(TAG, "ERROR: IOException: " + e.getMessage());
+        } catch (Exception e) {
+            Log.e(TAG, "ERROR:  " + e.getMessage());
         }
     }
 

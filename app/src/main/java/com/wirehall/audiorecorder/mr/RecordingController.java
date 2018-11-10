@@ -121,6 +121,8 @@ public class RecordingController {
             mediaRecorder.start();
             recStartTime = SystemClock.uptimeMillis();
         } catch (IOException e) {
+            Log.e(TAG, "ERROR: IOException: " + e.getMessage());
+        } catch (Exception e) {
             Log.e(TAG, "ERROR: " + e.getMessage());
         }
 

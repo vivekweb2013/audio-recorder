@@ -174,7 +174,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                         builder.setTitle("Are you sure?")
                                                 .setMessage("Do you want to delete this recording: " + recordings.get(adapterPosition).getPath())
-                                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                                .setIcon(R.drawable.ic_warning_black_24dp)
                                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         deleteFile(adapterPosition);

@@ -16,7 +16,6 @@ import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.wirehall.audiorecorder.explorer.FileListFragment;
@@ -80,7 +79,11 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
         boolean isPermissionAccepted = false;
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
-                isPermissionAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                for (int result : grantResults) {
+                    isPermissionAccepted = (result == PackageManager.PERMISSION_GRANTED);
+                    if (!isPermissionAccepted)
+                        break;
+                }
                 break;
         }
         if (isPermissionAccepted) {

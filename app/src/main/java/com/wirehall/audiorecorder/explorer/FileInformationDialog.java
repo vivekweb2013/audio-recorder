@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class FileInformationDialog extends Dialog implements android.view.View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.file_info_dialog);
         Button closeButton = findViewById(R.id.btn_file_dialog_close);
         String fileInfoString = context.getResources().getString(R.string.tv_file_info, recording.getName(), recording.getSizeInString(), recording.getDurationInString(), recording.getPath());
