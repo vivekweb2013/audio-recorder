@@ -62,7 +62,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         viewHolder.fileDurationTextView.setText(recording.getDurationShortInString());
 
         if (recording.isPlaying()) {
-            viewHolder.filePlayPauseButton.setImageResource(R.drawable.ic_pause_black_24dp);
+            viewHolder.filePlayPauseButton.setImageResource(R.drawable.ic_pause_white_24dp);
         } else {
             viewHolder.filePlayPauseButton.setImageResource(R.drawable.ic_play_arrow_white_24dp);
         }

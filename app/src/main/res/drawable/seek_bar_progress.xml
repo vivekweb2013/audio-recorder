@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@android:id/background">
-        <shape android:shape="line">
-            <stroke
-                android:width="@dimen/width_seek_bar_line"
-                android:color="@color/color_seek_bar_line" />
-        </shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false">
+        <layer-list>
+            <item android:id="@android:id/background">
+                <shape android:shape="line">
+                    <stroke android:width="@dimen/width_seek_bar_line" android:color="@color/color_seek_bar_line_disabled" />
+                </shape>
+            </item>
+        </layer-list>
     </item>
-    <item android:id="@android:id/progress">
-        <clip>
-            <shape android:shape="line">
-                <stroke
-                    android:width="@dimen/width_seek_bar_line"
-                    android:color="@color/color_seek_bar_line_progress" />
-            </shape>
-        </clip>
+    <item>
+        <layer-list>
+            <item android:id="@android:id/background">
+                <shape android:shape="line">
+                    <stroke android:width="@dimen/width_seek_bar_line" android:color="@color/color_seek_bar_line" />
+                </shape>
+            </item>
+            <item android:id="@android:id/progress">
+                <clip>
+                    <shape android:shape="line">
+                        <stroke android:width="@dimen/width_seek_bar_line" android:color="@color/color_seek_bar_progress" />
+                    </shape>
+                </clip>
+            </item>
+        </layer-list>
     </item>
-</layer-list>
+</selector>

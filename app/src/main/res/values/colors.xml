@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#444444</color>
     <color name="colorPrimaryDark">#303030</color>
-    <color name="colorAccent">#FF0000</color>
+    <color name="colorAccent">#001111</color>
 
     <color name="colorPrimaryLight">#A3A3A3</color>
     <color name="colorTextPrimary">#FFFFFF</color>
@@ -12,8 +12,9 @@
     <color name="color_text_timer">@color/colorTextPrimary</color>
     <color name="color_visualizer_view">#FFFFFF</color>
     <color name="color_visualizer_bg">@color/colorPrimary</color>
-    <color name="color_seek_bar_line_progress">@color/colorAccent</color>
+    <color name="color_seek_bar_progress">#fc4c1b</color>
     <color name="color_seek_bar_line">#FFFFFF</color>
     <color name="color_file_button_bg">#f8303030</color>
     <color name="about_app_icon_image_bg">#dfdfdf</color>
+    <color name="color_seek_bar_line_disabled">@color/colorPrimary</color>
 </resources>

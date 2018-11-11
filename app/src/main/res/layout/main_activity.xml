@@ -39,7 +39,7 @@
             android:background="@drawable/round_button"
             android:contentDescription="@string/button_record_description"
             android:onClick="recordPauseBtnClicked"
-            android:src="@drawable/ic_mic_black_24dp" />
+            android:src="@drawable/ic_mic_24dp" />
 
         <ImageButton
             android:id="@+id/ib_delete"
@@ -81,12 +81,15 @@
             android:textColor="@color/color_text_timer" />
     </FrameLayout>
 
+    <!--Ignore warning and keep thumbTint in SeekBar as we need this for newer APIs, older APIs already handled in progressDrawable-->
     <SeekBar
         android:id="@+id/sb_mp_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_sub_container"
-        android:progressDrawable="@drawable/seek_bar_progress" />
+        android:progressDrawable="@drawable/seek_bar_progress"
+        android:theme="@style/MySeekBar"
+        android:thumbTint="@color/color_seek_bar_progress" />
 
     <FrameLayout
         android:id="@+id/explorer_parent_container"

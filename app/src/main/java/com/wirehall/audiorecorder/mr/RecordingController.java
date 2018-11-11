@@ -128,7 +128,7 @@ public class RecordingController {
 
         MEDIA_REC_STATE = MediaRecorderState.RECORDING;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_black_24dp));
+            btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_white_24dp));
             btnRecordPause.setEnabled(true);
         } else {
             btnRecordPause.setEnabled(false);
@@ -147,7 +147,7 @@ public class RecordingController {
         mediaRecorder.resume();
         recPauseTime = SystemClock.uptimeMillis() - recStartTime - totalRecTime;
         MEDIA_REC_STATE = MediaRecorderState.RECORDING;
-        btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_black_24dp));
+        btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_white_24dp));
         btnRecordPause.setEnabled(true);
         btnStop.setEnabled(true);
     }
@@ -156,7 +156,7 @@ public class RecordingController {
     private void pauseRecording(AppCompatActivity activity, ImageButton btnRecordPause, ImageButton btnStop) {
         mediaRecorder.pause();
         MEDIA_REC_STATE = MediaRecorderState.PAUSED;
-        btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic_black_24dp));
+        btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic_24dp));
         btnRecordPause.setEnabled(true);
         btnStop.setEnabled(true);
     }
@@ -185,7 +185,7 @@ public class RecordingController {
         }
         mediaRecorder = null;
 
-        btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic_black_24dp));
+        btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic_24dp));
         btnRecordPause.setEnabled(true);
         btnStop.setEnabled(false);
         btnDelete.setEnabled(false);
