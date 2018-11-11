@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:padding="@dimen/standard_dialog_padding">
+    android:padding="@dimen/distance_standard_dialog">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
         android:id="@+id/btn_rate_dialog_rate"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/standard_dialog_padding"
+        android:layout_marginTop="@dimen/distance_standard_dialog"
         android:background="@color/colorPrimaryLight"
         android:text="@string/rate"
         android:textColor="@color/colorTextPrimary" />
@@ -27,7 +27,7 @@
         android:id="@+id/btn_rate_dialog_remind_me_later"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/standard_dialog_padding"
+        android:layout_marginTop="@dimen/distance_standard_dialog"
         android:background="@color/colorPrimaryLight"
         android:text="@string/remind_me_later"
         android:textColor="@color/colorTextPrimary" />
@@ -36,7 +36,7 @@
         android:id="@+id/btn_rate_dialog_no_thx"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/standard_dialog_padding"
+        android:layout_marginTop="@dimen/distance_standard_dialog"
         android:background="@color/colorPrimaryLight"
         android:text="@string/no_thanks"
         android:textColor="@color/colorTextPrimary" />

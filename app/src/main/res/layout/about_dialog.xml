@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:padding="@dimen/standard_dialog_padding">
+    android:padding="@dimen/distance_standard_dialog">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="@dimen/size_about_dialog_app_name_text_size"
+        android:textSize="@dimen/size_about_dialog_app_name_text"
         android:textStyle="bold" />
 
     <TextView
@@ -46,25 +46,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_top_about_dialog_info_text"
         android:gravity="center"
         android:text="@string/disclaimer"
         android:textColor="@color/colorTextPrimary"
         android:textSize="@dimen/size_usage_notice_text" />
 
-    <LinearLayout
+    <Button
+        android:id="@+id/btn_about_dialog_close"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_about_dialog_close"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_dialog_padding"
-            android:background="@color/colorPrimaryLight"
-            android:text="@string/close"
-            android:textColor="@color/colorTextPrimary" />
-    </LinearLayout>
+        android:layout_marginTop="@dimen/distance_standard_dialog"
+        android:background="@color/colorPrimaryLight"
+        android:text="@string/close"
+        android:textColor="@color/colorTextPrimary" />
 
 </LinearLayout>
