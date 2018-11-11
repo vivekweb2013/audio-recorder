@@ -3,7 +3,9 @@ package com.wirehall.audiorecorder;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +29,7 @@ import com.wirehall.audiorecorder.setting.SettingActivity;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 public class MainActivity extends AppCompatActivity implements VisualizerFragment.VisualizerMPSession, FileListFragment.FileListFragmentListener {
+    public final static String APP_PACKAGE_NAME = "com.wirehall.audiorecorder";
 
     public static final int PERMISSION_REQUEST_CODE = 111;
     public static final String[] APP_PERMS = {
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
         mediaPlayerController.init(this);
         recordingController.init(this);
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        AppRater.launchIfRequired(this);
     }
 
     @TargetApi(Build.VERSION_CODES.N)
@@ -114,6 +118,15 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
             case R.id.menu_item_about:
                 AboutDialog aboutDialog = new AboutDialog(this);
                 aboutDialog.show();
+                return true;
+            case R.id.menu_item_rate:
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = prefs.edit();
+                this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + APP_PACKAGE_NAME)));
+                if (editor != null) {
+                    editor.putBoolean(AppRater.KEY_PREF_RATE_DIALOG_DONT_SHOW, true);
+                    editor.apply();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

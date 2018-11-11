@@ -35,4 +35,8 @@
     <string name="disclaimer">This software is provided \"As Is\" and without any express or implied warranties. The risk of any loss, damage, or unsatisfactory performance of this software rests with you as the user</string>
     <string name="label_dev_name">Developer: Vivek L</string>
     <string name="about">About</string>
+    <string name="no_thanks">No, Thanks</string>
+    <string name="rate">Rate</string>
+    <string name="remind_me_later">Remind Me Later</string>
+    <string name="rate_dialog_info">If you enjoy using this app, please take a moment to rate it. Thanks for your support!</string>
 </resources>
