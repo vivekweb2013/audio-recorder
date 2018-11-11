@@ -283,7 +283,7 @@ public class RecordingController {
                     int secs = (int) (totalRecTime / 1000);
                     int minutes = secs / 60;
                     secs = secs % 60;
-                    timerTextView.setText(context.getResources().getString(R.string.timer_duration_in_minutes_seconds, minutes, secs));
+                    timerTextView.setText(context.getResources().getString(R.string.duration_in_min_sec_short, minutes, secs));
                 }
                 // update in few milliseconds
                 handler.postDelayed(this, 40);

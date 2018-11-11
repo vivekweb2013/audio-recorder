@@ -15,20 +15,13 @@
         android:textColor="@color/colorTextPrimary"
         android:textSize="@dimen/size_file_info_text_view" />
 
-    <LinearLayout
+    <Button
+        android:id="@+id/btn_file_dialog_close"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_file_dialog_close"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/standard_dialog_padding"
-            android:background="@color/colorPrimaryLight"
-            android:text="@string/close"
-            android:textColor="@color/colorTextPrimary" />
-    </LinearLayout>
+        android:layout_marginTop="@dimen/standard_dialog_padding"
+        android:background="@color/colorPrimaryLight"
+        android:text="@string/close"
+        android:textColor="@color/colorTextPrimary" />
 
 </LinearLayout>

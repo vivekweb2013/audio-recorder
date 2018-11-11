@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/usage_notice"
+        android:text="@string/disclaimer"
         android:textColor="@color/colorTextPrimary"
         android:textSize="@dimen/size_usage_notice_text" />
 

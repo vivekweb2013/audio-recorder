@@ -59,7 +59,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         viewHolder.fileNameTextView.setText(recording.getName());
         viewHolder.fileSizeTextView.setText(recording.getSizeInString());
         viewHolder.fileDateModifiedTextView.setText(recording.getModifiedDateInString());
-        viewHolder.fileDurationTextView.setText(recording.getDurationInString());
+        viewHolder.fileDurationTextView.setText(recording.getDurationShortInString());
 
         if (recording.isPlaying()) {
             viewHolder.filePlayPauseButton.setImageResource(R.drawable.ic_pause_black_24dp);
@@ -145,7 +145,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             final String fileMenuOptionDelete = context.getResources().getString(R.string.file_menu_option_delete);
             final String fileMenuOptionInfo = context.getResources().getString(R.string.file_menu_option_info);
             final String fileMenuOptionShare = context.getResources().getString(R.string.file_menu_option_share);
-            final String deleteDialogTitle = context.getResources().getString(R.string.delete_dialog_title);
+            final String deleteDialogTitle = context.getResources().getString(R.string.dialog_delete_title);
             final String yes = context.getResources().getString(R.string.yes);
             final String no = context.getResources().getString(R.string.no);
             fileOptionsMenuButton = itemView.findViewById(R.id.ib_file_menu);
@@ -173,7 +173,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                             final int adapterPosition = getAdapterPosition();
 
                             if (option.equals(fileMenuOptionDelete)) {
-                                final String deleteDialogMessage = context.getResources().getString(R.string.delete_dialog_message, recordings.get(adapterPosition).getPath());
+                                final String deleteDialogMessage = context.getResources().getString(R.string.dialog_delete_message, recordings.get(adapterPosition).getPath());
                                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
                                 Boolean confirmDelete = sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
                                 if (confirmDelete) {

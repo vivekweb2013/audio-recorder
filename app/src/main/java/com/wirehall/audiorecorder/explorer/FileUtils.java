@@ -38,7 +38,7 @@ public class FileUtils {
     }
 
     /**
-     * @param context
+     * @param context        Required for internal use
      * @param path           Files are scanned from this specified path. Note: It is not a recursive
      * @param filenameFilter Used to filter the file matching the filter criteria
      * @return List of files from specified path which are matching the filter passed
@@ -64,24 +64,22 @@ public class FileUtils {
                 }
             });
 
-
             for (File file : files) {
                 Recording rec = new Recording();
-                rec.setName(file.getName());
+                rec.setName(getFilenameWithoutExt(file.getName()));
                 rec.setPath(file.getPath());
                 rec.setSize(file.length());
                 rec.setSizeInString(humanReadableByteCount(file.length(), true));
                 rec.setModifiedDateMilliSec(file.lastModified());
                 rec.setModifiedDateInString(humanReadableDate(file.lastModified()));
 
-
                 MediaMetadataRetriever mmr = new MediaMetadataRetriever();
                 mmr.setDataSource(file.getPath());
                 long duration = Long.parseLong(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
                 mmr.release();
                 rec.setDuration(duration);
-
-                rec.setDurationInString(humanReadableDuration(context, duration));
+                rec.setDurationDetailedInString(humanReadableDurationDetailed(context, duration));
+                rec.setDurationShortInString(humanReadableDurationShort(context, duration));
 
                 recordings.add(rec);
             }
@@ -92,6 +90,9 @@ public class FileUtils {
         return recordings;
     }
 
+    private static String getFilenameWithoutExt(String filename) {
+        return filename.replaceFirst("[.][^.]+$", "");
+    }
 
     /**
      * @param bytes file size in bytes
@@ -147,18 +148,27 @@ public class FileUtils {
      * @param duration The total duration in long value
      * @return The duration of media file. The format is "%d min, %d sec" if minutes are available, if not then "%d sec" is the format
      */
-    public static String humanReadableDuration(Context context, long duration) {
-
+    public static String humanReadableDurationDetailed(Context context, long duration) {
 
         if (TimeUnit.MILLISECONDS.toMinutes(duration) < 1) {
             long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration));
-            return context.getResources().getString(R.string.duration_in_seconds_only, seconds);
+            return context.getResources().getString(R.string.duration_in_sec_long, seconds);
 
         }
 
         long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration));
         long minutes = TimeUnit.MILLISECONDS.toMinutes(duration);
-        return context.getResources().getString(R.string.duration_in_minutes_seconds, minutes, seconds);
+        return context.getResources().getString(R.string.duration_in_min_sec_long, minutes, seconds);
+    }
+
+    /**
+     * @param duration The total duration in long value
+     * @return The duration of media file. The format is "%d min, %d sec" if minutes are available, if not then "%d sec" is the format
+     */
+    public static String humanReadableDurationShort(Context context, long duration) {
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration));
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+        return context.getResources().getString(R.string.duration_in_min_sec_short, minutes, seconds);
     }
 
     public static int measureContentWidth(final Adapter adapter, Context context) {

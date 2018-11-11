@@ -8,7 +8,8 @@ public class Recording {
     private long modifiedDateMilliSec;
     private String modifiedDateInString;
     private long duration;
-    private String durationInString;
+    private String durationDetailedInString;
+    private String durationShortInString;
     private boolean isPlaying;
 
     public String getName() {
@@ -67,12 +68,20 @@ public class Recording {
         this.duration = duration;
     }
 
-    public String getDurationInString() {
-        return durationInString;
+    public String getDurationDetailedInString() {
+        return durationDetailedInString;
     }
 
-    public void setDurationInString(String durationInString) {
-        this.durationInString = durationInString;
+    public void setDurationDetailedInString(String durationDetailedInString) {
+        this.durationDetailedInString = durationDetailedInString;
+    }
+
+    public String getDurationShortInString() {
+        return durationShortInString;
+    }
+
+    public void setDurationShortInString(String durationShortInString) {
+        this.durationShortInString = durationShortInString;
     }
 
     public boolean isPlaying() {
@@ -93,7 +102,8 @@ public class Recording {
                 ", modifiedDateMilliSec=" + modifiedDateMilliSec +
                 ", modifiedDateInString='" + modifiedDateInString + '\'' +
                 ", duration=" + duration +
-                ", durationInString='" + durationInString + '\'' +
+                ", durationDetailedInString='" + durationDetailedInString + '\'' +
+                ", durationShortInString='" + durationShortInString + '\'' +
                 ", isPlaying=" + isPlaying +
                 '}';
     }

@@ -12,7 +12,7 @@
     <dimen name="margin_recorder_secondary_button">20dp</dimen>
     <dimen name="padding_list_fragment_container">1dp</dimen>
     <dimen name="standard_dialog_padding">8dp</dimen>
-    <dimen name="size_file_info_text_view">12sp</dimen>
+    <dimen name="size_file_info_text_view">15sp</dimen>
     <dimen name="size_file_menu">20sp</dimen>
     <dimen name="padding_file_menu">5dp</dimen>
     <dimen name="size_about_dialog_app_name_text_size">22sp</dimen>

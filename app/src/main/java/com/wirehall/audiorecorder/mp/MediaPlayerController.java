@@ -211,7 +211,7 @@ public class MediaPlayerController {
         long currentPositionSeconds = TimeUnit.MILLISECONDS.toSeconds(currentPosition) % 60;
         long totalMediaDurationMinutes = TimeUnit.MILLISECONDS.toMinutes(totalMediaDuration);
         long totalMediaDurationSeconds = TimeUnit.MILLISECONDS.toSeconds(totalMediaDuration) % 60;
-        String durationStr = context.getResources().getString(R.string.timer_duration_progress_in_minutes_seconds, currentPositionMinutes, currentPositionSeconds, totalMediaDurationMinutes, totalMediaDurationSeconds);
+        String durationStr = context.getResources().getString(R.string.duration_progress_in_min_sec_short, currentPositionMinutes, currentPositionSeconds, totalMediaDurationMinutes, totalMediaDurationSeconds);
         return durationStr;
     }
 }

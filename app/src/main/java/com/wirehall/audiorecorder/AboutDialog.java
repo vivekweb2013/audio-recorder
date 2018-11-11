@@ -23,7 +23,7 @@ public class AboutDialog extends Dialog implements View.OnClickListener {
         Button closeButton = findViewById(R.id.btn_about_dialog_close);
         closeButton.setOnClickListener(this);
 
-        String versionName = getContext().getResources().getString(R.string.version_text, BuildConfig.VERSION_NAME);
+        String versionName = getContext().getResources().getString(R.string.label_version, BuildConfig.VERSION_NAME);
         TextView versionTextView = findViewById(R.id.tv_about_dialog_version);
         versionTextView.setText(versionName);
     }
