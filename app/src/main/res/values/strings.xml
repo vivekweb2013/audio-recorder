@@ -22,7 +22,7 @@
     <string name="no">No</string>
     <string name="close">Close</string>
     <string name="file_menu_option_delete">✖ Delete</string>
-    <string name="file_menu_option_info">ⅲ Info</string>
+    <string name="file_menu_option_info">ⓘ Info</string>
     <string name="file_menu_option_share">✈ Share</string>
     <string name="warn_stop_rec_to_play_audio">Audio can not be played while recording. Stop the recording first!</string>
     <string name="duration_in_sec_long">%d sec</string>
@@ -37,7 +37,8 @@
     <string name="about">About</string>
     <string name="no_thanks">No, Thanks</string>
     <string name="rate">Rate</string>
-    <string name="rate_this_app">Rate This APP</string>
+    <string name="rate_this_app">Rate This App</string>
     <string name="remind_me_later">Remind Me Later</string>
     <string name="rate_dialog_info">If you enjoy using this app, please take a moment to rate it. Thanks for your support!</string>
+    <string name="by_wirehall">by WireHall</string>
 </resources>

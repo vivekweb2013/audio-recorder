@@ -38,6 +38,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:text="@string/by_wirehall"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="@dimen/size_label_by_wirehall" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:text="@string/label_dev_name"
         android:textColor="@color/colorTextPrimary"
         android:textSize="@dimen/size_label_dev_name" />

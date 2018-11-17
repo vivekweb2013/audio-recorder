@@ -21,4 +21,5 @@
     <dimen name="size_version_label">12sp</dimen>
     <dimen name="size_rate_dialog_info">20sp</dimen>
     <dimen name="margin_top_about_dialog_info_text">10dp</dimen>
+    <dimen name="size_label_by_wirehall">12sp</dimen>
 </resources>
