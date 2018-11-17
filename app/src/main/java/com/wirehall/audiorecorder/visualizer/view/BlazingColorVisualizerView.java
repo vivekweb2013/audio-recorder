@@ -38,9 +38,9 @@ public class BlazingColorVisualizerView extends BaseVisualizerView {
     protected void onDraw(Canvas canvas) {
         if (bytes != null) {
             paint.setShader(shader);
-            float lineXWidth = (float) canvas.getWidth() / bytes.length;
+            float lineXWidth = (float) getWidth() / bytes.length;
             for (int i = 0, k = 0; i < (bytes.length - 1) && k < (bytes.length - 1); i++, k++) {
-                int top = canvas.getHeight() + ((byte) (Math.abs(bytes[k]) + 128)) * canvas.getHeight() / 128;
+                int top = getHeight() + ((byte) (Math.abs(bytes[k]) + 128)) * getHeight() / 128;
                 canvas.drawLine(i * lineXWidth, getHeight(), i * lineXWidth + lineXWidth, top, paint);
             }
             super.onDraw(canvas);

@@ -6,12 +6,12 @@
 
     <color name="colorPrimaryLight">#A3A3A3</color>
     <color name="colorTextPrimary">#FFFFFF</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
     <color name="color_file_row_selection">@color/colorPrimaryLight</color>
     <color name="color_app_bg">@color/colorPrimaryDark</color>
     <color name="color_text_filename">@color/colorTextPrimary</color>
     <color name="color_text_timer">@color/colorTextPrimary</color>
     <color name="color_visualizer_view">#FFFFFF</color>
-    <color name="color_visualizer_bg">@color/colorPrimary</color>
     <color name="color_seek_bar_progress">#fc4c1b</color>
     <color name="color_seek_bar_line">#FFFFFF</color>
     <color name="color_file_button_bg">#f8303030</color>
