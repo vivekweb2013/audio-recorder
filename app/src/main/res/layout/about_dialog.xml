@@ -62,6 +62,17 @@
         android:textSize="@dimen/size_usage_notice_text" />
 
     <Button
+        android:id="@+id/btn_privacy_policy"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_btn_privacy_policy"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/distance_standard_dialog"
+        android:background="@color/colorPrimaryLight"
+        android:padding="@dimen/padding_btn_privacy_policy"
+        android:text="@string/privacy_policy"
+        android:textColor="@color/colorTextPrimary" />
+
+    <Button
         android:id="@+id/btn_about_dialog_close"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

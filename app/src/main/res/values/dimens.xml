@@ -22,4 +22,6 @@
     <dimen name="size_rate_dialog_info">20sp</dimen>
     <dimen name="margin_top_about_dialog_info_text">10dp</dimen>
     <dimen name="size_label_by_wirehall">12sp</dimen>
+    <dimen name="height_btn_privacy_policy">28dp</dimen>
+    <dimen name="padding_btn_privacy_policy">5dp</dimen>
 </resources>
