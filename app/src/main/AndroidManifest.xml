@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="user">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,7 +26,7 @@
             android:name=".setting.SettingActivity"
             android:label="Settings"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="user">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

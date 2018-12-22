@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_app_bg"
     android:orientation="vertical"
-    android:padding="@dimen/padding_main_container"
+    android:padding="@dimen/standard_gap"
     tools:context=".MainActivity">
 
     <RelativeLayout
