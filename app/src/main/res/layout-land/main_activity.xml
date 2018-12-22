@@ -68,6 +68,8 @@
                 android:background="@drawable/round_button"
                 android:contentDescription="@string/button_stop_description"
                 android:onClick="stopBtnClicked"
+                android:padding="@dimen/padding_ib_rec_stop_del"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_stop_white" />
 
             <ImageButton
@@ -79,6 +81,8 @@
                 android:background="@drawable/round_button"
                 android:contentDescription="@string/button_record_description"
                 android:onClick="recordPauseBtnClicked"
+                android:padding="@dimen/padding_ib_rec_stop_del"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_mic" />
 
             <ImageButton
@@ -93,6 +97,8 @@
                 android:background="@drawable/round_button"
                 android:contentDescription="@string/button_delete_description"
                 android:onClick="deleteBtnClicked"
+                android:padding="@dimen/padding_ib_rec_stop_del"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_delete_white" />
 
         </RelativeLayout>
