@@ -62,9 +62,9 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         viewHolder.fileDurationTextView.setText(recording.getDurationShortInString());
 
         if (recording.isPlaying()) {
-            viewHolder.filePlayPauseButton.setImageResource(R.drawable.ic_pause_white_24dp);
+            viewHolder.filePlayPauseButton.setImageResource(R.drawable.ic_pause_white);
         } else {
-            viewHolder.filePlayPauseButton.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+            viewHolder.filePlayPauseButton.setImageResource(R.drawable.ic_play_arrow_white);
         }
     }
 
@@ -180,7 +180,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                     builder.setTitle(deleteDialogTitle)
                                             .setMessage(deleteDialogMessage)
-                                            .setIcon(R.drawable.ic_warning_black_24dp)
+                                            .setIcon(R.drawable.ic_warning_black)
                                             .setPositiveButton(yes, new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     deleteFile(adapterPosition);
