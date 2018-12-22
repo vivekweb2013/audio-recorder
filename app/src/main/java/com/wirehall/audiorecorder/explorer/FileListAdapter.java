@@ -158,7 +158,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                     data.add(fileMenuOptionDelete);
                     data.add(fileMenuOptionInfo);
                     data.add(fileMenuOptionShare);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.file_menu_item_layout, data);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.file_menu_item_layout, data);
                     /* use ur custom layout which has only TextView along with style required*/
                     window.setAdapter(adapter);
                     window.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
@@ -171,6 +171,9 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             String option = data.get(position);
                             final int adapterPosition = getAdapterPosition();
+                            if (adapterPosition == RecyclerView.NO_POSITION) {
+                                return;
+                            }
 
                             if (option.equals(fileMenuOptionDelete)) {
                                 final String deleteDialogMessage = context.getResources().getString(R.string.dialog_delete_message, recordings.get(adapterPosition).getPath());
