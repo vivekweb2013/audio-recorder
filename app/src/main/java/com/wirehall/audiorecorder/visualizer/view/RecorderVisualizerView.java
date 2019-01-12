@@ -29,8 +29,8 @@ public class RecorderVisualizerView extends View {
 
     // called when the dimensions of the View change
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        width = w; // new width of this View
+    protected void onSizeChanged(int w, int h, int oldWidth, int oldHeight) {
+        width = w; // new width of this View`
         height = h; // new height of this View
         amplitudes = new ArrayList<>(width / LINE_WIDTH);
     }

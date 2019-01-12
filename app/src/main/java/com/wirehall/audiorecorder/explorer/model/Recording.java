@@ -110,9 +110,6 @@ public class Recording {
 
     @Override
     public boolean equals(Object otherRecordingObject) {
-        if (otherRecordingObject != null && this.path.equals(((Recording) otherRecordingObject).getPath())) {
-            return true;
-        }
-        return false;
+        return otherRecordingObject != null && this.path.equals(((Recording) otherRecordingObject).getPath());
     }
 }

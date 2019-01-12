@@ -33,8 +33,7 @@ public class FileUtils {
      */
     public static String generateFileName() {
         SimpleDateFormat df = new SimpleDateFormat(DEFAULT_FILENAME_FORMAT);
-        String filename = df.format(Calendar.getInstance().getTime()).concat(DEFAULT_FILENAME_EXTENSION);
-        return filename;
+        return df.format(Calendar.getInstance().getTime()).concat(DEFAULT_FILENAME_EXTENSION);
     }
 
     /**
@@ -129,8 +128,7 @@ public class FileUtils {
      */
     public static String humanReadableDate(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy, hh:mm aa");
-        String formattedDate = dateFormat.format(date);
-        return formattedDate;
+        return dateFormat.format(date);
     }
 
     /**
@@ -140,8 +138,7 @@ public class FileUtils {
     public static String humanReadableDate(long timestamp) {
         Date date = new Date(timestamp);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy, hh:mm aa");
-        String formattedDate = dateFormat.format(date);
-        return formattedDate;
+        return dateFormat.format(date);
     }
 
     /**
