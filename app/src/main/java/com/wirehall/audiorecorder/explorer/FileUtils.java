@@ -172,7 +172,7 @@ public class FileUtils {
     }
 
     public static int measureContentWidth(final Adapter adapter, Context context) {
-        ViewGroup mMeasureParent = null;
+        ViewGroup measureParent = null;
         int maxWidth = 0;
         View itemView = null;
         int itemType = 0;
@@ -187,11 +187,11 @@ public class FileUtils {
                 itemView = null;
             }
 
-            if (mMeasureParent == null) {
-                mMeasureParent = new FrameLayout(context);
+            if (measureParent == null) {
+                measureParent = new FrameLayout(context);
             }
 
-            itemView = adapter.getView(i, itemView, mMeasureParent);
+            itemView = adapter.getView(i, itemView, measureParent);
             itemView.measure(widthMeasureSpec, heightMeasureSpec);
 
             final int itemWidth = itemView.getMeasuredWidth();
