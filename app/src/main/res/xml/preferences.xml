@@ -17,6 +17,6 @@
         android:title="@string/pref_list_audio_quality_title" />
 
     <com.wirehall.audiorecorder.setting.pathpref.PathPreference
-        android:key="recording_path"
-        android:title="@string/pref_recording_path_title" />
+        android:key="recording_storage_path"
+        android:title="@string/pref_recording_storage_path_title" />
 </android.support.v7.preference.PreferenceScreen>

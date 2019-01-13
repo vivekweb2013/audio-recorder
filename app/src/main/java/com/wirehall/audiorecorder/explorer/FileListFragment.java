@@ -19,7 +19,7 @@ import java.io.FilenameFilter;
 import java.util.List;
 
 public class FileListFragment extends Fragment {
-    public static final String STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Audio/Recordings";
+    public static final String DEFAULT_STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Audio/Recordings";
     private static final String TAG = FileListFragment.class.getName();
     private FileListFragmentListener activity;
     private FileListAdapter fileListAdapter;
@@ -46,7 +46,8 @@ public class FileListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        recordings = FileUtils.getAllFilesFromDirectory(getContext(), STORAGE_PATH, new FileExtensionFilter());
+        String recordingStoragePath = FileUtils.getRecordingStoragePath(getContext());
+        recordings = FileUtils.getAllFilesFromDirectory(getContext(), recordingStoragePath, new FileExtensionFilter());
 
         RecyclerView recyclerView = getActivity().findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -65,7 +66,8 @@ public class FileListFragment extends Fragment {
      * Refresh the file list view by updating the adapter associated with it
      */
     public void refreshAdapter() {
-        List<Recording> recordings = FileUtils.getAllFilesFromDirectory(getContext(), STORAGE_PATH, new FileExtensionFilter());
+        String recordingStoragePath = FileUtils.getRecordingStoragePath(getContext());
+        List<Recording> recordings = FileUtils.getAllFilesFromDirectory(getContext(), recordingStoragePath, new FileExtensionFilter());
         fileListAdapter.updateData(recordings);
     }
 

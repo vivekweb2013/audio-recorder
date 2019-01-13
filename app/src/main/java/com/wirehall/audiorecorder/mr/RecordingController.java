@@ -111,7 +111,8 @@ public class RecordingController {
     }
 
     private void startRecording(AppCompatActivity activity, ImageButton btnRecordPause, ImageButton btnStop, ImageButton btnDelete) {
-        recordingFilePath = FileListFragment.STORAGE_PATH + '/' + FileUtils.generateFileName();
+        String recordingStoragePath = FileUtils.getRecordingStoragePath(activity);
+        recordingFilePath = recordingStoragePath + '/' + FileUtils.generateFileName();
         Log.d("filename", recordingFilePath);
 
         initRecorder(activity);

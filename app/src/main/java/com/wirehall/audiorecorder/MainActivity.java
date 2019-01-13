@@ -30,6 +30,7 @@ import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 public class MainActivity extends AppCompatActivity implements VisualizerFragment.VisualizerMPSession, FileListFragment.FileListFragmentListener {
     public final static String APP_PACKAGE_NAME = "com.wirehall.audiorecorder";
+    public static final String KEY_PREF_RECORDING_STORAGE_PATH = "recording_storage_path";
 
     public static final int PERMISSION_REQUEST_CODE = 111;
     public static final String[] APP_PERMS = {
@@ -47,8 +48,18 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
         ActivityCompat.requestPermissions(this, APP_PERMS, PERMISSION_REQUEST_CODE);
         mediaPlayerController.init(this);
         recordingController.init(this);
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        setDefaultPreferenceValues();
         AppRater.launchIfRequired(this);
+    }
+
+    private void setDefaultPreferenceValues() {
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getString(KEY_PREF_RECORDING_STORAGE_PATH, null) == null) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString(KEY_PREF_RECORDING_STORAGE_PATH, FileListFragment.DEFAULT_STORAGE_PATH);
+            editor.apply();
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.N)

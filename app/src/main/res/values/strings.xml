@@ -15,7 +15,7 @@
     <string name="pref_list_audio_quality_dialog_title">Select Audio Quality</string>
     <string name="pref_list_audio_quality_title">Recording Audio Quality</string>
     <string name="pref_list_audio_quality_summary">Audio quality for recording</string>
-    <string name="pref_recording_path_title">Recording Path</string>
+    <string name="pref_recording_storage_path_title">Recording Path</string>
     <string name="pref_path_dialog_title">Choose Directory</string>
     <string name="pref_path_new_folder">New Folder</string>
     <string name="pref_path_new_folder_dialog_title">New Folder Name</string>

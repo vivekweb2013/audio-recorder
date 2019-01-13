@@ -26,7 +26,7 @@ public class AppRater {
         editor.apply();
 
         // Get date of first launch
-        Long firstLaunchTime = prefs.getLong(KEY_PREF_RATE_DIALOG_FIRST_LAUNCH_TIME, 0);
+        long firstLaunchTime = prefs.getLong(KEY_PREF_RATE_DIALOG_FIRST_LAUNCH_TIME, 0);
         if (firstLaunchTime == 0) {
             firstLaunchTime = System.currentTimeMillis();
             editor.putLong(KEY_PREF_RATE_DIALOG_FIRST_LAUNCH_TIME, firstLaunchTime);
