@@ -31,9 +31,9 @@ import java.util.List;
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
     private static final String TAG = FileListAdapter.class.getName();
     private final List<Recording> recordings;
-    private Context context;
+    private final Context context;
+    private final RecyclerViewClickListener recyclerViewClickListener;
     private int selectedRowPosition = RecyclerView.NO_POSITION;
-    private RecyclerViewClickListener recyclerViewClickListener;
 
     FileListAdapter(Context context, List<Recording> recordings, RecyclerViewClickListener recyclerViewClickListener) {
         this.context = context;
@@ -118,13 +118,13 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
      * Used to keep the reference to list row elements to fetch faster. i.e. to avoid time consuming findViewById
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView fileNameTextView;
-        TextView fileSizeTextView;
-        TextView fileDateModifiedTextView;
-        TextView fileDurationTextView;
-        ImageButton filePlayPauseButton;
-        ImageButton fileOptionsMenuButton;
-        private RecyclerViewClickListener recyclerViewClickListener;
+        final TextView fileNameTextView;
+        final TextView fileSizeTextView;
+        final TextView fileDateModifiedTextView;
+        final TextView fileDurationTextView;
+        final ImageButton filePlayPauseButton;
+        final ImageButton fileOptionsMenuButton;
+        private final RecyclerViewClickListener recyclerViewClickListener;
 
         private ViewHolder(@NonNull View itemView, RecyclerViewClickListener recyclerViewClickListener) {
             super(itemView);
@@ -178,7 +178,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                             if (option.equals(fileMenuOptionDelete)) {
                                 final String deleteDialogMessage = context.getResources().getString(R.string.dialog_delete_message, recordings.get(adapterPosition).getPath());
                                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-                                Boolean confirmDelete = sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
+                                boolean confirmDelete = sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
                                 if (confirmDelete) {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                     builder.setTitle(deleteDialogTitle)

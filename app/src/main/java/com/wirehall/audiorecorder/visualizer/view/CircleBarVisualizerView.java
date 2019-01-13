@@ -41,7 +41,7 @@ public class CircleBarVisualizerView extends BaseVisualizerView {
             circlePaint.setStrokeWidth(4);
         }
         circlePaint.setColor(color);
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius, circlePaint);
+        canvas.drawCircle(getWidth() >> 1, getHeight() >> 1, radius, circlePaint);
         if (bytes != null) {
             if (points == null || points.length < bytes.length * 4) {
                 points = new float[bytes.length * 4];

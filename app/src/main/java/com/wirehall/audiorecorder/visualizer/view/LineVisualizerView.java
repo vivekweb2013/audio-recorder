@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
 public class LineVisualizerView extends BaseVisualizerView {
+    private final Rect rect = new Rect();
     private float[] points;
-    private Rect rect = new Rect();
     private float strokeWidth = 0.005f;
 
     public LineVisualizerView(Context context) {
@@ -47,9 +47,9 @@ public class LineVisualizerView extends BaseVisualizerView {
 
             for (int i = 0; i < bytes.length - 1; i++) {
                 points[i * 4] = rect.width() * i / (bytes.length - 1);
-                points[i * 4 + 1] = rect.height() / 2 + ((byte) (bytes[i] + 128)) * (rect.height() / 3) / 128;
+                points[i * 4 + 1] = (rect.height() >> 1) + (((byte) (bytes[i] + 128)) * (rect.height() / 3) >> 7);
                 points[i * 4 + 2] = rect.width() * (i + 1) / (bytes.length - 1);
-                points[i * 4 + 3] = rect.height() / 2 + ((byte) (bytes[i + 1] + 128)) * (rect.height() / 3) / 128;
+                points[i * 4 + 3] = (rect.height() >> 1) + (((byte) (bytes[i + 1] + 128)) * (rect.height() / 3) >> 7);
             }
             canvas.drawLines(points, paint);
         }

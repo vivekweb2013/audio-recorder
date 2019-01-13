@@ -12,8 +12,8 @@ import android.view.View;
  */
 
 abstract public class BaseVisualizerView extends View {
+    protected final Paint paint = new Paint();
     protected byte[] bytes;
-    protected Paint paint = new Paint();
     protected int color = Color.BLUE;
 
     public BaseVisualizerView(Context context) {

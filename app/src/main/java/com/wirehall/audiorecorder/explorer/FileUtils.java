@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class FileUtils {
@@ -35,7 +36,7 @@ public class FileUtils {
      * @return The current time string in "yyyy-MM-dd-HH-mm-ss" format
      */
     public static String generateFileName() {
-        SimpleDateFormat df = new SimpleDateFormat(DEFAULT_FILENAME_FORMAT);
+        SimpleDateFormat df = new SimpleDateFormat(DEFAULT_FILENAME_FORMAT, Locale.getDefault());
         return df.format(Calendar.getInstance().getTime()).concat(DEFAULT_FILENAME_EXTENSION);
     }
 
@@ -56,7 +57,7 @@ public class FileUtils {
             File[] files = directory.listFiles(filenameFilter);
 
             if (files == null) {
-                //Means pathname does not denote a directory, or if an I/O error occurs.
+                // Means pathname does not denote a directory, or if an I/O error occurs.
                 // Or could be due to missing storage permissions
                 throw new IllegalArgumentException("Problem accessing path: " + path);
             }
@@ -122,7 +123,7 @@ public class FileUtils {
         if (bytes < unit) return bytes + " B";
         int exp = (int) (Math.log(bytes) / Math.log(unit));
         String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
-        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+        return String.format(Locale.getDefault(), "%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
     /**
@@ -130,7 +131,7 @@ public class FileUtils {
      * @return The date in "dd-MM-yyyy, hh:mm aa" format
      */
     public static String humanReadableDate(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy, hh:mm aa");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy, hh:mm aa", Locale.getDefault());
         return dateFormat.format(date);
     }
 
@@ -140,7 +141,7 @@ public class FileUtils {
      */
     public static String humanReadableDate(long timestamp) {
         Date date = new Date(timestamp);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy, hh:mm aa");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy, hh:mm aa", Locale.getDefault());
         return dateFormat.format(date);
     }
 

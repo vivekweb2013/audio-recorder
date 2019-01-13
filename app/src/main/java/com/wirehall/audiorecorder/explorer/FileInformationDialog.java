@@ -15,7 +15,7 @@ import com.wirehall.audiorecorder.explorer.model.Recording;
 
 
 public class FileInformationDialog extends Dialog implements android.view.View.OnClickListener {
-    private Recording recording;
+    private final Recording recording;
 
     public FileInformationDialog(Context context, Recording recording) {
         super(context);

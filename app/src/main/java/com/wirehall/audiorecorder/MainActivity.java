@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
-    private RecordingController recordingController = RecordingController.getInstance();
-    private MediaPlayerController mediaPlayerController = MediaPlayerController.getInstance();
+    private final RecordingController recordingController = RecordingController.getInstance();
+    private final MediaPlayerController mediaPlayerController = MediaPlayerController.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

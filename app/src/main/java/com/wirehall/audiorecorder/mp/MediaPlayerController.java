@@ -24,11 +24,9 @@ public class MediaPlayerController {
     private static final String TAG = MediaPlayerController.class.getName();
 
     private static MediaPlayerController mediaPlayerController;
+    private final Handler handler = new Handler();
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private MediaPlayer.OnCompletionListener mPlayerOnCompletionListener;
-
-    private Handler handler = new Handler();
-
     private Recording currentRecording = null;
 
     private MediaPlayerController() {
@@ -98,7 +96,7 @@ public class MediaPlayerController {
     }
 
     /**
-     * Plays the audio file, also operates the seekbar
+     * Plays the audio file, also operates the seek-bar
      *
      * @param activity     Activity required for internal operations
      * @param newRecording The media file

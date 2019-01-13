@@ -100,7 +100,7 @@
         android:paddingEnd="@dimen/padding_h_ib_file_row"
         android:paddingBottom="@dimen/padding_v_ib_file_row"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_more_vert_white"
+        android:src="@drawable/ic_more_vertical_white"
         android:tag="file_menu_button"
         android:textColor="@color/color_text_filename" />
 

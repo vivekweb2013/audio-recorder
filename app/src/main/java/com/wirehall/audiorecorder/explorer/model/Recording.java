@@ -1,5 +1,7 @@
 package com.wirehall.audiorecorder.explorer.model;
 
+import android.support.annotation.NonNull;
+
 public class Recording {
     private String name;
     private String path;
@@ -92,6 +94,7 @@ public class Recording {
         isPlaying = playing;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Recording{" +
@@ -110,6 +113,6 @@ public class Recording {
 
     @Override
     public boolean equals(Object otherRecordingObject) {
-        return otherRecordingObject != null && this.path.equals(((Recording) otherRecordingObject).getPath());
+        return otherRecordingObject != null && otherRecordingObject.getClass() == getClass() && this.path.equals(((Recording) otherRecordingObject).getPath());
     }
 }

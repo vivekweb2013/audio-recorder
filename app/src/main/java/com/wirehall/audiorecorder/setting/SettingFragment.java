@@ -37,7 +37,7 @@ public class SettingFragment extends PreferenceFragmentCompat {
         if (preference instanceof PathPreference) {
             DialogFragment pathPrefDialog = PathPrefDialog.newInstance(preference.getKey());
             pathPrefDialog.setTargetFragment(this, 0);
-            pathPrefDialog.show(getFragmentManager(), null);
+            pathPrefDialog.show(requireFragmentManager(), null);
         } else super.onDisplayPreferenceDialog(preference);
     }
 

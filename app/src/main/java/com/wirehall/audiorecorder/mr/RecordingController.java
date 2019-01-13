@@ -32,10 +32,9 @@ import java.io.IOException;
 public class RecordingController {
     private static final String TAG = RecordingController.class.getName();
     private static RecordingController recordingController;
+    private final Handler handler = new Handler();
     private MediaRecorderState MEDIA_REC_STATE = MediaRecorderState.STOPPED;
     private MediaRecorder mediaRecorder;
-
-    private Handler handler = new Handler();
     private RecorderVisualizerView recorderVisualizerView;
     private Runnable visualizerRunnable;
 
@@ -206,7 +205,7 @@ public class RecordingController {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
             String audioQualityNormal = context.getResources().getString(R.string.audio_quality_normal);
             String audioQualityPref = sharedPref.getString(SettingActivity.KEY_PREF_LIST_AUDIO_QUALITY, audioQualityNormal);
-            if (audioQualityPref.equals(audioQualityNormal)) {
+            if (audioQualityPref != null && audioQualityPref.equals(audioQualityNormal)) {
                 mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
                 mediaRecorder.setAudioSamplingRate(8000);
             } else {

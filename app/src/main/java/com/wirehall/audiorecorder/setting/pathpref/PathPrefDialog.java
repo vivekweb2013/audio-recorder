@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.DialogPreference;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
@@ -22,27 +24,26 @@ import android.widget.Toast;
 import com.wirehall.audiorecorder.R;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class PathPrefDialog extends PreferenceDialogFragmentCompat {
+    private final String sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath();
     private boolean isNewFolderEnabled = true;
-    private String sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath();
-    private String dir = Environment.getExternalStorageDirectory().toString();
+    private String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
     private List<String> subDirs;
     private ArrayAdapter<String> listAdapter;
     private TextView titleView;
 
-    //Filter we use to get visible, readable directories only
-    private FileFilter directoryFilter = new FileFilter() {
-        @Override
-        public boolean accept(File file) {
-            return file.isDirectory() && !file.isHidden() && file.canRead();
-        }
-    };
+    public static PathPrefDialog newInstance(String key) {
+        final PathPrefDialog fragment = new PathPrefDialog();
+        final Bundle bundle = new Bundle(1);
+        bundle.putString(ARG_KEY, key);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     protected void onPrepareDialogBuilder(AlertDialog.Builder dialogBuilder) {
@@ -56,14 +57,14 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
             titleLayout.setOrientation(LinearLayout.VERTICAL);
 
             titleView = new TextView(getContext());
-            titleView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            titleView.setTextAppearance(getContext(), android.R.style.TextAppearance_Large);
-            titleView.setTextColor(getContext().getResources().getColor(android.R.color.black));
+            titleView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            TextViewCompat.setTextAppearance(titleView, android.R.style.TextAppearance_Large);
+            titleView.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
             titleView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
             titleView.setText(R.string.pref_path_dialog_title);
 
             Button newDirButton = new Button(getContext());
-            newDirButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            newDirButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             newDirButton.setText(R.string.pref_path_new_folder);
             newDirButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -71,7 +72,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
                     final EditText input = new EditText(getContext());
 
                     // Show new folder name input dialog
-                    new AlertDialog.Builder(getContext()).setTitle(R.string.pref_path_new_folder_dialog_title).
+                    new AlertDialog.Builder(requireContext()).setTitle(R.string.pref_path_new_folder_dialog_title).
                             setView(input).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             Editable newDir = input.getText();
@@ -119,14 +120,6 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
         }
     }
 
-    public static PathPrefDialog newInstance(String key) {
-        final PathPrefDialog fragment = new PathPrefDialog();
-        final Bundle bundle = new Bundle(1);
-        bundle.putString(ARG_KEY, key);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
     @Override
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
@@ -139,14 +132,13 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
         }
     }
 
-    public void setNewFolderEnabled(boolean isNewFolderEnabled) {
-        this.isNewFolderEnabled = isNewFolderEnabled;
-    }
-
     public boolean getNewFolderEnabled() {
         return isNewFolderEnabled;
     }
 
+    public void setNewFolderEnabled(boolean isNewFolderEnabled) {
+        this.isNewFolderEnabled = isNewFolderEnabled;
+    }
 
     private void updateDirectory() {
         subDirs.clear();
@@ -196,7 +188,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
     }
 
     private ArrayAdapter<String> createListAdapter(List<String> items) {
-        return new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, android.R.id.text1, items) {
+        return new ArrayAdapter<String>(requireContext(), android.R.layout.select_dialog_item, android.R.id.text1, items) {
             @NonNull
             @Override
             public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
@@ -207,7 +199,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
                     public void onClick(View view) {
                         // Navigate into the sub-directory
                         String selectedDir = getItem(position);
-                        dir = selectedDir.equals("..") ? new File(dir).getParent() : dir + "/" + selectedDir;
+                        dir = (selectedDir != null && selectedDir.equals("..")) ? new File(dir).getParent() : dir + "/" + selectedDir;
                         updateDirectory();
                     }
                 });

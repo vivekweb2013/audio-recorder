@@ -19,7 +19,7 @@ import java.io.FilenameFilter;
 import java.util.List;
 
 public class FileListFragment extends Fragment {
-    public static final String DEFAULT_STORAGE_PATH = Environment.getExternalStorageDirectory().toString() + "/Audio/Recordings";
+    public static final String DEFAULT_STORAGE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Audio/Recordings";
     private static final String TAG = FileListFragment.class.getName();
     private FileListFragmentListener activity;
     private FileListAdapter fileListAdapter;
@@ -49,7 +49,7 @@ public class FileListFragment extends Fragment {
         String recordingStoragePath = FileUtils.getRecordingStoragePath(getContext());
         recordings = FileUtils.getAllFilesFromDirectory(getContext(), recordingStoragePath, new FileExtensionFilter());
 
-        RecyclerView recyclerView = getActivity().findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = requireActivity().findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         RecyclerViewClickListener recyclerViewClickListener = new RecyclerViewClickListener() {
