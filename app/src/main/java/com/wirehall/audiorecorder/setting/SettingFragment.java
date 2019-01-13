@@ -1,10 +1,14 @@
 package com.wirehall.audiorecorder.setting;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 
 import com.wirehall.audiorecorder.R;
+import com.wirehall.audiorecorder.setting.pathpref.PathPrefDialog;
+import com.wirehall.audiorecorder.setting.pathpref.PathPreference;
 
 public class SettingFragment extends PreferenceFragmentCompat {
     public SettingFragment() {
@@ -27,4 +31,14 @@ public class SettingFragment extends PreferenceFragmentCompat {
                 preferenceScreen.getPreference(i).setIconSpaceReserved(false);
         }
     }
+
+    @Override
+    public void onDisplayPreferenceDialog(Preference preference) {
+        if (preference instanceof PathPreference) {
+            DialogFragment pathPrefDialog = PathPrefDialog.newInstance(preference.getKey());
+            pathPrefDialog.setTargetFragment(this, 0);
+            pathPrefDialog.show(getFragmentManager(), null);
+        } else super.onDisplayPreferenceDialog(preference);
+    }
+
 }
