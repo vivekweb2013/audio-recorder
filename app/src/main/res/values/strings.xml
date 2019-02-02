@@ -45,4 +45,6 @@
     <string name="rate_dialog_info">If you enjoy using this app, please take a moment to rate it. Thanks for your support!</string>
     <string name="by_wirehall">by WIREHALL</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="toast_recording_storage_path_updated">Recording Path Updated \n</string>
+    <string name="toast_folder_creation_failed">Failed to Create Folder: %1$s</string>
 </resources>

@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.DialogPreference;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -30,6 +31,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PathPrefDialog extends PreferenceDialogFragmentCompat {
+    private static final String TAG = PathPrefDialog.class.getName();
     private final String sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath();
     private boolean isNewFolderEnabled = true;
     private String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -83,7 +85,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
                                 dir += "/" + newDirName;
                                 updateDirectory();
                             } else {
-                                Toast.makeText(getContext(), "Failed to create '" + newDirName + "' folder", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), getString(R.string.toast_folder_creation_failed, newDirName), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }).setNegativeButton(android.R.string.cancel, null).show();
@@ -128,6 +130,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
                 PathPreference pathPreference = ((PathPreference) preference);
                 pathPreference.persistString(dir);
                 pathPreference.setSummary(dir);
+                Toast.makeText(getContext(), getString(R.string.toast_recording_storage_path_updated) + dir, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -166,7 +169,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
                 }
             }
         } catch (Exception e) {
-            //TODO: Add logger
+            Log.e(TAG, "ERROR: Exception: " + e.getMessage());
         }
 
         Collections.sort(dirs, new Comparator<String>() {
