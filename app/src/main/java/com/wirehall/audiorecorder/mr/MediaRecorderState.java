@@ -5,5 +5,13 @@ package com.wirehall.audiorecorder.mr;
  * We need to maintain the state using the instance of this enum
  */
 public enum MediaRecorderState {
-    RECORDING, PAUSED, STOPPED
+    RECORDING, RESUMED, PAUSED, STOPPED, DISCARDED;
+
+    public boolean isRecording() {
+        return this == RECORDING || this == RESUMED;
+    }
+
+    public boolean isStopped() {
+        return this == STOPPED || this == DISCARDED;
+    }
 }

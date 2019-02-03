@@ -23,7 +23,8 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
     private VisualizerMPSession activity;
     private LinearLayout visualizerLayout;
     private Visualizer visualizer;
-    private List<BaseVisualizerView> visualizerViews;
+    private List<BaseVisualizerView> mpVisualizerViews;
+    private RecorderVisualizerView recorderVisualizerView;
     private int visualizerViewIndex = -1;
 
     public VisualizerFragment() {
@@ -41,7 +42,8 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
 
         visualizerLayout = (LinearLayout) inflater.inflate(R.layout.visualizer_fragment, container, false);
         visualizerLayout.setOnClickListener(this);
-        visualizerViews = Utils.getAllMPVisualizerViews(getContext());
+        mpVisualizerViews = Utils.getAllMPVisualizerViews(getContext());
+        recorderVisualizerView = Utils.getRecorderVisualizerView(getContext());
         visualizerViewIndex = 0;
         setMPVisualizerView();
 
@@ -61,9 +63,9 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
         }
 
         visualizerViewIndex++;
-        visualizerViewIndex = visualizerViewIndex % visualizerViews.size();
+        visualizerViewIndex = visualizerViewIndex % mpVisualizerViews.size();
 
-        BaseVisualizerView baseVisualizerView = visualizerViews.get(visualizerViewIndex);
+        BaseVisualizerView baseVisualizerView = mpVisualizerViews.get(visualizerViewIndex);
         setBaseVisualizerViewUpdater(baseVisualizerView, activity.getAudioSessionIdOfMediaPlayer());
         addReplaceView(baseVisualizerView);
     }
@@ -78,14 +80,26 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
         visualizerLayout.addView(view);
     }
 
+    public View getCurrentView() {
+        return currentVisualizerView;
+    }
+
     /**
      * Sets the Media Player Visualizer view to visualizer container
      * The view pointed by the view index is set
      */
     public void setMPVisualizerView() {
-        BaseVisualizerView baseVisualizerView = visualizerViews.get(visualizerViewIndex);
+        BaseVisualizerView baseVisualizerView = mpVisualizerViews.get(visualizerViewIndex);
         setBaseVisualizerViewUpdater(baseVisualizerView, activity.getAudioSessionIdOfMediaPlayer());
         addReplaceView(baseVisualizerView);
+    }
+
+    public void setRecorderVisualizerView() {
+        addReplaceView(recorderVisualizerView);
+    }
+
+    public RecorderVisualizerView getRecorderVisualizerView() {
+        return recorderVisualizerView;
     }
 
     private void setBaseVisualizerViewUpdater(final BaseVisualizerView baseVisualizerView, int audioSessionId) {

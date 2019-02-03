@@ -2,29 +2,24 @@ package com.wirehall.audiorecorder.mr;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.media.MediaRecorder;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.FileListFragment;
-import com.wirehall.audiorecorder.explorer.FileUtils;
-import com.wirehall.audiorecorder.setting.SettingActivity;
-import com.wirehall.audiorecorder.visualizer.Utils;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 import com.wirehall.audiorecorder.visualizer.view.RecorderVisualizerView;
 
-import java.io.IOException;
+import static com.wirehall.audiorecorder.mr.AudioRecorderLocalService.ACTION_PAUSE_RECORDING;
+import static com.wirehall.audiorecorder.mr.AudioRecorderLocalService.ACTION_RESUME_RECORDING;
+import static com.wirehall.audiorecorder.mr.AudioRecorderLocalService.ACTION_START_RECORDING;
+import static com.wirehall.audiorecorder.mr.AudioRecorderLocalService.ACTION_STOP_RECORDING;
 
 /**
  * Singleton class for controlling the recording operations
@@ -33,16 +28,9 @@ public class RecordingController {
     private static final String TAG = RecordingController.class.getName();
     private static RecordingController recordingController;
     private final Handler handler = new Handler();
-    private MediaRecorderState MEDIA_REC_STATE = MediaRecorderState.STOPPED;
-    private MediaRecorder mediaRecorder;
-    private RecorderVisualizerView recorderVisualizerView;
+
     private Runnable visualizerRunnable;
-
-    private long totalRecTime = 0L;
-    private long recStartTime = 0L;
-    private long recPauseTime = 0L;
-
-    private String recordingFilePath;
+    private boolean isActivityStopped = false;
 
     private RecordingController() {
         // Private Constructor
@@ -61,21 +49,7 @@ public class RecordingController {
      * @param activity Activity required for internal operations
      */
     public void init(AppCompatActivity activity) {
-
-        ImageButton btnRecordPause = activity.findViewById(R.id.ib_record);
-        ImageButton btnDelete = activity.findViewById(R.id.ib_delete);
-        ImageButton btnStop = activity.findViewById(R.id.ib_stop);
-        TextView timerTextView = activity.findViewById(R.id.tv_timer);
-
-        if (btnRecordPause != null && btnDelete != null && btnStop != null) {
-            btnRecordPause.setEnabled(true);
-            btnDelete.setEnabled(false);
-            btnStop.setEnabled(false);
-        } else {
-            Log.e(TAG, "some of the resources are not found! btnRecordPause:" + btnRecordPause + " btnDelete:" + btnDelete + " btnStop:" + btnStop);
-        }
-
-        setVisualizerRunnable(activity, timerTextView);
+        mapUIToState(activity);
     }
 
     /**
@@ -86,81 +60,53 @@ public class RecordingController {
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void startPauseRecording(AppCompatActivity activity) {
-        ImageButton btnRecordPause, btnDelete, btnStop;
+        Intent serviceIntent = new Intent(activity, AudioRecorderLocalService.class);
 
-        btnRecordPause = activity.findViewById(R.id.ib_record);
-        btnDelete = activity.findViewById(R.id.ib_delete);
-        btnStop = activity.findViewById(R.id.ib_stop);
-
-        switch (MEDIA_REC_STATE) {
+        switch (AudioRecorderLocalService.MEDIA_REC_STATE) {
             case RECORDING:
-                pauseRecording(activity, btnRecordPause, btnStop);
+            case RESUMED:
+                // Pause the Recording
+                serviceIntent.setAction(ACTION_PAUSE_RECORDING);
+                activity.startService(serviceIntent);
                 break;
 
             case PAUSED:
-                resumeRecording(activity, btnRecordPause, btnStop);
+                // Resume the Recording
+                serviceIntent.setAction(ACTION_RESUME_RECORDING);
+                activity.startService(serviceIntent);
                 break;
 
             case STOPPED:
-                startRecording(activity, btnRecordPause, btnStop, btnDelete);
+            case DISCARDED:
+                // Start the Recording
+                serviceIntent.setAction(ACTION_START_RECORDING);
+                activity.startService(serviceIntent);
+                break;
 
             default:
                 break;
         }
     }
 
-    private void startRecording(AppCompatActivity activity, ImageButton btnRecordPause, ImageButton btnStop, ImageButton btnDelete) {
-        String recordingStoragePath = FileUtils.getRecordingStoragePath(activity);
-        recordingFilePath = recordingStoragePath + '/' + FileUtils.generateFileName();
-        Log.d("filename", recordingFilePath);
+    public void onRecordingStarted(AppCompatActivity activity) {
+        mapUIToState(activity);
+    }
 
-        initRecorder(activity);
-        try {
-            mediaRecorder.setOutputFile(recordingFilePath);
-            mediaRecorder.prepare();
-            mediaRecorder.start();
-            recStartTime = SystemClock.uptimeMillis();
-        } catch (IOException e) {
-            Log.e(TAG, "ERROR: IOException: " + e.getMessage());
-        } catch (Exception e) {
-            Log.e(TAG, "ERROR: " + e.getMessage());
+    public void onRecordingPaused(AppCompatActivity activity) {
+        mapUIToState(activity);
+    }
+
+    public void onRecordingResumed(AppCompatActivity activity) {
+        mapUIToState(activity);
+    }
+
+    public void onRecordingStopped(AppCompatActivity activity, boolean isDelete) {
+        mapUIToState(activity);
+
+        if (!isDelete) {
+            refreshFileListView(activity);
         }
-
-        MEDIA_REC_STATE = MediaRecorderState.RECORDING;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_white));
-            btnRecordPause.setEnabled(true);
-        } else {
-            btnRecordPause.setEnabled(false);
-        }
-        btnStop.setEnabled(true);
-        btnDelete.setEnabled(true);
-
-        addRecorderVisualizerView(activity);
-
-        Toast.makeText(activity, activity.getString(R.string.message_recording_started), Toast.LENGTH_SHORT).show();
     }
-
-    @TargetApi(Build.VERSION_CODES.N)
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void resumeRecording(AppCompatActivity activity, ImageButton btnRecordPause, ImageButton btnStop) {
-        mediaRecorder.resume();
-        recPauseTime = SystemClock.uptimeMillis() - recStartTime - totalRecTime;
-        MEDIA_REC_STATE = MediaRecorderState.RECORDING;
-        btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_white));
-        btnRecordPause.setEnabled(true);
-        btnStop.setEnabled(true);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private void pauseRecording(AppCompatActivity activity, ImageButton btnRecordPause, ImageButton btnStop) {
-        mediaRecorder.pause();
-        MEDIA_REC_STATE = MediaRecorderState.PAUSED;
-        btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic));
-        btnRecordPause.setEnabled(true);
-        btnStop.setEnabled(true);
-    }
-
 
     /**
      * Stop the audio recording
@@ -168,99 +114,92 @@ public class RecordingController {
      * @param activity Activity required for internal operations
      * @param isDelete Indicates if the current active recording is to be deleted
      */
-    public void stopRecording(AppCompatActivity activity, boolean isDelete) {
+    public void stopRecordingViaService(AppCompatActivity activity, boolean isDelete) {
+        Intent serviceIntent = new Intent(activity, AudioRecorderLocalService.class);
+        serviceIntent.setAction(ACTION_STOP_RECORDING);
+        serviceIntent.putExtra("isDelete", isDelete);
+        activity.startService(serviceIntent);
+    }
+
+    private void mapUIToState(AppCompatActivity activity) {
         ImageButton btnRecordPause, btnDelete, btnStop;
         btnRecordPause = activity.findViewById(R.id.ib_record);
         btnDelete = activity.findViewById(R.id.ib_delete);
         btnStop = activity.findViewById(R.id.ib_stop);
 
-        try {
-            if (isDelete) {
-                FileUtils.deleteFile(recordingFilePath);
-            }
-            removeRecorderVisualizerView(activity);
-            releaseRecorder();
-        } catch (Exception e) {
-            Log.e(TAG, "ERROR: " + e.getMessage());
-        }
-        mediaRecorder = null;
+        switch (AudioRecorderLocalService.MEDIA_REC_STATE) {
+            case RECORDING:
+                // New recording
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_white));
+                    btnRecordPause.setEnabled(true);
+                } else {
+                    btnRecordPause.setEnabled(false);
+                }
 
-        btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic));
-        btnRecordPause.setEnabled(true);
-        btnStop.setEnabled(false);
-        btnDelete.setEnabled(false);
-        MEDIA_REC_STATE = MediaRecorderState.STOPPED;
+                btnStop.setEnabled(true);
+                btnDelete.setEnabled(true);
+                addRecorderVisualizerView(activity);
+                break;
+            case RESUMED:
+                // Resumed recording
+                btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_pause_white));
+                btnRecordPause.setEnabled(true);
+                btnStop.setEnabled(true);
+                btnDelete.setEnabled(true);
+                addRecorderVisualizerView(activity);
+                break;
+            case PAUSED:
+                btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic));
+                btnRecordPause.setEnabled(true);
+                btnStop.setEnabled(true);
+                break;
+            case STOPPED:
+            case DISCARDED:
+                btnRecordPause.setImageDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_mic));
+                btnRecordPause.setEnabled(true);
+                btnStop.setEnabled(false);
+                btnDelete.setEnabled(false);
 
-        if (!isDelete) {
-            refreshFileListView(activity);
-            Toast.makeText(activity, activity.getString(R.string.message_recording_saved), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void initRecorder(Context context) {
-        if (mediaRecorder == null) {
-            mediaRecorder = new MediaRecorder();
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-            String audioQualityNormal = context.getResources().getString(R.string.audio_quality_normal);
-            String audioQualityPref = sharedPref.getString(SettingActivity.KEY_PREF_LIST_AUDIO_QUALITY, audioQualityNormal);
-            if (audioQualityPref != null && audioQualityPref.equals(audioQualityNormal)) {
-                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-                mediaRecorder.setAudioSamplingRate(8000);
-            } else {
-                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
-                mediaRecorder.setAudioSamplingRate(16000);
-            }
-        }
-    }
-
-    /**
-     * Release the recorder instance
-     */
-    public void releaseRecorder() {
-        if (mediaRecorder != null) {
-            MEDIA_REC_STATE = MediaRecorderState.STOPPED;
-            handler.removeCallbacks(visualizerRunnable);
-            recorderVisualizerView.clear();
-            recorderVisualizerView = null;
-            mediaRecorder.stop();
-            mediaRecorder.reset();
-            mediaRecorder.release();
-            mediaRecorder = null;
+                resetRunnable();
+                VisualizerFragment visualizerFragment = (VisualizerFragment) activity.getSupportFragmentManager().findFragmentById(R.id.visualizer_fragment_container);
+                if (visualizerFragment != null) {
+                    visualizerFragment.getRecorderVisualizerView().clear();
+                }
+                TextView timerTextView = activity.findViewById(R.id.tv_timer);
+                timerTextView.setText("");
+                break;
+            default:
+                break;
         }
     }
 
-    /**
-     * @return The current state of media recorder
-     */
-    public MediaRecorderState getMediaRecorderState() {
-        return MEDIA_REC_STATE;
+    public void onDestroy() {
+        resetRunnable();
+    }
+
+    private void resetRunnable() {
+        handler.removeCallbacks(visualizerRunnable);
+        visualizerRunnable = null;
+    }
+
+    public void onActivityStarted() {
+        isActivityStopped = false;
+    }
+
+    public void onActivityStopped() {
+        isActivityStopped = true;
     }
 
     private void addRecorderVisualizerView(AppCompatActivity activity) {
         VisualizerFragment visualizerFragment = (VisualizerFragment) activity.getSupportFragmentManager().findFragmentById(R.id.visualizer_fragment_container);
         if (visualizerFragment != null) {
-            recorderVisualizerView = Utils.getRecorderVisualizerView(activity.getApplicationContext());
-            visualizerFragment.addReplaceView(recorderVisualizerView);
+            visualizerFragment.setRecorderVisualizerView();
+            TextView timerTextView = activity.findViewById(R.id.tv_timer);
+            setVisualizerRunnable(activity, timerTextView, visualizerFragment.getRecorderVisualizerView());
             handler.post(visualizerRunnable);
         }
     }
-
-    private void removeRecorderVisualizerView(AppCompatActivity activity) {
-        VisualizerFragment visualizerFragment = (VisualizerFragment) activity.getSupportFragmentManager().findFragmentById(R.id.visualizer_fragment_container);
-        if (visualizerFragment != null) {
-            visualizerFragment.removeAllViews();
-        }
-
-        // Reset Timer
-        totalRecTime = 0;
-        recPauseTime = 0;
-        recStartTime = 0;
-        TextView timerTextView = activity.findViewById(R.id.tv_timer);
-        timerTextView.setText("");
-    }
-
 
     private void refreshFileListView(AppCompatActivity activity) {
         FileListFragment fileListFragment = (FileListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.list_fragment_container);
@@ -270,25 +209,29 @@ public class RecordingController {
     }
 
     // updates the visualizer every few milliseconds
-    private void setVisualizerRunnable(final Context context, final TextView timerTextView) {
+    private void setVisualizerRunnable(final Context context,
+                                       final TextView timerTextView, final RecorderVisualizerView recorderVisualizerView) {
         visualizerRunnable = new Runnable() {
             @Override
             public void run() {
-                if (mediaRecorder != null && recorderVisualizerView != null && MEDIA_REC_STATE == MediaRecorderState.RECORDING) {
-                    int x = mediaRecorder.getMaxAmplitude();  // get the current amplitude
+                if (AudioRecorderLocalService.mediaRecorder != null && AudioRecorderLocalService.MEDIA_REC_STATE.isRecording()
+                        && !isActivityStopped) {
+                    int x = AudioRecorderLocalService.mediaRecorder.getMaxAmplitude();  // get the current amplitude
                     recorderVisualizerView.addAmplitude(x); // update the VisualizeView
                     recorderVisualizerView.invalidate(); // refresh the VisualizerView
 
-                    totalRecTime = SystemClock.uptimeMillis() - recStartTime - recPauseTime;
+                    long totalRecTime = AudioRecorderLocalService.recordingTime.autoSetTotalRecTime();
                     int secs = (int) (totalRecTime / 1000);
                     int minutes = secs / 60;
                     secs = secs % 60;
                     timerTextView.setText(context.getResources().getString(R.string.duration_in_min_sec_short, minutes, secs));
+                    // update in few milliseconds
+
+                    handler.postDelayed(this, 40);
                 }
-                // update in few milliseconds
-                handler.postDelayed(this, 40);
             }
         };
     }
+
 
 }

@@ -15,7 +15,7 @@ public class RecorderVisualizerView extends View {
     private static final int LINE_WIDTH = 1; // width of visualizer lines
     private static final int LINE_SCALE = 75; // scales visualizer lines
     private final Paint linePaint; // specifies line drawing characteristics
-    private List<Float> amplitudes; // amplitudes for line lengths
+    private List<Float> amplitudes = new ArrayList<>(); // amplitudes for line lengths
     private int width; // width of this View
     private int height; // height of this View
 
@@ -41,6 +41,7 @@ public class RecorderVisualizerView extends View {
      */
     public void clear() {
         amplitudes.clear();
+        invalidate();
     }
 
 
@@ -59,6 +60,8 @@ public class RecorderVisualizerView extends View {
     // draw the visualizer with scaled lines representing the amplitudes
     @Override
     public void onDraw(Canvas canvas) {
+        if (amplitudes.isEmpty()) canvas.drawColor(Color.TRANSPARENT);
+
         int middle = height / 2; // get the middle of the View
         float curX = 0; // start curX at zero
 

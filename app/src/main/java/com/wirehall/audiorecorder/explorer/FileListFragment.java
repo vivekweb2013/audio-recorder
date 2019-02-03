@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,9 +68,27 @@ public class FileListFragment extends Fragment {
      * Refresh the file list view by updating the adapter associated with it
      */
     public void refreshAdapter() {
-        String recordingStoragePath = FileUtils.getRecordingStoragePath(getContext());
-        List<Recording> recordings = FileUtils.getAllFilesFromDirectory(getContext(), recordingStoragePath, new FileExtensionFilter());
-        fileListAdapter.updateData(recordings);
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    FragmentActivity activity = getActivity();
+                    if (activity != null) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String recordingStoragePath = FileUtils.getRecordingStoragePath(getContext());
+                                List<Recording> recordings = FileUtils.getAllFilesFromDirectory(getContext(), recordingStoragePath, new FileExtensionFilter());
+                                fileListAdapter.updateData(recordings);
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+        };
+        thread.start();
     }
 
     /**

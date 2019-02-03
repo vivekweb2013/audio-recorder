@@ -25,7 +25,7 @@ public class MediaPlayerController {
 
     private static MediaPlayerController mediaPlayerController;
     private final Handler handler = new Handler();
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private MediaPlayer mediaPlayer;
     private MediaPlayer.OnCompletionListener mPlayerOnCompletionListener;
     private Recording currentRecording = null;
 

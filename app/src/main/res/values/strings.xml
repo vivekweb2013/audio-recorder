@@ -47,4 +47,6 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="toast_recording_storage_path_updated">Recording Path Updated \n</string>
     <string name="toast_folder_creation_failed">Failed to Create Folder: %1$s</string>
+    <string name="recording_in_progress">Recording....</string>
+    <string name="btn_stop_recording">Stop Recording</string>
 </resources>
