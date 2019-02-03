@@ -30,7 +30,6 @@ public class RecordingController {
     private final Handler handler = new Handler();
 
     private Runnable visualizerRunnable;
-    private boolean isActivityStopped = false;
 
     private RecordingController() {
         // Private Constructor
@@ -183,17 +182,9 @@ public class RecordingController {
         visualizerRunnable = null;
     }
 
-    public void onActivityStarted() {
-        isActivityStopped = false;
-    }
-
-    public void onActivityStopped() {
-        isActivityStopped = true;
-    }
-
     private void addRecorderVisualizerView(AppCompatActivity activity) {
         VisualizerFragment visualizerFragment = (VisualizerFragment) activity.getSupportFragmentManager().findFragmentById(R.id.visualizer_fragment_container);
-        if (visualizerFragment != null) {
+        if (visualizerFragment != null && (!(visualizerFragment.getCurrentView() instanceof RecorderVisualizerView) || visualizerRunnable == null)) {
             visualizerFragment.setRecorderVisualizerView();
             TextView timerTextView = activity.findViewById(R.id.tv_timer);
             setVisualizerRunnable(activity, timerTextView, visualizerFragment.getRecorderVisualizerView());
@@ -214,8 +205,7 @@ public class RecordingController {
         visualizerRunnable = new Runnable() {
             @Override
             public void run() {
-                if (AudioRecorderLocalService.mediaRecorder != null && AudioRecorderLocalService.MEDIA_REC_STATE.isRecording()
-                        && !isActivityStopped) {
+                if (AudioRecorderLocalService.mediaRecorder != null && AudioRecorderLocalService.MEDIA_REC_STATE.isRecording()) {
                     int x = AudioRecorderLocalService.mediaRecorder.getMaxAmplitude();  // get the current amplitude
                     recorderVisualizerView.addAmplitude(x); // update the VisualizeView
                     recorderVisualizerView.invalidate(); // refresh the VisualizerView
@@ -225,10 +215,9 @@ public class RecordingController {
                     int minutes = secs / 60;
                     secs = secs % 60;
                     timerTextView.setText(context.getResources().getString(R.string.duration_in_min_sec_short, minutes, secs));
-                    // update in few milliseconds
-
-                    handler.postDelayed(this, 40);
                 }
+                // update in few milliseconds
+                handler.postDelayed(this, 40);
             }
         };
     }

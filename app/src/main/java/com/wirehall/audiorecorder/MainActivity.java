@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     private AudioRecorderLocalService audioRecorderLocalService;
     private BroadcastReceiver broadcastReceiver;
     private boolean isServiceBound = false;
+
     /**
      * Defines callbacks for service binding, passed to bindService()
      */
@@ -114,16 +115,20 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.visualizer_fragment_container, VisualizerFragment.newInstance());
-        ft.commit();
-        ActivityCompat.requestPermissions(this, APP_PERMS, PERMISSION_REQUEST_CODE);
-        mediaPlayerController.init(this);
+        try {
+            setContentView(R.layout.main_activity);
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.visualizer_fragment_container, VisualizerFragment.newInstance());
+            ft.commit();
+            ActivityCompat.requestPermissions(this, APP_PERMS, PERMISSION_REQUEST_CODE);
+            mediaPlayerController.init(this);
 
-        setDefaultPreferenceValues();
-        AppRater.launchIfRequired(this);
+            setDefaultPreferenceValues();
+            AppRater.launchIfRequired(this);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     private void setDefaultPreferenceValues() {
@@ -138,9 +143,12 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
 
     @Override
     protected void onStart() {
-        Intent intent = new Intent(this, AudioRecorderLocalService.class);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-        recordingController.onActivityStarted();
+        try {
+            Intent intent = new Intent(this, AudioRecorderLocalService.class);
+            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
         super.onStart();
     }
 
@@ -148,14 +156,22 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
      * @param view The method is the click handler for recorder delete button
      */
     public void deleteBtnClicked(View view) {
-        recordingController.stopRecordingViaService(this, true);
+        try {
+            recordingController.stopRecordingViaService(this, true);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     /**
      * @param view The method is the click handler for recorder stop button
      */
     public void stopBtnClicked(View view) {
-        recordingController.stopRecordingViaService(this, false);
+        try {
+            recordingController.stopRecordingViaService(this, false);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     @Override
@@ -221,44 +237,52 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void recordPauseBtnClicked(View view) {
-        mediaPlayerController.stopPlaying(this);
-        if (!isServiceBound) return;
-        recordingController.startPauseRecording(this);
+        try {
+            mediaPlayerController.stopPlaying(this);
+            if (!isServiceBound) return;
+            recordingController.startPauseRecording(this);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     @Override
     public void onFileItemClicked(Recording recording) {
-        if (!AudioRecorderLocalService.MEDIA_REC_STATE.isStopped()) {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.warn_stop_rec_to_play_audio), Toast.LENGTH_SHORT).show();
-            return;
+        try {
+            if (!AudioRecorderLocalService.MEDIA_REC_STATE.isStopped()) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.warn_stop_rec_to_play_audio), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            mediaPlayerController.playPauseAudio(this, recording);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
-        mediaPlayerController.playPauseAudio(this, recording);
     }
 
     @Override
     protected void onStop() {
-        if (isServiceBound)
-            unbindService(serviceConnection);
-        isServiceBound = false;
-        recordingController.onActivityStopped();
-        recordingController.onDestroy();
-
         try {
+            if (isServiceBound)
+                unbindService(serviceConnection);
+            isServiceBound = false;
             // https://stackoverflow.com/questions/2682043/how-to-check-if-receiver-is-registered-in-android
             LocalBroadcastManager.getInstance(getBaseContext()).unregisterReceiver(broadcastReceiver);
+            broadcastReceiver = null;
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
-        broadcastReceiver = null;
 
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        mediaPlayerController.releaseMediaPlayer();
-        recordingController.onDestroy();
-
+        try {
+            mediaPlayerController.releaseMediaPlayer();
+            recordingController.onDestroy();
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
         super.onDestroy();
     }
 }

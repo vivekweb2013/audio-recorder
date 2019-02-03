@@ -66,7 +66,7 @@ public class AudioRecorderLocalService extends Service {
 
         switch (intent.getAction()) {
             case ACTION_START_RECORDING:
-                Log.d(TAG, "Received Start Recording Intent ");
+                Log.d(TAG, "Received Start Recording Intent");
                 Intent notificationIntent = new Intent(this, MainActivity.class);
                 notificationIntent.setAction(Intent.ACTION_MAIN);
                 notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -103,13 +103,21 @@ public class AudioRecorderLocalService extends Service {
                 break;
             case ACTION_PAUSE_RECORDING:
                 Log.i(TAG, "Received Pause Foreground Intent");
-                pauseRecording();
-                broadcastRecorderStateChange();
+                try {
+                    pauseRecording();
+                    broadcastRecorderStateChange();
+                } catch (Exception e) {
+                    Log.e(TAG, "ERROR: " + e.getMessage());
+                }
                 break;
             case ACTION_RESUME_RECORDING:
                 Log.i(TAG, "Received Resume Foreground Intent");
-                resumeRecording();
-                broadcastRecorderStateChange();
+                try {
+                    resumeRecording();
+                    broadcastRecorderStateChange();
+                } catch (Exception e) {
+                    Log.e(TAG, "ERROR: " + e.getMessage());
+                }
                 break;
             default:
                 break;
