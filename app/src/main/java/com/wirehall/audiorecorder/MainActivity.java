@@ -38,10 +38,9 @@ import com.wirehall.audiorecorder.setting.SettingActivity;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 public class MainActivity extends AppCompatActivity implements VisualizerFragment.VisualizerMPSession, FileListFragment.FileListFragmentListener {
-    private static final String TAG = MainActivity.class.getName();
-
     public final static String APP_PACKAGE_NAME = "com.wirehall.audiorecorder";
     public static final String KEY_PREF_RECORDING_STORAGE_PATH = "recording_storage_path";
+    private static final String TAG = MainActivity.class.getName();
     private static final String PLAY_STORE_URL = "market://details?id=" + APP_PACKAGE_NAME;
 
     private static final int PERMISSION_REQUEST_CODE = 111;

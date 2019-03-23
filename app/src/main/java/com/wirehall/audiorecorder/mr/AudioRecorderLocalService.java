@@ -30,27 +30,17 @@ import java.io.IOException;
 import static com.wirehall.audiorecorder.App.CHANNEL_ID;
 
 public class AudioRecorderLocalService extends Service {
-    private static final String TAG = AudioRecorderLocalService.class.getName();
-    private static final int SERVICE_ID = 1;
-
     public static final String ACTION_START_RECORDING = "com.wirehall.audiorecorder.ACTION_START_RECORDING";
     public static final String ACTION_STOP_RECORDING = "com.wirehall.audiorecorder.ACTION_STOP_RECORDING";
     public static final String ACTION_PAUSE_RECORDING = "com.wirehall.audiorecorder.ACTION_PAUSE_RECORDING";
     public static final String ACTION_RESUME_RECORDING = "com.wirehall.audiorecorder.ACTION_RESUME_RECORDING";
-
+    private static final String TAG = AudioRecorderLocalService.class.getName();
+    private static final int SERVICE_ID = 1;
     public static MediaRecorderState MEDIA_REC_STATE = MediaRecorderState.STOPPED;
     public static MediaRecorder mediaRecorder;
     public static RecordingTime recordingTime;
-
-    private String recordingFilePath;
     private final IBinder binder = new LocalBinder();
-
-    public class LocalBinder extends Binder {
-        public AudioRecorderLocalService getService() {
-            // Return this instance of this service so clients can call public methods
-            return AudioRecorderLocalService.this;
-        }
-    }
+    private String recordingFilePath;
 
     @Override
     public void onCreate() {
@@ -178,7 +168,6 @@ public class AudioRecorderLocalService extends Service {
         MEDIA_REC_STATE = MediaRecorderState.RESUMED;
     }
 
-
     /**
      * Stop the audio recording
      *
@@ -222,5 +211,12 @@ public class AudioRecorderLocalService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return binder;
+    }
+
+    public class LocalBinder extends Binder {
+        public AudioRecorderLocalService getService() {
+            // Return this instance of this service so clients can call public methods
+            return AudioRecorderLocalService.this;
+        }
     }
 }

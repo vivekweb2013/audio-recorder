@@ -49,47 +49,47 @@ public class FileUtils {
     @NonNull
     public static List<Recording> getAllFilesFromDirectory(Context context, String path, FilenameFilter filenameFilter) {
         List<Recording> recordings = new ArrayList<>();
-            File directory = new File(path);
-            if (!directory.exists()) {
-                directory.mkdirs();
+        File directory = new File(path);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        File[] files = directory.listFiles(filenameFilter);
+
+        if (files == null) {
+            // Means pathname does not denote a directory, or if an I/O error occurs.
+            // Or could be due to missing storage permissions
+            Log.e(TAG, "Problem accessing path: " + path);
+            return recordings;
+        }
+        Arrays.sort(files, new Comparator<File>() {
+            public int compare(File f1, File f2) {
+                return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
             }
-            File[] files = directory.listFiles(filenameFilter);
+        });
 
-            if (files == null) {
-                // Means pathname does not denote a directory, or if an I/O error occurs.
-                // Or could be due to missing storage permissions
-                Log.e(TAG, "Problem accessing path: " + path);
-                return recordings;
+        for (File file : files) {
+            try {
+                Recording rec = new Recording();
+                rec.setName(getFilenameWithoutExt(file.getName()));
+                rec.setPath(file.getPath());
+                rec.setSize(file.length());
+                rec.setSizeInString(humanReadableByteCount(file.length(), true));
+                rec.setModifiedDateMilliSec(file.lastModified());
+                rec.setModifiedDateInString(humanReadableDate(file.lastModified()));
+
+                MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                mmr.setDataSource(file.getPath());
+                long duration = Long.parseLong(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+                mmr.release();
+                rec.setDuration(duration);
+                rec.setDurationDetailedInString(humanReadableDurationDetailed(context, duration));
+                rec.setDurationShortInString(humanReadableDurationShort(context, duration));
+
+                recordings.add(rec);
+            } catch (Exception e) {
+                Log.e(TAG, "Error scanning file: " + e.getMessage());
             }
-            Arrays.sort(files, new Comparator<File>() {
-                public int compare(File f1, File f2) {
-                    return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
-                }
-            });
-
-            for (File file : files) {
-                try {
-                    Recording rec = new Recording();
-                    rec.setName(getFilenameWithoutExt(file.getName()));
-                    rec.setPath(file.getPath());
-                    rec.setSize(file.length());
-                    rec.setSizeInString(humanReadableByteCount(file.length(), true));
-                    rec.setModifiedDateMilliSec(file.lastModified());
-                    rec.setModifiedDateInString(humanReadableDate(file.lastModified()));
-
-                    MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-                    mmr.setDataSource(file.getPath());
-                    long duration = Long.parseLong(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
-                    mmr.release();
-                    rec.setDuration(duration);
-                    rec.setDurationDetailedInString(humanReadableDurationDetailed(context, duration));
-                    rec.setDurationShortInString(humanReadableDurationShort(context, duration));
-
-                    recordings.add(rec);
-                } catch (Exception e) {
-                    Log.e(TAG, "Error scanning file: " + e.getMessage());
-                }
-            }
+        }
 
         return recordings;
     }
