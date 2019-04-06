@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
                 @Override
                 public void onReceive(Context context, Intent intent) {
                     MediaRecorderState MEDIA_REC_STATE = AudioRecorderLocalService.MEDIA_REC_STATE;
+                    String recordingFilePath = intent.getStringExtra(AudioRecorderLocalService.KEY_RECORDING_FILE_PATH);
                     switch (MEDIA_REC_STATE) {
                         case RECORDING:
                             recordingController.onRecordingStarted(MainActivity.this);
@@ -84,17 +85,17 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
                             recordingController.onRecordingPaused(MainActivity.this);
                             break;
                         case STOPPED:
-                            recordingController.onRecordingStopped(MainActivity.this, false);
+                            recordingController.onRecordingStopped(MainActivity.this, false, recordingFilePath);
                             break;
                         case DISCARDED:
-                            recordingController.onRecordingStopped(MainActivity.this, true);
+                            recordingController.onRecordingStopped(MainActivity.this, true, recordingFilePath);
                             break;
                         default:
                             break;
                     }
                 }
             };
-            LocalBroadcastManager.getInstance(getBaseContext()).registerReceiver(broadcastReceiver, new IntentFilter("RecorderStateChange"));
+            LocalBroadcastManager.getInstance(getBaseContext()).registerReceiver(broadcastReceiver, new IntentFilter(AudioRecorderLocalService.EVENT_RECORDER_STATE_CHANGE));
             recordingController.init(MainActivity.this);
         }
 

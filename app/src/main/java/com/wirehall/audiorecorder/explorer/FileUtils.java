@@ -28,16 +28,16 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class FileUtils {
-    public static final String DEFAULT_FILENAME_EXTENSION = ".3gp";
+    public static final String DEFAULT_REC_FILENAME_EXTENSION = ".3gp";
     private static final String TAG = FileUtils.class.getName();
-    private static final String DEFAULT_FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss";
+    private static final String DEFAULT_REC_FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss";
 
     /**
      * @return The current time string in "yyyy-MM-dd-HH-mm-ss" format
      */
     public static String generateFileName() {
-        SimpleDateFormat df = new SimpleDateFormat(DEFAULT_FILENAME_FORMAT, Locale.getDefault());
-        return df.format(Calendar.getInstance().getTime()).concat(DEFAULT_FILENAME_EXTENSION);
+        SimpleDateFormat df = new SimpleDateFormat(DEFAULT_REC_FILENAME_FORMAT, Locale.getDefault());
+        return df.format(Calendar.getInstance().getTime()).concat(DEFAULT_REC_FILENAME_EXTENSION);
     }
 
     /**

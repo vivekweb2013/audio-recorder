@@ -2,17 +2,22 @@ package com.wirehall.audiorecorder.mr;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.FileListFragment;
+import com.wirehall.audiorecorder.explorer.FilenameInputDialog;
+import com.wirehall.audiorecorder.setting.SettingActivity;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 import com.wirehall.audiorecorder.visualizer.view.RecorderVisualizerView;
 
@@ -99,10 +104,14 @@ public class RecordingController {
         mapUIToState(activity);
     }
 
-    public void onRecordingStopped(AppCompatActivity activity, boolean isDelete) {
+    public void onRecordingStopped(AppCompatActivity activity, boolean isDiscardRecording, String recordingFilePath) {
         mapUIToState(activity);
 
-        if (!isDelete) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
+        boolean askForFilename = sharedPref.getBoolean(SettingActivity.KEY_PREF_ASK_FOR_FILENAME, false);
+        if (askForFilename && !isDiscardRecording) {
+            launchAskForFilenameDialog(activity, recordingFilePath); // refreshFileListView called on dismiss
+        } else if (!askForFilename && !isDiscardRecording) {
             refreshFileListView(activity);
         }
     }
@@ -111,12 +120,12 @@ public class RecordingController {
      * Stop the audio recording
      *
      * @param activity Activity required for internal operations
-     * @param isDelete Indicates if the current active recording is to be deleted
+     * @param isDiscardRecording Indicates if the current active recording needs to be discarded
      */
-    public void stopRecordingViaService(AppCompatActivity activity, boolean isDelete) {
+    public void stopRecordingViaService(AppCompatActivity activity, boolean isDiscardRecording) {
         Intent serviceIntent = new Intent(activity, AudioRecorderLocalService.class);
         serviceIntent.setAction(ACTION_STOP_RECORDING);
-        serviceIntent.putExtra("isDelete", isDelete);
+        serviceIntent.putExtra(AudioRecorderLocalService.FLAG_IS_DISCARD_RECORDING, isDiscardRecording);
         activity.startService(serviceIntent);
     }
 
@@ -223,4 +232,15 @@ public class RecordingController {
     }
 
 
+    public void launchAskForFilenameDialog(final AppCompatActivity activity, final String recordingFilePath) {
+        DialogInterface.OnDismissListener onDismissListener = new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                refreshFileListView(activity);
+            }
+        };
+        FilenameInputDialog filenameInputDialog = new FilenameInputDialog(activity, recordingFilePath);
+        filenameInputDialog.setOnDismissListener(onDismissListener);
+        filenameInputDialog.show();
+    }
 }

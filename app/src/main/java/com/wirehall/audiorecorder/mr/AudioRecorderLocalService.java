@@ -30,6 +30,9 @@ import java.io.IOException;
 import static com.wirehall.audiorecorder.App.CHANNEL_ID;
 
 public class AudioRecorderLocalService extends Service {
+    public static final String EVENT_RECORDER_STATE_CHANGE = "EVENT_RECORDER_STATE_CHANGE";
+    public static final String FLAG_IS_DISCARD_RECORDING = "FLAG_IS_DISCARD_RECORDING";
+    public static final String KEY_RECORDING_FILE_PATH = "KEY_RECORDING_FILE_PATH";
     public static final String ACTION_START_RECORDING = "com.wirehall.audiorecorder.ACTION_START_RECORDING";
     public static final String ACTION_STOP_RECORDING = "com.wirehall.audiorecorder.ACTION_STOP_RECORDING";
     public static final String ACTION_PAUSE_RECORDING = "com.wirehall.audiorecorder.ACTION_PAUSE_RECORDING";
@@ -82,8 +85,8 @@ public class AudioRecorderLocalService extends Service {
             case ACTION_STOP_RECORDING:
                 Log.i(TAG, "Received Stop Recording Intent");
                 try {
-                    boolean isDelete = intent.getBooleanExtra("isDelete", false);
-                    stopRecording(isDelete);
+                    boolean isDiscardRecording = intent.getBooleanExtra(FLAG_IS_DISCARD_RECORDING, false);
+                    stopRecording(isDiscardRecording);
                     broadcastRecorderStateChange();
                 } catch (Exception e) {
                     Log.e(TAG, "ERROR: " + e.getMessage());
@@ -119,7 +122,8 @@ public class AudioRecorderLocalService extends Service {
     private void broadcastRecorderStateChange() {
         // broadcast state change so that the activity is notified
         // and it can make UI changes accordingly
-        Intent recorderStateChangeIntent = new Intent("RecorderStateChange");
+        Intent recorderStateChangeIntent = new Intent(EVENT_RECORDER_STATE_CHANGE);
+        recorderStateChangeIntent.putExtra(KEY_RECORDING_FILE_PATH, recordingFilePath);
         LocalBroadcastManager.getInstance(this).sendBroadcast(recorderStateChangeIntent);
     }
 
@@ -168,17 +172,12 @@ public class AudioRecorderLocalService extends Service {
         MEDIA_REC_STATE = MediaRecorderState.RESUMED;
     }
 
-    /**
-     * Stop the audio recording
-     *
-     * @param isDelete Indicates if the current active recording is to be deleted
-     */
-    private void stopRecording(boolean isDelete) {
+    private void stopRecording(boolean isDiscardRecording) {
         if (mediaRecorder != null) {
             mediaRecorder.stop();
             mediaRecorder.reset();
         }
-        if (isDelete) {
+        if (isDiscardRecording) {
             FileUtils.deleteFile(recordingFilePath);
             MEDIA_REC_STATE = MediaRecorderState.DISCARDED;
         } else {

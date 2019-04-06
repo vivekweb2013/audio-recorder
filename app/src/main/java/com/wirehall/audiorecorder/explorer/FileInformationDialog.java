@@ -27,7 +27,7 @@ public class FileInformationDialog extends Dialog implements android.view.View.O
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.file_info_dialog);
-        Button closeButton = findViewById(R.id.btn_file_dialog_close);
+        Button closeButton = findViewById(R.id.btn_file_info_dialog_close);
         Spanned fileInfoString = HtmlCompat.fromHtml(getContext().getResources().getString(R.string.tv_file_info, recording.getName(), recording.getSizeInString(), recording.getDurationDetailedInString(), recording.getPath()), HtmlCompat.FROM_HTML_MODE_LEGACY);
         TextView fileInfoTextView = findViewById(R.id.tv_file_info);
         fileInfoTextView.setText(fileInfoString);

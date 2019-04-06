@@ -12,6 +12,8 @@
     <string name="settings">Settings</string>
     <string name="pref_confirm_delete_summary">Show confirmation dialog when deleting file</string>
     <string name="pref_confirm_delete_title">Confirmation for Delete</string>
+    <string name="pref_ask_for_filename_summary">Ask for filename after recording is finished</string>
+    <string name="pref_ask_for_filename_title">Ask for Filename</string>
     <string name="pref_list_audio_quality_dialog_title">Select Audio Quality</string>
     <string name="pref_list_audio_quality_title">Recording Audio Quality</string>
     <string name="pref_recording_storage_path_title">Recording Path</string>
@@ -27,6 +29,7 @@
     <string name="file_menu_option_delete">✖ Delete</string>
     <string name="file_menu_option_info">ⓘ Info</string>
     <string name="file_menu_option_share">✈ Share</string>
+    <string name="file_menu_option_rename">🖉 Rename</string>
     <string name="warn_stop_rec_to_play_audio">Audio can not be played while recording. Stop the recording first!</string>
     <string name="duration_in_sec_long">%d sec</string>
     <string name="duration_in_min_sec_long">%d min, %d sec</string>
@@ -49,4 +52,5 @@
     <string name="toast_folder_creation_failed">Failed to Create Folder: %1$s</string>
     <string name="recording_in_progress">Recording....</string>
     <string name="btn_stop_recording">Stop Recording</string>
+    <string name="et_filename_input_dialog">Enter Filename Here</string>
 </resources>

@@ -16,7 +16,7 @@
         android:textSize="@dimen/size_file_info_text_view" />
 
     <Button
-        android:id="@+id/btn_file_dialog_close"
+        android:id="@+id/btn_file_info_dialog_close"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/distance_standard_dialog"

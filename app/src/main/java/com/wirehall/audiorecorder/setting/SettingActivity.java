@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 public class SettingActivity extends AppCompatActivity {
     public static final String KEY_PREF_CONFIRM_DELETE = "confirm_delete";
+    public static final String KEY_PREF_ASK_FOR_FILENAME = "ask_for_filename";
     public static final String KEY_PREF_LIST_AUDIO_QUALITY = "list_audio_quality";
 
     @Override

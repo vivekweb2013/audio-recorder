@@ -144,6 +144,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
 
             final String fileMenuOptionDelete = context.getResources().getString(R.string.file_menu_option_delete);
             final String fileMenuOptionInfo = context.getResources().getString(R.string.file_menu_option_info);
+            final String fileMenuOptionRename = context.getResources().getString(R.string.file_menu_option_rename);
             final String fileMenuOptionShare = context.getResources().getString(R.string.file_menu_option_share);
             final String deleteDialogTitle = context.getResources().getString(R.string.dialog_delete_title);
             final String yes = context.getResources().getString(R.string.yes);
@@ -157,6 +158,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                     final List<String> data = new ArrayList<>();
                     data.add(fileMenuOptionDelete);
                     data.add(fileMenuOptionInfo);
+                    data.add(fileMenuOptionRename);
                     data.add(fileMenuOptionShare);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.file_menu_item_layout, data);
                     /* use ur custom layout which has only TextView along with style required*/
@@ -199,6 +201,20 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                                 FileInformationDialog fileInformationDialog = new FileInformationDialog(context, recordings.get(adapterPosition));
                                 window.dismiss();
                                 fileInformationDialog.show();
+                            } else if (option.equals(fileMenuOptionRename)) {
+                                final Recording sourceRecording = recordings.get(adapterPosition);
+                                final FilenameInputDialog filenameInputDialog = new FilenameInputDialog(context, sourceRecording.getPath());
+                                filenameInputDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        Recording renamedRecording = filenameInputDialog.getRenamedRecording();
+                                        sourceRecording.setName(renamedRecording.getName());
+                                        sourceRecording.setPath(renamedRecording.getPath());
+                                        notifyItemChanged(adapterPosition);
+                                    }
+                                });
+                                window.dismiss();
+                                filenameInputDialog.show();
                             } else if (option.equals(fileMenuOptionShare)) {
                                 Uri uri = FileProvider.getUriForFile(context, "com.wirehall.fileprovider", new File(recordings.get(adapterPosition).getPath()));
                                 Intent share = new Intent(Intent.ACTION_SEND);

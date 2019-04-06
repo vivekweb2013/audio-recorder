@@ -7,6 +7,12 @@
         android:summary="@string/pref_confirm_delete_summary"
         android:title="@string/pref_confirm_delete_title" />
 
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="ask_for_filename"
+        android:summary="@string/pref_ask_for_filename_summary"
+        android:title="@string/pref_ask_for_filename_title" />
+
     <android.support.v7.preference.ListPreference
         android:defaultValue="@string/audio_quality_normal"
         android:dialogTitle="@string/pref_list_audio_quality_dialog_title"

@@ -110,7 +110,7 @@ public class FileListFragment extends Fragment {
      */
     class FileExtensionFilter implements FilenameFilter {
         public boolean accept(File dir, String name) {
-            return (name.endsWith(FileUtils.DEFAULT_FILENAME_EXTENSION));
+            return (name.endsWith(FileUtils.DEFAULT_REC_FILENAME_EXTENSION));
         }
     }
 }
