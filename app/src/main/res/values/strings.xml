@@ -29,7 +29,7 @@
     <string name="file_menu_option_delete">✖ Delete</string>
     <string name="file_menu_option_info">ⓘ Info</string>
     <string name="file_menu_option_share">✈ Share</string>
-    <string name="file_menu_option_rename">🖉 Rename</string>
+    <string name="file_menu_option_rename">✍ Rename</string>
     <string name="warn_stop_rec_to_play_audio">Audio can not be played while recording. Stop the recording first!</string>
     <string name="duration_in_sec_long">%d sec</string>
     <string name="duration_in_min_sec_long">%d min, %d sec</string>
@@ -52,5 +52,5 @@
     <string name="toast_folder_creation_failed">Failed to Create Folder: %1$s</string>
     <string name="recording_in_progress">Recording....</string>
     <string name="btn_stop_recording">Stop Recording</string>
-    <string name="et_filename_input_dialog">Enter Filename Here</string>
+    <string name="et_hint_filename_input_dialog">Enter Filename Here</string>
 </resources>

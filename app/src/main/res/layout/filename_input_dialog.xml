@@ -12,12 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/et_hint_filename_input_dialog"
         android:inputType="text"
-        android:text="@string/et_filename_input_dialog" />
+        android:singleLine="true"
+        android:textColor="@color/colorTextPrimary"
+        android:textColorHint="@color/colorPrimaryLight" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="end"
         android:orientation="horizontal"
         tools:style="?attr/buttonBarStyle">
 

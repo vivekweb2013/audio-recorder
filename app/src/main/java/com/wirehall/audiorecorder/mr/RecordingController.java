@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.FileListFragment;
@@ -113,13 +114,14 @@ public class RecordingController {
             launchAskForFilenameDialog(activity, recordingFilePath); // refreshFileListView called on dismiss
         } else if (!askForFilename && !isDiscardRecording) {
             refreshFileListView(activity);
+            Toast.makeText(activity, activity.getString(R.string.message_recording_saved), Toast.LENGTH_SHORT).show();
         }
     }
 
     /**
      * Stop the audio recording
      *
-     * @param activity Activity required for internal operations
+     * @param activity           Activity required for internal operations
      * @param isDiscardRecording Indicates if the current active recording needs to be discarded
      */
     public void stopRecordingViaService(AppCompatActivity activity, boolean isDiscardRecording) {
@@ -237,6 +239,7 @@ public class RecordingController {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 refreshFileListView(activity);
+                Toast.makeText(activity, activity.getString(R.string.message_recording_saved), Toast.LENGTH_SHORT).show();
             }
         };
         FilenameInputDialog filenameInputDialog = new FilenameInputDialog(activity, recordingFilePath);

@@ -2,6 +2,7 @@ package com.wirehall.audiorecorder.explorer;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,6 +42,10 @@ public class FilenameInputDialog extends Dialog implements android.view.View.OnC
             public void onClick(View v) {
                 try {
                     String newRecordingName = editText.getText().toString();
+                    if (newRecordingName.trim().isEmpty()) {
+                        editText.setHintTextColor(Color.RED);
+                        return;
+                    }
                     File sourceFile = new File(filePath);
                     File targetFile = new File(sourceFile.getParent(),
                             newRecordingName + FileUtils.DEFAULT_REC_FILENAME_EXTENSION);

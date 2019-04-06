@@ -181,7 +181,6 @@ public class AudioRecorderLocalService extends Service {
             FileUtils.deleteFile(recordingFilePath);
             MEDIA_REC_STATE = MediaRecorderState.DISCARDED;
         } else {
-            Toast.makeText(getBaseContext(), getBaseContext().getString(R.string.message_recording_saved), Toast.LENGTH_SHORT).show();
             MEDIA_REC_STATE = MediaRecorderState.STOPPED;
         }
         // Reset Timer

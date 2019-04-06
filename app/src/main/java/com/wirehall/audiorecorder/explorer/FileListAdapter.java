@@ -208,9 +208,11 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                                     @Override
                                     public void onDismiss(DialogInterface dialog) {
                                         Recording renamedRecording = filenameInputDialog.getRenamedRecording();
-                                        sourceRecording.setName(renamedRecording.getName());
-                                        sourceRecording.setPath(renamedRecording.getPath());
-                                        notifyItemChanged(adapterPosition);
+                                        if (renamedRecording != null) {
+                                            sourceRecording.setName(renamedRecording.getName());
+                                            sourceRecording.setPath(renamedRecording.getPath());
+                                            notifyItemChanged(adapterPosition);
+                                        }
                                     }
                                 });
                                 window.dismiss();
