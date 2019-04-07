@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Audio Recorder</string>
     <string name="button_delete_description">Delete Recording</string>
     <string name="button_record_description">Start/Pause Recording</string>
@@ -6,7 +6,7 @@
     <string name="button_rec_play_pause_description">Play/Pause Recording</string>
     <string name="button_rec_file_menu_description">Recording File Menu</string>
     <string name="tv_file_info"><![CDATA[<b>Name: </b>%1$s<br /><b>Size: </b>%2$s<br /><b>Duration: </b>%3$s<br /><b>Path: </b>%4$s]]></string>
-    <string name="tv_list_empty">No Recordings Found\nClick Record Button to Start Recording</string>
+    <string name="tv_list_empty">No Recordings Found.\nClick Record Button to Start Recording</string>
     <string name="audio_quality_normal">Normal</string>
     <string name="audio_quality_high">High</string>
     <string name="settings">Settings</string>
@@ -22,32 +22,32 @@
     <string name="pref_path_new_folder_dialog_title">New Folder Name</string>
     <string name="share_recording">Share Recording</string>
     <string name="dialog_delete_title">Are you sure?</string>
-    <string name="dialog_delete_message">Do you want to delete this recording?\n%1$s</string>
+    <string name="dialog_delete_message">Do you want to delete this recording?\n<xliff:g id="file_path">%1$s</xliff:g></string>
     <string name="close">Close</string>
-    <string name="file_menu_option_delete">✖ Delete</string>
-    <string name="file_menu_option_info">ⓘ Info</string>
-    <string name="file_menu_option_share">✈ Share</string>
-    <string name="file_menu_option_rename">✍ Rename</string>
+    <string name="file_menu_option_delete"><xliff:g id="delete_symbol">✖</xliff:g> Delete</string>
+    <string name="file_menu_option_info"><xliff:g id="info_symbol">ⓘ Info</xliff:g></string>
+    <string name="file_menu_option_share"><xliff:g id="share_symbol">✈ Share</xliff:g></string>
+    <string name="file_menu_option_rename"><xliff:g id="rename_symbol">✍ Rename</xliff:g></string>
     <string name="warn_stop_rec_to_play_audio">Audio can not be played while recording. Stop the recording first!</string>
     <string name="duration_in_sec_long">%d sec</string>
     <string name="duration_in_min_sec_long">%d min, %d sec</string>
     <string name="duration_in_min_sec_short">%1$02d:%2$02d</string>
     <string name="duration_progress_in_min_sec_short">%1$d:%2$02d/%3$d:%4$02d</string>
     <string name="message_recording_started">Recording Started</string>
-    <string name="message_recording_saved">Recording Saved Successfully</string>
-    <string name="label_version">Version: %1$s</string>
+    <string name="message_recording_saved">Recording Saved Successfully!</string>
+    <string name="label_version">Version: <xliff:g example="1.3.0" id="version">%1$s</xliff:g></string>
     <string name="disclaimer">This software is provided \"As Is\" and without any express or implied warranties. The risk of any loss, damage, or unsatisfactory performance of this software rests with you as the user</string>
-    <string name="label_dev_name">Developer: Vivek L</string>
+    <string name="label_dev_name">Developer: <xliff:g id="developer_name">Vivek L</xliff:g></string>
     <string name="about">About</string>
     <string name="no_thanks">No, Thanks</string>
     <string name="rate">Rate</string>
     <string name="rate_this_app">Rate This App</string>
     <string name="remind_me_later">Remind Me Later</string>
     <string name="rate_dialog_info">If you enjoy using this app, please take a moment to rate it. Thanks for your support!</string>
-    <string name="by_wirehall">by WIREHALL</string>
+    <string name="by_wirehall">by <xliff:g id="organization_name">WIREHALL</xliff:g></string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="toast_recording_storage_path_updated">Recording Path Updated \n</string>
-    <string name="toast_folder_creation_failed">Failed to Create Folder: %1$s</string>
+    <string name="toast_folder_creation_failed">Failed to Create Folder: <xliff:g id="directory_path">%1$s</xliff:g></string>
     <string name="recording_in_progress">Recording....</string>
     <string name="btn_stop_recording">Stop Recording</string>
     <string name="et_hint_filename_input_dialog">Enter Filename Here</string>
