@@ -147,8 +147,6 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
             final String fileMenuOptionRename = context.getResources().getString(R.string.file_menu_option_rename);
             final String fileMenuOptionShare = context.getResources().getString(R.string.file_menu_option_share);
             final String deleteDialogTitle = context.getResources().getString(R.string.dialog_delete_title);
-            final String yes = context.getResources().getString(R.string.yes);
-            final String no = context.getResources().getString(R.string.no);
             fileOptionsMenuButton = itemView.findViewById(R.id.ib_file_menu);
             fileOptionsMenuButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -186,12 +184,12 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                                     builder.setTitle(deleteDialogTitle)
                                             .setMessage(deleteDialogMessage)
                                             .setIcon(R.drawable.ic_warning_black)
-                                            .setPositiveButton(yes, new DialogInterface.OnClickListener() {
+                                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     deleteFile(adapterPosition);
                                                 }
                                             })
-                                            .setNegativeButton(no, null)
+                                            .setNegativeButton(android.R.string.no, null)
                                             .show();
                                 } else {
                                     deleteFile(adapterPosition);
