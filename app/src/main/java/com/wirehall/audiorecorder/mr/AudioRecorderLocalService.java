@@ -56,7 +56,7 @@ public class AudioRecorderLocalService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) return super.onStartCommand(null, flags, startId);
-
+        assert intent.getAction() != null;
         switch (intent.getAction()) {
             case ACTION_START_RECORDING:
                 Log.d(TAG, "Received Start Recording Intent");

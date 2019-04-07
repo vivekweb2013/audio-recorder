@@ -18,7 +18,7 @@ import java.io.File;
 public class FilenameInputDialog extends Dialog implements android.view.View.OnClickListener {
     private static final String TAG = FilenameInputDialog.class.getName();
 
-    private String filePath;
+    private final String filePath;
     private Recording recording;
 
     public FilenameInputDialog(Context context, String filePath) {
