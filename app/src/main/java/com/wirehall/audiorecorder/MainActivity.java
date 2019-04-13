@@ -192,14 +192,19 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
                 }
                 break;
         }
-        if (isPermissionAccepted) {
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.add(R.id.list_fragment_container, FileListFragment.newInstance());
-            ft.commit();
-        } else {
+        if (!isPermissionAccepted) {
             finish();
         }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.list_fragment_container, FileListFragment.newInstance());
+        ft.commit();
     }
 
     @Override
