@@ -9,9 +9,9 @@
 
     <android.support.v7.preference.SwitchPreferenceCompat
         android:defaultValue="false"
-        android:key="ask_for_filename"
-        android:summary="@string/pref_ask_for_filename_summary"
-        android:title="@string/pref_ask_for_filename_title" />
+        android:key="request_filename"
+        android:summary="@string/pref_request_filename_summary"
+        android:title="@string/pref_request_filename_title" />
 
     <android.support.v7.preference.ListPreference
         android:defaultValue="@string/audio_quality_normal"

@@ -109,10 +109,10 @@ public class RecordingController {
         mapUIToState(activity);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);
-        boolean askForFilename = sharedPref.getBoolean(SettingActivity.KEY_PREF_ASK_FOR_FILENAME, false);
-        if (askForFilename && !isDiscardRecording) {
+        boolean requestFilename = sharedPref.getBoolean(SettingActivity.KEY_PREF_REQUEST_FILENAME, false);
+        if (requestFilename && !isDiscardRecording) {
             launchAskForFilenameDialog(activity, recordingFilePath); // refreshFileListView called on dismiss
-        } else if (!askForFilename && !isDiscardRecording) {
+        } else if (!requestFilename && !isDiscardRecording) {
             refreshFileListView(activity);
             Toast.makeText(activity, activity.getString(R.string.message_recording_saved), Toast.LENGTH_SHORT).show();
         }

@@ -74,11 +74,12 @@ public class FileListFragment extends Fragment {
                 try {
                     FragmentActivity activity = getActivity();
                     if (activity != null) {
+                        String recordingStoragePath = FileUtils.getRecordingStoragePath(getContext());
+                        final List<Recording> recordings = FileUtils.getAllFilesFromDirectory(getContext(), recordingStoragePath,
+                                new FileExtensionFilter());
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                String recordingStoragePath = FileUtils.getRecordingStoragePath(getContext());
-                                List<Recording> recordings = FileUtils.getAllFilesFromDirectory(getContext(), recordingStoragePath, new FileExtensionFilter());
                                 fileListAdapter.updateData(recordings);
                             }
                         });
