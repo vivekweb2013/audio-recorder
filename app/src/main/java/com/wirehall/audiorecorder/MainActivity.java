@@ -183,14 +183,12 @@ public class MainActivity extends AppCompatActivity implements VisualizerFragmen
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         boolean isPermissionAccepted = false;
-        switch (requestCode) {
-            case PERMISSION_REQUEST_CODE:
-                for (int result : grantResults) {
-                    isPermissionAccepted = (result == PackageManager.PERMISSION_GRANTED);
-                    if (!isPermissionAccepted)
-                        break;
-                }
-                break;
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            for (int result : grantResults) {
+                isPermissionAccepted = (result == PackageManager.PERMISSION_GRANTED);
+                if (!isPermissionAccepted)
+                    break;
+            }
         }
         if (!isPermissionAccepted) {
             finish();
