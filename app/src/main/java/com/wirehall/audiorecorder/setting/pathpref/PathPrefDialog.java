@@ -14,7 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.DialogPreference;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
 import android.text.Editable;
-import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -76,17 +76,15 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
         newFolderButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         newFolderButton.setText(R.string.pref_path_new_folder);
         newFolderButton.setEnabled(false);
+
         newFolderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final EditText input = new EditText(getContext());
-                input.setMaxLines(1);
-                input.setLines(1);
-                input.setMinLines(1);
-                input.setInputType(InputType.TYPE_CLASS_TEXT); // prevent new line character
+                input.setSingleLine();
 
                 // Show new folder name input dialog
-                new AlertDialog.Builder(requireContext()).setTitle(R.string.pref_path_new_folder_dialog_title).
+                final AlertDialog newFolderDialog = new AlertDialog.Builder(requireContext()).setTitle(R.string.pref_path_new_folder_dialog_title).
                         setView(input).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         Editable newDir = input.getText();
@@ -101,7 +99,35 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
                             Toast.makeText(getContext(), getString(R.string.toast_folder_creation_failed, newDirName), Toast.LENGTH_SHORT).show();
                         }
                     }
-                }).setNegativeButton(android.R.string.cancel, null).show();
+                }).setNegativeButton(android.R.string.cancel, null).create();
+
+                newFolderDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        newFolderDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                        input.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                if (s == null || s.toString().equals("..") || s.toString().equals(".") || s.toString().isEmpty()) {
+                                    newFolderDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                                } else {
+                                    newFolderDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                                }
+                            }
+                        });
+                    }
+                });
+
+
+                newFolderDialog.show();
             }
         });
 
@@ -142,7 +168,8 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
                 PathPreference pathPreference = ((PathPreference) preference);
                 pathPreference.persistString(dir.getPath());
                 pathPreference.setSummary(dir.getPath());
-                Toast.makeText(getContext(), getString(R.string.toast_recording_storage_path_updated) + dir, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.toast_recording_storage_path_updated) + dir.getPath(),
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -256,8 +283,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
                 if (v instanceof TextView) {
                     // Enable list item (directory) text wrapping
                     TextView tv = (TextView) v;
-                    tv.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                    tv.setEllipsize(null);
+                    tv.setSingleLine();
                     StorageItem storageItem = getItem(position);
                     if (storageItem != null) {
                         tv.setText(storageItem.getStylishName());
