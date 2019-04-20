@@ -33,7 +33,6 @@
     <string name="pref_confirm_delete_title">Confirmação para Excluir</string>
     <string name="pref_list_audio_quality_dialog_title">Selecione a qualidade do áudio</string>
     <string name="pref_list_audio_quality_title">Gravando Qualidade de Áudio</string>
-    <string name="pref_path_dialog_title">Escolha o diretório</string>
     <string name="pref_path_new_folder">Nova pasta</string>
     <string name="pref_path_new_folder_dialog_title">Novo nome da pasta</string>
     <string name="pref_recording_storage_path_title">Caminho de Gravação</string>

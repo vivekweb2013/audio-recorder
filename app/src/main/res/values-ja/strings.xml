@@ -33,7 +33,6 @@
     <string name="pref_confirm_delete_title">削除の確認</string>
     <string name="pref_list_audio_quality_dialog_title">音質を選択する</string>
     <string name="pref_list_audio_quality_title">音質を録音する</string>
-    <string name="pref_path_dialog_title">ディレクトリを選択</string>
     <string name="pref_path_new_folder">新しいフォルダ</string>
     <string name="pref_path_new_folder_dialog_title">新しいフォルダ名</string>
     <string name="pref_recording_storage_path_title">記録場所</string>

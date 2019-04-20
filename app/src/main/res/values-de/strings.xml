@@ -33,7 +33,6 @@
     <string name="pref_confirm_delete_title">Bestätigung zum Löschen</string>
     <string name="pref_list_audio_quality_dialog_title">Wählen Sie Audioqualität</string>
     <string name="pref_list_audio_quality_title">Audioqualität aufnehmen</string>
-    <string name="pref_path_dialog_title">Wählen Sie Verzeichnis</string>
     <string name="pref_path_new_folder">Neuer Ordner</string>
     <string name="pref_path_new_folder_dialog_title">Neuer Ordnername</string>
     <string name="pref_recording_storage_path_title">Aufzeichnungspfad</string>

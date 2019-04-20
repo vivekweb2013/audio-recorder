@@ -33,7 +33,6 @@
     <string name="pref_confirm_delete_title">Confirmation de suppression</string>
     <string name="pref_list_audio_quality_dialog_title">Sélectionnez la qualité audio</string>
     <string name="pref_list_audio_quality_title">Enregistrement de la qualité audio</string>
-    <string name="pref_path_dialog_title">Choisissez un répertoire</string>
     <string name="pref_path_new_folder">Nouveau dossier</string>
     <string name="pref_path_new_folder_dialog_title">Nom du nouveau dossier</string>
     <string name="pref_recording_storage_path_title">Chemin d\'enregistrement</string>

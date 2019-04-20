@@ -33,7 +33,6 @@
     <string name="pref_confirm_delete_title">Confirmation for Delete</string>
     <string name="pref_list_audio_quality_dialog_title">Select Audio Quality</string>
     <string name="pref_list_audio_quality_title">Recording Audio Quality</string>
-    <string name="pref_path_dialog_title">Choose Directory</string>
     <string name="pref_path_new_folder">New Folder</string>
     <string name="pref_path_new_folder_dialog_title">New Folder Name</string>
     <string name="pref_recording_storage_path_title">Recording Path</string>

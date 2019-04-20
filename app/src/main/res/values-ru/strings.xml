@@ -33,7 +33,6 @@
     <string name="pref_confirm_delete_title">Удалить подтверждение</string>
     <string name="pref_list_audio_quality_dialog_title">Выберите качество звука</string>
     <string name="pref_list_audio_quality_title">Качество записи звука</string>
-    <string name="pref_path_dialog_title">Выберите каталог</string>
     <string name="pref_path_new_folder">Новая папка</string>
     <string name="pref_path_new_folder_dialog_title">Имя новой папки</string>
     <string name="pref_recording_storage_path_title">Путь записи</string>

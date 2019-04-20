@@ -33,7 +33,6 @@
     <string name="pref_confirm_delete_title">刪除確認</string>
     <string name="pref_list_audio_quality_dialog_title">選擇音頻質量</string>
     <string name="pref_list_audio_quality_title">錄製音頻質量</string>
-    <string name="pref_path_dialog_title">選擇目錄</string>
     <string name="pref_path_new_folder">新建文件夾</string>
     <string name="pref_path_new_folder_dialog_title">新文件夾名稱</string>
     <string name="pref_recording_storage_path_title">記錄存儲路徑</string>
