@@ -51,4 +51,5 @@
     <string name="tv_file_info"><![CDATA[<b>Nome: </b>%1$s<br /><b>Tamanho: </b>%2$s<br /><b>Duração: </b>%3$s<br /><b>Caminho: </b>%4$s]]></string>
     <string name="tv_list_empty">Nenhuma gravação encontrada. Clique no botão Gravar para iniciar a gravação</string>
     <string name="warn_stop_rec_to_play_audio">O áudio não pode ser reproduzido durante a gravação. Pare a gravação primeiro!</string>
+    <string name="message_recording_fail_io_error">Gravação falhou. Problema ao acessar o armazenamento. Por favor, atualize o caminho de armazenamento</string>
 </resources>

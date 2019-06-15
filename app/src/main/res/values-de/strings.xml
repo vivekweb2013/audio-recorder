@@ -51,4 +51,5 @@
     <string name="tv_file_info"><![CDATA[<b>Name: </b>%1$s<br /><b>Größe: </b>%2$s<br /><b>Dauer: </b>%3$s<br /><b>Pfad: </b>%4$s]]></string>
     <string name="tv_list_empty">Keine Aufnahmen gefunden Klicken Sie auf die Aufnahmeschaltfläche, um die Aufnahme zu starten</string>
     <string name="warn_stop_rec_to_play_audio">Audio kann während der Aufnahme nicht abgespielt werden. Stoppen Sie zuerst die Aufnahme!</string>
+    <string name="message_recording_fail_io_error">Aufzeichnung fehlgeschlagen. Problem beim Zugriff auf Speicher. Bitte aktualisieren Sie den Speicherpfad</string>
 </resources>

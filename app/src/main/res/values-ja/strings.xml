@@ -51,4 +51,5 @@
     <string name="tv_file_info"><![CDATA[<b>名: </b>%1$s<br /><b>サイズ: </b>%2$s<br /><b>期間: </b>%3$s<br /><b>パス: </b>%4$s]]></string>
     <string name="tv_list_empty">録音は見つかりませんでした。録音ボタンをクリックして録音を開始します</string>
     <string name="warn_stop_rec_to_play_audio">録音中は音声を再生できません。最初に録音を停止してください。</string>
+    <string name="message_recording_fail_io_error">記録に失敗しました。ストレージへのアクセスに問題があります。ストレージパスを更新してください</string>
 </resources>

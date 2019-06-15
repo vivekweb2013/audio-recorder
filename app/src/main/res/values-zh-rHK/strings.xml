@@ -51,4 +51,5 @@
     <string name="tv_file_info"><![CDATA[<b>名稱: </b>%1$s<br /><b>尺寸: </b>%2$s<br /><b>持續時間: </b>%3$s<br /><b>地點: </b>%4$s]]></string>
     <string name="tv_list_empty">無法找到錄音。單擊“錄製”按鈕開始錄製</string>
     <string name="warn_stop_rec_to_play_audio">錄製時無法播放音頻。先停止錄音</string>
+    <string name="message_recording_fail_io_error">錄製失敗。訪問存儲有問題。請更新存儲路徑</string>
 </resources>

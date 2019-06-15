@@ -78,9 +78,11 @@ public class AudioRecorderLocalService extends Service {
                         .setOngoing(true)
                         .addAction(R.drawable.ic_stop_white, getBaseContext().getString(R.string.btn_stop_recording), stopRecordPendingIntent).build();
 
-                startRecording(getBaseContext());
-                broadcastRecorderStateChange();
-                startForeground(SERVICE_ID, notification);
+                boolean isRecording = startRecording(getBaseContext());
+                if (isRecording) {
+                    broadcastRecorderStateChange();
+                    startForeground(SERVICE_ID, notification);
+                }
                 break;
             case ACTION_STOP_RECORDING:
                 Log.i(TAG, "Received Stop Recording Intent");
@@ -127,7 +129,7 @@ public class AudioRecorderLocalService extends Service {
         LocalBroadcastManager.getInstance(this).sendBroadcast(recorderStateChangeIntent);
     }
 
-    private void startRecording(Context context) {
+    private boolean startRecording(Context context) {
         try {
             String recordingStoragePath = FileUtils.getRecordingStoragePath(context);
             recordingFilePath = recordingStoragePath + '/' + FileUtils.generateFileName();
@@ -152,10 +154,16 @@ public class AudioRecorderLocalService extends Service {
             MEDIA_REC_STATE = MediaRecorderState.RECORDING;
             Toast.makeText(context, context.getString(R.string.message_recording_started), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
+            Toast.makeText(context, context.getString(R.string.message_recording_fail_io_error), Toast.LENGTH_LONG).show();
             Log.e(TAG, "ERROR: IOException: " + e.getMessage());
+            mediaRecorder.reset();
+            return false;
         } catch (Exception e) {
             Log.e(TAG, "ERROR: " + e.getMessage());
+            mediaRecorder.reset();
+            return false;
         }
+        return true;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

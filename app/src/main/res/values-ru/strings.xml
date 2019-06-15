@@ -51,4 +51,5 @@
     <string name="tv_file_info"><![CDATA[<b>название: </b>%1$s<br /><b>Размер: </b>%2$s<br /><b>продолжительность: </b>%3$s<br /><b>место нахождения: </b>%4$s]]></string>
     <string name="tv_list_empty">Файлы не найдены. Нажмите кнопку записи, чтобы начать запись.</string>
     <string name="warn_stop_rec_to_play_audio">Звук не может быть воспроизведен во время записи. Сначала остановите запись!</string>
+    <string name="message_recording_fail_io_error">Запись не удалась. Проблема с доступом к хранилищу. Пожалуйста, обновите путь хранения</string>
 </resources>
