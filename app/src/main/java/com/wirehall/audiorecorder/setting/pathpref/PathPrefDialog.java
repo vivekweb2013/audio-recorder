@@ -58,7 +58,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
     @Override
     protected void onPrepareDialogBuilder(AlertDialog.Builder dialogBuilder) {
         super.onPrepareDialogBuilder(dialogBuilder);
-        initVolumes();
+        initVolumes(false); // TODO: false till the SAF is used
         // Create custom view for AlertDialog title containing
         // current directory TextView and possible 'New folder' button.
         // Current directory TextView allows long directory path to be wrapped to multiple lines.
@@ -226,8 +226,8 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
         return false;
     }
 
-    private void initVolumes() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+    private void initVolumes(boolean scanExternalStorageVolumes) {
+        if (scanExternalStorageVolumes && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             //get the list of all storage StorageVolumeItem
             StorageManager storageManager = (StorageManager) getContext().getSystemService(Context.STORAGE_SERVICE);
             for (android.os.storage.StorageVolume storageVolume : storageManager.getStorageVolumes()) {
