@@ -182,7 +182,11 @@ public class AudioRecorderLocalService extends Service {
 
     private void stopRecording(boolean isDiscardRecording) {
         if (mediaRecorder != null) {
-            mediaRecorder.stop();
+            try {
+                mediaRecorder.stop();
+            } catch (Exception e) {
+                Log.e(TAG, "ERROR: " + e.getMessage());
+            }
             mediaRecorder.reset();
         }
         if (isDiscardRecording) {
