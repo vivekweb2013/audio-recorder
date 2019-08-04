@@ -52,4 +52,5 @@
     <string name="tv_list_empty">Aucun enregistrement trouvé. Cliquez sur le bouton d\'enregistrement pour commencer l\'enregistrement</string>
     <string name="warn_stop_rec_to_play_audio">Le son ne peut pas être lu pendant l\'enregistrement. Arrêtez d\'abord l\'enregistrement!</string>
     <string name="message_recording_fail_io_error">L\'enregistrement a échoué. Problème d\'accès au stockage. Veuillez mettre à jour le chemin de stockage</string>
+    <string name="progress_bar">barre de progression</string>
 </resources>

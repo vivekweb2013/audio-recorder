@@ -36,8 +36,8 @@
     <string name="pref_path_new_folder">新建文件夹</string>
     <string name="pref_path_new_folder_dialog_title">新文件夹名称</string>
     <string name="pref_recording_storage_path_title">记录存储路径</string>
-    <string name="pref_request_filename_summary">錄製完成後請求文件名</string>
-    <string name="pref_request_filename_title">詢問文件名</string>
+    <string name="pref_request_filename_summary">录制完成后请求文件名</string>
+    <string name="pref_request_filename_title">询问文件名</string>
     <string name="privacy_policy">隐私政策</string>
     <string name="rate">为这个应用软件评分</string>
     <string name="rate_dialog_info">如果您想使用此应用程序，请花点时间对其进行评分。感谢您的支持</string>
@@ -52,4 +52,5 @@
     <string name="tv_list_empty">无法找到录音。单击“录制”按钮开始录制</string>
     <string name="warn_stop_rec_to_play_audio">录制时无法播放音频。先停止录音</string>
     <string name="message_recording_fail_io_error">录制失败。访问存储有问题。请更新存储路径</string>
+    <string name="progress_bar">进度条</string>
 </resources>

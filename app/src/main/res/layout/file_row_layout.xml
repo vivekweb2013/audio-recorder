@@ -25,6 +25,7 @@
         android:textColor="@color/color_text_filename" />
 
     <RelativeLayout
+        android:id="@+id/rl_file_info_area"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

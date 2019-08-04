@@ -52,4 +52,5 @@
     <string name="tv_list_empty">Файлы не найдены. Нажмите кнопку записи, чтобы начать запись.</string>
     <string name="warn_stop_rec_to_play_audio">Звук не может быть воспроизведен во время записи. Сначала остановите запись!</string>
     <string name="message_recording_fail_io_error">Запись не удалась. Проблема с доступом к хранилищу. Пожалуйста, обновите путь хранения</string>
+    <string name="progress_bar">индикатор</string>
 </resources>

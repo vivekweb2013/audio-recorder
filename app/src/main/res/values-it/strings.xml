@@ -52,4 +52,5 @@
     <string name="tv_list_empty">Nessuna registrazione trovata. Fare clic sul pulsante Registra per avviare la registrazione</string>
     <string name="warn_stop_rec_to_play_audio">L\'audio non può essere riprodotto durante la registrazione. Fermare prima la registrazione!</string>
     <string name="message_recording_fail_io_error">Registrazione fallita. Problema di accesso alla memoria. Si prega di aggiornare il percorso di archiviazione</string>
+    <string name="progress_bar">barra di avanzamento</string>
 </resources>

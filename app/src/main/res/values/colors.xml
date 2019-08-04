@@ -17,4 +17,5 @@
     <color name="color_file_button_bg">#f8303030</color>
     <color name="about_app_icon_image_bg">#dfdfdf</color>
     <color name="color_seek_bar_line_disabled">@color/colorPrimary</color>
+    <color name="color_hyperlink">#6D6DFF</color>
 </resources>

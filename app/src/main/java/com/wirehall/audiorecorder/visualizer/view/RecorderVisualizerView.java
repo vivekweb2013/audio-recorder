@@ -25,6 +25,7 @@ public class RecorderVisualizerView extends View {
         linePaint = new Paint(); // create Paint for lines
         linePaint.setColor(Color.GREEN); // set color to green
         linePaint.setStrokeWidth(LINE_WIDTH); // set stroke width
+        setContentDescription(null);
     }
 
     // called when the dimensions of the View change

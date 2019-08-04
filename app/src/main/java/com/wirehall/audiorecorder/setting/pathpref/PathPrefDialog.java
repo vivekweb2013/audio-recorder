@@ -17,7 +17,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -39,8 +38,8 @@ import java.util.List;
 public class PathPrefDialog extends PreferenceDialogFragmentCompat {
     private final String TAG = PathPrefDialog.class.getName();
     private boolean isNewFolderEnabled = true;
-    private StorageItem dir =
-            new StorageItem(Environment.getExternalStorageDirectory().getName(), Environment.getExternalStorageDirectory().getAbsolutePath());
+    private StorageItem dir = new StorageItem(Environment.getExternalStorageDirectory().getName(),
+            Environment.getExternalStorageDirectory().getAbsolutePath());
     private List<StorageItem> storageItemList = new ArrayList<>();
     private ArrayAdapter<StorageItem> listAdapter;
     private List<StorageVolumeItem> storageVolumeItems = new ArrayList<>();
@@ -82,6 +81,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
             public void onClick(View v) {
                 final EditText input = new EditText(getContext());
                 input.setSingleLine();
+                input.setMinHeight((int) getResources().getDimension(R.dimen.size_standard_min_height));
 
                 // Show new folder name input dialog
                 final AlertDialog newFolderDialog = new AlertDialog.Builder(requireContext()).setTitle(R.string.pref_path_new_folder_dialog_title).
@@ -144,20 +144,6 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
 
         dialogBuilder.setSingleChoiceItems(listAdapter, -1, this);
         dialogBuilder.setCancelable(false);
-
-        dialogBuilder.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    // Back button pressed, and its not the root directory
-                    // Navigate back to an upper directory
-                    dir = dir.getParentStorageItem();
-                    updateDirectory();
-                    return true;
-                }
-                return false;
-            }
-        });
     }
 
     @Override
@@ -168,8 +154,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
                 PathPreference pathPreference = ((PathPreference) preference);
                 pathPreference.persistString(dir.getPath());
                 pathPreference.setSummary(dir.getPath());
-                Toast.makeText(getContext(), getString(R.string.toast_recording_storage_path_updated) + dir.getPath(),
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.toast_recording_storage_path_updated) + dir.getPath(), Toast.LENGTH_SHORT).show();
             }
         }
     }

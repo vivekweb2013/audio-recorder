@@ -42,8 +42,7 @@
     </FrameLayout>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4"
@@ -106,6 +105,7 @@
         <!--Ignore warning and keep thumbTint in SeekBar as we need this for newer APIs, older APIs already handled in progressDrawable-->
         <SeekBar
             android:id="@+id/sb_mp_seek_bar"
+            android:contentDescription="@string/progress_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_sub_container"

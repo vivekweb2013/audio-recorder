@@ -1,5 +1,7 @@
 package com.wirehall.audiorecorder.setting.pathpref;
 
+import android.support.annotation.NonNull;
+
 import java.io.File;
 
 public class StorageItem {
@@ -45,6 +47,7 @@ public class StorageItem {
         return new StorageItem(parentFile.getName(), parentFile.getPath());
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "StorageItem{" +

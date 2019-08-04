@@ -21,7 +21,7 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="@dimen/size_about_dialog_app_name_text"
+        android:textSize="@dimen/size_tv_about_dialog_app_name"
         android:textStyle="bold" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="@dimen/size_version_label" />
+        android:textSize="@dimen/size_tv_version" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:gravity="center"
         android:text="@string/by_wirehall"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="@dimen/size_label_by_wirehall" />
+        android:textSize="@dimen/size_tv_by_wirehall" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
         android:gravity="center"
         android:text="@string/label_dev_name"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="@dimen/size_label_dev_name" />
+        android:textSize="@dimen/size_tv_dev_name" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,18 +59,18 @@
         android:gravity="center"
         android:text="@string/disclaimer"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="@dimen/size_usage_notice_text" />
+        android:textSize="@dimen/size_tv_usage_notice" />
 
-    <Button
-        android:id="@+id/btn_privacy_policy"
+    <TextView
+        android:id="@+id/tv_privacy_policy_link"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/height_btn_privacy_policy"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginTop="@dimen/distance_standard_dialog"
-        android:background="@color/colorPrimaryLight"
-        android:padding="@dimen/padding_btn_privacy_policy"
         android:text="@string/privacy_policy"
-        android:textColor="@color/colorTextPrimary" />
+        android:textColor="@color/color_hyperlink"
+        android:textSize="@dimen/size_tv_privacy_policy" />
 
     <Button
         android:id="@+id/btn_about_dialog_close"

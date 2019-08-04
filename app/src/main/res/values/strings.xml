@@ -52,4 +52,5 @@
     <string name="tv_file_info"><![CDATA[<b>Name: </b>%1$s<br /><b>Size: </b>%2$s<br /><b>Duration: </b>%3$s<br /><b>Path: </b>%4$s]]></string>
     <string name="tv_list_empty">No Recordings Found. Click Record Button to Start Recording</string>
     <string name="warn_stop_rec_to_play_audio">Can not play audio while recording. Stop recording first!</string>
+    <string name="progress_bar">Progress bar</string>
 </resources>

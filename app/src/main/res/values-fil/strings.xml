@@ -52,4 +52,5 @@
     <string name="tv_file_info"><![CDATA[<b>Pangalan: </b>%1$s<br /><b>Sukat: </b>%2$s<br /><b>Tagal: </b>%3$s<br /><b>Lokasyon: </b>%4$s]]></string>
     <string name="tv_list_empty">Natagpuan Walang Pag-record. I-click ang Pindutan ng Rekord upang Simulan ang Pag-record</string>
     <string name="warn_stop_rec_to_play_audio">Hindi mai-play ang audio habang nagre-record. Itigil ang pag-record muna!</string>
+    <string name="progress_bar">progressbar</string>
 </resources>

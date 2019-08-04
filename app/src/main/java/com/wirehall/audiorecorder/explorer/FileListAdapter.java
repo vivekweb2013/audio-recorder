@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wirehall.audiorecorder.R;
@@ -118,6 +119,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
      * Used to keep the reference to list row elements to fetch faster. i.e. to avoid time consuming findViewById
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        final RelativeLayout fileInfoAreaView;
         final TextView fileNameTextView;
         final TextView fileSizeTextView;
         final TextView fileDateModifiedTextView;
@@ -129,7 +131,8 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         private ViewHolder(@NonNull View itemView, RecyclerViewClickListener recyclerViewClickListener) {
             super(itemView);
             this.recyclerViewClickListener = recyclerViewClickListener;
-            itemView.setOnClickListener(this);
+            fileInfoAreaView = itemView.findViewById(R.id.rl_file_info_area);
+            fileInfoAreaView.setOnClickListener(this);
 
             //Note: you can also use the setOnClickListener on below child views
             //and perform the actions in onClick method using the instanceof check

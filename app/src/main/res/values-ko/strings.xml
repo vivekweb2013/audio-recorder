@@ -52,4 +52,5 @@
     <string name="tv_list_empty">기록이 없습니다. 녹음 버튼을 클릭하여 녹음을 시작하십시오.</string>
     <string name="warn_stop_rec_to_play_audio">녹음 중에는 오디오를 재생할 수 없습니다. 먼저 녹음을 중지하십시오!</string>
     <string name="message_recording_fail_io_error">녹화가 실패했습니다. 저장소에 액세스하는 중 문제가 발생했습니다. 저장 경로를 업데이트하십시오.</string>
+    <string name="progress_bar">진행 표시 줄</string>
 </resources>

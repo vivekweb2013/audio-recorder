@@ -52,4 +52,5 @@
     <string name="tv_list_empty">No se encontraron grabaciones. Haga clic en el botón Grabar para iniciar la grabación</string>
     <string name="warn_stop_rec_to_play_audio">El audio no se puede reproducir durante la grabación. ¡Deja de grabar primero!</string>
     <string name="message_recording_fail_io_error">Grabación fallida. Problema al acceder al almacenamiento. Por favor actualice la ruta de almacenamiento</string>
+    <string name="progress_bar">barra de progreso</string>
 </resources>

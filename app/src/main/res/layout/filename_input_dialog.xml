@@ -11,6 +11,7 @@
         android:id="@+id/et_filename_input_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/size_standard_min_height"
         android:ems="10"
         android:hint="@string/et_hint_filename_input_dialog"
         android:importantForAutofill="no"

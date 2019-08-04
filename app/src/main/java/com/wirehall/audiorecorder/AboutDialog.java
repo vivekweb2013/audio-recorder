@@ -3,6 +3,7 @@ package com.wirehall.audiorecorder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -27,8 +28,9 @@ public class AboutDialog extends Dialog implements View.OnClickListener {
         Button closeButton = findViewById(R.id.btn_about_dialog_close);
         closeButton.setOnClickListener(this);
 
-        Button privacyPolicyButton = findViewById(R.id.btn_privacy_policy);
-        privacyPolicyButton.setOnClickListener(this);
+        TextView privacyPolicyTextView = findViewById(R.id.tv_privacy_policy_link);
+        privacyPolicyTextView.setPaintFlags(privacyPolicyTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        privacyPolicyTextView.setOnClickListener(this);
 
         String versionName = getContext().getResources().getString(R.string.label_version, BuildConfig.VERSION_NAME);
         TextView versionTextView = findViewById(R.id.tv_about_dialog_version);
@@ -38,7 +40,7 @@ public class AboutDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_privacy_policy:
+            case R.id.tv_privacy_policy_link:
                 getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_POLICY_URL)));
                 break;
             case R.id.btn_about_dialog_close:
