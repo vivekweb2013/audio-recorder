@@ -27,4 +27,7 @@ Setting available to choose storage path, change audio quality, request filename
 Preference available to request recording filename once recording is done.
 Recordings can be renamed with the Rename option available in option menu.
 
+Credits:
+Daniel Michel - Thanks for the german translation
+
 Please comment for any suggestions/improvements. Thanks and Enjoy :-)
