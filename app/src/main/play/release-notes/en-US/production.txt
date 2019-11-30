@@ -1,0 +1,18 @@
+Added support for following languages
+  Chinese (zh) (both Traditional and Simplified)
+  Filipino; Plipino (fil)
+  French (fr)
+  German (de)
+  Italian (it)
+  Japanese (ja)
+  Korean (ko)
+  Portuguese (pt)
+  Russian (ru)
+  Spanish (es)
+
+
+Recordings can be renamed with the Rename option available in option menu.
+
+Preference added to request recording filename once recording is done.
+
+Other bug fixes

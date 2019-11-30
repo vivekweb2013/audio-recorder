@@ -1,0 +1,30 @@
+Audio Recorder is a smart, simple, and free audio/voice recording app from WIREHALL. You can record the audio for unlimited duration. The recording will continue in background even if the phone is in locked state. It records the audio/voice in high quality. User has the option to select the audio quality in settings screen.
+
+Its a very lightweight app. It takes very less storage space for installation. The size of this app is almost less than 1 MB. This audio recorder app supports the wide range of android devices (mobiles, tablets).
+
+It has very nice visualizations shown at the time of recording and playing the audio.
+
+The design of this audio recorder app is very simple and easy to use. The recordings can be started and played on the same screen. The recordings are shown in the list, new recording are shown at the top of the list (sorted by date).
+
+User can share the recordings on available sharing options (Bluetooth, email ... etc)
+
+Features:
+
+Free. No Ads. Less permissions required.
+Size less than 1 MB.
+Easy to use, single screen design.
+Background audio recording is supported. Notification shown to control background recording task.
+Recordings are shown on the same screen, (navigation to other screen is not required).
+Seek-Bar available to adjust the playback progress.
+Waveform visualization shown at the time of recording.
+Added multiple other visualizations, shown at the time of playing the audio.
+Easily share your recordings with share option.
+Easily discard the ongoing recording using delete button.
+Recording can be paused on devices with API > 24 (Nougat) and above.
+Support both mobile and tablet devices.
+Multiple orientation supported if rotation is turned on.
+Setting available to choose storage path, change audio quality, request filename etc.
+Preference available to request recording filename once recording is done.
+Recordings can be renamed with the Rename option available in option menu.
+
+Please comment for any suggestions/improvements. Thanks and Enjoy :-)
