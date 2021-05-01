@@ -2,7 +2,7 @@ package com.wirehall.audiorecorder;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 
 public class AppRater {
     public static final String KEY_PREF_RATE_DIALOG_DONT_SHOW = "rate_dialog_dont_show";

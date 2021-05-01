@@ -1,6 +1,6 @@
 package com.wirehall.audiorecorder.setting.pathpref;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.File;
 

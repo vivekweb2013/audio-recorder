@@ -5,12 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.preference.PreferenceManager;
-import android.support.v7.widget.ListPopupWindow;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AlertDialog;
+import androidx.preference.PreferenceManager;
+import androidx.appcompat.widget.ListPopupWindow;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +54,9 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         // Note: Do not use the passed position parameter. Instead use viewHolder.getAdapterPosition()
         // as the position sometimes has the wrong value
-        viewHolder.itemView.setSelected(this.selectedRowPosition == viewHolder.getAdapterPosition());
+        viewHolder.itemView.setSelected(this.selectedRowPosition == viewHolder.getBindingAdapterPosition());
 
-        Recording recording = recordings.get(viewHolder.getAdapterPosition());
+        Recording recording = recordings.get(viewHolder.getBindingAdapterPosition());
         viewHolder.fileNameTextView.setText(recording.getName());
         viewHolder.fileSizeTextView.setText(recording.getSizeInString());
         viewHolder.fileDateModifiedTextView.setText(recording.getModifiedDateInString());
@@ -173,7 +173,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             String option = data.get(position);
-                            final int adapterPosition = getAdapterPosition();
+                            final int adapterPosition = getBindingAdapterPosition();
                             if (adapterPosition == RecyclerView.NO_POSITION) {
                                 return;
                             }
@@ -187,12 +187,12 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                                     builder.setTitle(deleteDialogTitle)
                                             .setMessage(deleteDialogMessage)
                                             .setIcon(R.drawable.ic_warning_black)
-                                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     deleteFile(adapterPosition);
                                                 }
                                             })
-                                            .setNegativeButton(android.R.string.no, null)
+                                            .setNegativeButton(android.R.string.cancel, null)
                                             .show();
                                 } else {
                                     deleteFile(adapterPosition);
@@ -237,7 +237,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
             refreshRowSelection(position);
             recyclerViewClickListener.onClick(view, position);
         }

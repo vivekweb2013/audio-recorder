@@ -1,7 +1,7 @@
 package com.wirehall.audiorecorder.mr;
 
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class RecordingTime {
 

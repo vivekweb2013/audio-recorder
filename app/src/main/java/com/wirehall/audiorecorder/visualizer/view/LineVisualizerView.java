@@ -3,7 +3,7 @@ package com.wirehall.audiorecorder.visualizer.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 
 public class LineVisualizerView extends BaseVisualizerView {

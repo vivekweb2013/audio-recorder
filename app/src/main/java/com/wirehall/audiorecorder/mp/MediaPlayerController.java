@@ -3,7 +3,9 @@ package com.wirehall.audiorecorder.mp;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Looper;
 import android.util.Log;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ public class MediaPlayerController {
     private static final String TAG = MediaPlayerController.class.getName();
 
     private static MediaPlayerController mediaPlayerController;
-    private final Handler handler = new Handler();
+    private final Handler handler = new Handler(Looper.myLooper());
     private MediaPlayer mediaPlayer;
     private MediaPlayer.OnCompletionListener mPlayerOnCompletionListener;
     private Recording currentRecording = null;

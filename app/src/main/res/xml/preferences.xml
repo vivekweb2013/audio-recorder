@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:icon="@null">
-    <android.support.v7.preference.SwitchPreferenceCompat
+    <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="confirm_delete"
         android:summary="@string/pref_confirm_delete_summary"
         android:title="@string/pref_confirm_delete_title" />
 
-    <android.support.v7.preference.SwitchPreferenceCompat
+    <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="false"
         android:key="request_filename"
         android:summary="@string/pref_request_filename_summary"
         android:title="@string/pref_request_filename_title" />
 
-    <android.support.v7.preference.ListPreference
+    <androidx.preference.ListPreference
         android:defaultValue="@string/audio_quality_normal"
         android:dialogTitle="@string/pref_list_audio_quality_dialog_title"
         android:entries="@array/entries_list_preference"
@@ -25,4 +25,4 @@
     <com.wirehall.audiorecorder.setting.pathpref.PathPreference
         android:key="recording_storage_path"
         android:title="@string/pref_recording_storage_path_title" />
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

@@ -3,8 +3,10 @@ package com.wirehall.audiorecorder.explorer;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaMetadataRetriever;
-import android.support.annotation.NonNull;
-import android.support.v7.preference.PreferenceManager;
+
+import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
+
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;

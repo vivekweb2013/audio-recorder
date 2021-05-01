@@ -3,7 +3,7 @@ package com.wirehall.audiorecorder.explorer;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.text.HtmlCompat;
+import androidx.core.text.HtmlCompat;
 import android.text.Spanned;
 import android.view.View;
 import android.view.Window;

@@ -1,6 +1,6 @@
 package com.wirehall.audiorecorder.explorer.model;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class Recording {
     private String name;

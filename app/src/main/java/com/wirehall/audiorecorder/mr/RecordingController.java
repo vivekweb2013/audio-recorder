@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.PreferenceManager;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+
+import android.os.Looper;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,7 @@ import static com.wirehall.audiorecorder.mr.AudioRecorderLocalService.ACTION_STO
 public class RecordingController {
     private static final String TAG = RecordingController.class.getName();
     private static RecordingController recordingController;
-    private final Handler handler = new Handler();
+    private final Handler handler = new Handler(Looper.myLooper());
 
     private Runnable visualizerRunnable;
 
