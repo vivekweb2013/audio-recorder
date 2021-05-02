@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.github.triplet.play' version '3.4.0-agp4.2'
+    id "org.sonarqube" version "3.2.0"
 }
 
 play {
@@ -61,6 +62,7 @@ android {
 
         debug {
             debuggable true
+            testCoverageEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -77,4 +79,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
     implementation 'androidx.preference:preference:1.1.1'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "${rootProject.name}"
+        property "sonar.projectKey", "vivekweb2013_audio-recorder"
+        property "sonar.organization", "vivekweb2013"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
