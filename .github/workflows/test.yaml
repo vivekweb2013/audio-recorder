@@ -1,0 +1,35 @@
+name: Test
+
+on:
+  push:
+    branches:
+    tags:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  test:
+    runs-on: macos-latest
+    name: Run Tests on API-${{ matrix.api-level }}
+    strategy:
+      matrix:
+        api-level: [ 23, 25, 28 ] # Exclude api-level already executed in ci workflow
+        target: [ default ]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache Gradle Packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Run Instrumented Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: x86_64
+          profile: Nexus 6
+          script: ./gradlew connectedCheck
