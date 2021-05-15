@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder.mr;
+package com.wirehall.audiorecorder.recorder;
 
 import android.annotation.TargetApi;
 import android.app.Notification;

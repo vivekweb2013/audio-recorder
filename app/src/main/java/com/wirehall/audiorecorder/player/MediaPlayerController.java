@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder.mp;
+package com.wirehall.audiorecorder.player;
 
 import android.content.Context;
 import android.media.MediaPlayer;

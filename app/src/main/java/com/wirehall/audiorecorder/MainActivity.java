@@ -31,10 +31,10 @@ import androidx.preference.PreferenceManager;
 
 import com.wirehall.audiorecorder.explorer.FileListFragment;
 import com.wirehall.audiorecorder.explorer.model.Recording;
-import com.wirehall.audiorecorder.mp.MediaPlayerController;
-import com.wirehall.audiorecorder.mr.AudioRecorderLocalService;
-import com.wirehall.audiorecorder.mr.MediaRecorderState;
-import com.wirehall.audiorecorder.mr.RecordingController;
+import com.wirehall.audiorecorder.player.MediaPlayerController;
+import com.wirehall.audiorecorder.recorder.AudioRecorderLocalService;
+import com.wirehall.audiorecorder.recorder.MediaRecorderState;
+import com.wirehall.audiorecorder.recorder.RecordingController;
 import com.wirehall.audiorecorder.setting.SettingActivity;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 

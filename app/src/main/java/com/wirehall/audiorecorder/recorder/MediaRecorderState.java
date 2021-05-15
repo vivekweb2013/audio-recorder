@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder.mr;
+package com.wirehall.audiorecorder.recorder;
 
 /**
  * Since the MediaRecorder class does not hold the state We need to maintain the state using the

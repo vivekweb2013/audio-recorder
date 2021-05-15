@@ -1,4 +1,4 @@
-package com.wirehall.audiorecorder.mr;
+package com.wirehall.audiorecorder.recorder;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -24,10 +24,10 @@ import com.wirehall.audiorecorder.setting.SettingActivity;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 import com.wirehall.audiorecorder.visualizer.view.RecorderVisualizerView;
 
-import static com.wirehall.audiorecorder.mr.AudioRecorderLocalService.ACTION_PAUSE_RECORDING;
-import static com.wirehall.audiorecorder.mr.AudioRecorderLocalService.ACTION_RESUME_RECORDING;
-import static com.wirehall.audiorecorder.mr.AudioRecorderLocalService.ACTION_START_RECORDING;
-import static com.wirehall.audiorecorder.mr.AudioRecorderLocalService.ACTION_STOP_RECORDING;
+import static com.wirehall.audiorecorder.recorder.AudioRecorderLocalService.ACTION_PAUSE_RECORDING;
+import static com.wirehall.audiorecorder.recorder.AudioRecorderLocalService.ACTION_RESUME_RECORDING;
+import static com.wirehall.audiorecorder.recorder.AudioRecorderLocalService.ACTION_START_RECORDING;
+import static com.wirehall.audiorecorder.recorder.AudioRecorderLocalService.ACTION_STOP_RECORDING;
 
 /** Singleton class for controlling the recording operations */
 public class RecordingController {
