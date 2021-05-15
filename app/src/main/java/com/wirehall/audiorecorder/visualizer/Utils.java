@@ -1,6 +1,7 @@
 package com.wirehall.audiorecorder.visualizer;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
@@ -19,53 +20,55 @@ import java.util.List;
 
 public final class Utils {
 
-    /**
-     * This utility method is used to instantiate and get the media player visualizer views
-     *
-     * @param context Context required for internal operations
-     * @return List<BaseVisualizerView> Returns the list of media player visualizer views
-     */
-    @NonNull
-    public static List<BaseVisualizerView> getAllMPVisualizerViews(Context context) {
-        List<BaseVisualizerView> visualizers = new ArrayList<>();
+  /**
+   * This utility method is used to instantiate and get the media player visualizer views
+   *
+   * @param context Context required for internal operations
+   * @return List<BaseVisualizerView> Returns the list of media player visualizer views
+   */
+  @NonNull
+  public static List<BaseVisualizerView> getAllMPVisualizerViews(Context context) {
+    List<BaseVisualizerView> visualizers = new ArrayList<>();
 
-        BarVisualizerView barVisualizerView = new BarVisualizerView(context);
-        barVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
-        barVisualizerView.setDensity(100);
-        visualizers.add(barVisualizerView);
+    BarVisualizerView barVisualizerView = new BarVisualizerView(context);
+    barVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
+    barVisualizerView.setDensity(100);
+    visualizers.add(barVisualizerView);
 
-        CircleBarVisualizerView circleBarVisualizerView = new CircleBarVisualizerView(context);
-        circleBarVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
-        visualizers.add(circleBarVisualizerView);
+    CircleBarVisualizerView circleBarVisualizerView = new CircleBarVisualizerView(context);
+    circleBarVisualizerView.setColor(
+        ContextCompat.getColor(context, R.color.color_visualizer_view));
+    visualizers.add(circleBarVisualizerView);
 
-        CircleVisualizerView circleVisualizerView = new CircleVisualizerView(context);
-        circleVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
-        visualizers.add(circleVisualizerView);
+    CircleVisualizerView circleVisualizerView = new CircleVisualizerView(context);
+    circleVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
+    visualizers.add(circleVisualizerView);
 
-        LineBarVisualizerView lineBarVisualizerView = new LineBarVisualizerView(context);
-        lineBarVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
-        lineBarVisualizerView.setDensity(100);
-        visualizers.add(lineBarVisualizerView);
+    LineBarVisualizerView lineBarVisualizerView = new LineBarVisualizerView(context);
+    lineBarVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
+    lineBarVisualizerView.setDensity(100);
+    visualizers.add(lineBarVisualizerView);
 
-        LineVisualizerView lineVisualizerView = new LineVisualizerView(context);
-        lineVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
-        visualizers.add(lineVisualizerView);
+    LineVisualizerView lineVisualizerView = new LineVisualizerView(context);
+    lineVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
+    visualizers.add(lineVisualizerView);
 
-        BlazingColorVisualizerView blazingColorVisualizerView = new BlazingColorVisualizerView(context);
-        blazingColorVisualizerView.setColor(ContextCompat.getColor(context, R.color.color_visualizer_view));
-        visualizers.add(blazingColorVisualizerView);
+    BlazingColorVisualizerView blazingColorVisualizerView = new BlazingColorVisualizerView(context);
+    blazingColorVisualizerView.setColor(
+        ContextCompat.getColor(context, R.color.color_visualizer_view));
+    visualizers.add(blazingColorVisualizerView);
 
-        return visualizers;
-    }
+    return visualizers;
+  }
 
-    /**
-     * This utility method is used to instantiate and get the recorder visualizer view
-     *
-     * @param context Context required for internal operations
-     * @return RecorderVisualizerView Returns the recorder visualizer view
-     */
-    @NonNull
-    public static RecorderVisualizerView getRecorderVisualizerView(Context context) {
-        return new RecorderVisualizerView(context, null);
-    }
+  /**
+   * This utility method is used to instantiate and get the recorder visualizer view
+   *
+   * @param context Context required for internal operations
+   * @return RecorderVisualizerView Returns the recorder visualizer view
+   */
+  @NonNull
+  public static RecorderVisualizerView getRecorderVisualizerView(Context context) {
+    return new RecorderVisualizerView(context, null);
+  }
 }

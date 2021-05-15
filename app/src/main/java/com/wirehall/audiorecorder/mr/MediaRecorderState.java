@@ -1,17 +1,21 @@
 package com.wirehall.audiorecorder.mr;
 
 /**
- * Since the MediaRecorder class does not hold the state
- * We need to maintain the state using the instance of this enum
+ * Since the MediaRecorder class does not hold the state We need to maintain the state using the
+ * instance of this enum
  */
 public enum MediaRecorderState {
-    RECORDING, RESUMED, PAUSED, STOPPED, DISCARDED;
+  RECORDING,
+  RESUMED,
+  PAUSED,
+  STOPPED,
+  DISCARDED;
 
-    public boolean isRecording() {
-        return this == RECORDING || this == RESUMED;
-    }
+  public boolean isRecording() {
+    return this == RECORDING || this == RESUMED;
+  }
 
-    public boolean isStopped() {
-        return this == STOPPED || this == DISCARDED;
-    }
+  public boolean isStopped() {
+    return this == STOPPED || this == DISCARDED;
+  }
 }
