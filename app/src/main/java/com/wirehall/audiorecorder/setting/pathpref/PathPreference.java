@@ -2,10 +2,11 @@ package com.wirehall.audiorecorder.setting.pathpref;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Environment;
 import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
+
+import com.wirehall.audiorecorder.explorer.FileUtils;
 
 public class PathPreference extends DialogPreference {
 
@@ -42,7 +43,9 @@ public class PathPreference extends DialogPreference {
   @Override
   protected Object onGetDefaultValue(TypedArray a, int index) {
     String s = a.getString(index);
-    if (s == null) s = Environment.getExternalStorageDirectory().getAbsolutePath();
+    if (s == null) {
+      s = FileUtils.getBaseStoragePath();
+    }
     return s;
   }
 

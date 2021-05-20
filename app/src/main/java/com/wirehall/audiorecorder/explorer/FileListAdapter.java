@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -27,6 +26,8 @@ import com.wirehall.audiorecorder.setting.SettingActivity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
   private static final String TAG = FileListAdapter.class.getName();
@@ -89,13 +90,6 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     notifyDataSetChanged();
   }
 
-  private void refreshRowSelection(int selectedRowPosition) {
-    int oldSelectedRowPosition = this.selectedRowPosition;
-    this.selectedRowPosition = selectedRowPosition;
-    if (oldSelectedRowPosition > -1) notifyItemChanged(oldSelectedRowPosition);
-    notifyItemChanged(selectedRowPosition);
-  }
-
   /** Clears any row selection */
   public void resetRowSelection() {
     int oldSelectedRowPosition = this.selectedRowPosition;
@@ -103,36 +97,24 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     if (oldSelectedRowPosition > -1) notifyItemChanged(oldSelectedRowPosition);
   }
 
-  private void deleteFile(int adapterPosition) {
-    FileUtils.deleteFile(recordings.get(adapterPosition).getPath());
-    recordings.remove(adapterPosition);
-    if (adapterPosition < selectedRowPosition) {
-      selectedRowPosition--;
-    } else if (adapterPosition == selectedRowPosition) {
-      selectedRowPosition = RecyclerView.NO_POSITION;
-    }
-    notifyItemRemoved(adapterPosition);
-  }
-
   /**
    * Used to keep the reference to list row elements to fetch faster. i.e. to avoid time consuming
    * findViewById
    */
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    final RelativeLayout fileInfoAreaView;
-    final TextView fileNameTextView;
-    final TextView fileSizeTextView;
-    final TextView fileDateModifiedTextView;
-    final TextView fileDurationTextView;
-    final ImageButton filePlayPauseButton;
-    final ImageButton fileOptionsMenuButton;
+    private final TextView fileNameTextView;
+    private final TextView fileSizeTextView;
+    private final TextView fileDateModifiedTextView;
+    private final TextView fileDurationTextView;
+    private final ImageButton filePlayPauseButton;
+    private final ImageButton fileOptionsMenuButton;
     private final RecyclerViewClickListener recyclerViewClickListener;
 
     private ViewHolder(
         @NonNull View itemView, RecyclerViewClickListener recyclerViewClickListener) {
       super(itemView);
       this.recyclerViewClickListener = recyclerViewClickListener;
-      fileInfoAreaView = itemView.findViewById(R.id.rl_file_info_area);
+      RelativeLayout fileInfoAreaView = itemView.findViewById(R.id.rl_file_info_area);
       fileInfoAreaView.setOnClickListener(this);
 
       // Note: you can also use the setOnClickListener on below child views
@@ -170,8 +152,8 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                 new ArrayAdapter<>(context, R.layout.file_menu_item_layout, data);
             /* use ur custom layout which has only TextView along with style required*/
             window.setAdapter(adapter);
-            window.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setHeight(WRAP_CONTENT);
+            window.setWidth(WRAP_CONTENT);
             window.setModal(false);
             window.setAnchorView(fileOptionsMenuButton); /*it will be the overflow view of yours*/
             window.setContentWidth(
@@ -186,67 +168,97 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
                   }
 
                   if (option.equals(fileMenuOptionDelete)) {
-                    final String deleteDialogMessage =
-                        context
-                            .getResources()
-                            .getString(
-                                R.string.dialog_delete_message,
-                                recordings.get(adapterPosition).getPath());
-                    SharedPreferences sharedPref =
-                        PreferenceManager.getDefaultSharedPreferences(context);
-                    boolean confirmDelete =
-                        sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
-                    if (confirmDelete) {
-                      AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                      builder
-                          .setTitle(deleteDialogTitle)
-                          .setMessage(deleteDialogMessage)
-                          .setIcon(R.drawable.ic_warning_black)
-                          .setPositiveButton(
-                              android.R.string.ok, (dialog, which) -> deleteFile(adapterPosition))
-                          .setNegativeButton(android.R.string.cancel, null)
-                          .show();
-                    } else {
-                      deleteFile(adapterPosition);
-                    }
-                    window.dismiss();
+                    handleDeleteClick(deleteDialogTitle, window, adapterPosition);
                   } else if (option.equals(fileMenuOptionInfo)) {
-                    FileInformationDialog fileInformationDialog =
-                        new FileInformationDialog(context, recordings.get(adapterPosition));
-                    window.dismiss();
-                    fileInformationDialog.show();
+                    handleInfoClick(window, adapterPosition);
                   } else if (option.equals(fileMenuOptionRename)) {
-                    final Recording sourceRecording = recordings.get(adapterPosition);
-                    final FilenameInputDialog filenameInputDialog =
-                        new FilenameInputDialog(context, sourceRecording.getPath());
-                    filenameInputDialog.setOnDismissListener(
-                        dialog -> {
-                          Recording renamedRecording = filenameInputDialog.getRenamedRecording();
-                          if (renamedRecording != null) {
-                            sourceRecording.setName(renamedRecording.getName());
-                            sourceRecording.setPath(renamedRecording.getPath());
-                            notifyItemChanged(adapterPosition);
-                          }
-                        });
-                    window.dismiss();
-                    filenameInputDialog.show();
+                    handleRenameClick(window, adapterPosition);
                   } else if (option.equals(fileMenuOptionShare)) {
-                    Uri uri =
-                        FileProvider.getUriForFile(
-                            context,
-                            "com.wirehall.fileprovider",
-                            new File(recordings.get(adapterPosition).getPath()));
-                    Intent share = new Intent(Intent.ACTION_SEND);
-                    share.setType("audio/*");
-                    share.putExtra(Intent.EXTRA_STREAM, uri);
-                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    window.dismiss();
-                    String shareRec = context.getResources().getString(R.string.share_recording);
-                    context.startActivity(Intent.createChooser(share, shareRec));
+                    handleShareClick(window, adapterPosition);
                   }
                 });
             window.show();
           });
+    }
+
+    private void handleDeleteClick(
+        String deleteDialogTitle, ListPopupWindow window, int adapterPosition) {
+      final String deleteDialogMessage =
+          context
+              .getResources()
+              .getString(R.string.dialog_delete_message, recordings.get(adapterPosition).getPath());
+      SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+      boolean confirmDelete = sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
+      if (confirmDelete) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder
+            .setTitle(deleteDialogTitle)
+            .setMessage(deleteDialogMessage)
+            .setIcon(R.drawable.ic_warning_black)
+            .setPositiveButton(android.R.string.ok, (dialog, which) -> deleteFile(adapterPosition))
+            .setNegativeButton(android.R.string.cancel, null)
+            .show();
+      } else {
+        deleteFile(adapterPosition);
+      }
+      window.dismiss();
+    }
+
+    private void handleInfoClick(ListPopupWindow window, int adapterPosition) {
+      FileInformationDialog fileInformationDialog =
+          new FileInformationDialog(context, recordings.get(adapterPosition));
+      window.dismiss();
+      fileInformationDialog.show();
+    }
+
+    private void handleShareClick(ListPopupWindow window, int adapterPosition) {
+      Uri uri =
+          FileProvider.getUriForFile(
+              context,
+              "com.wirehall.fileprovider",
+              new File(recordings.get(adapterPosition).getPath()));
+      Intent share = new Intent(Intent.ACTION_SEND);
+      share.setType("audio/*");
+      share.putExtra(Intent.EXTRA_STREAM, uri);
+      share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+      window.dismiss();
+      String shareRec = context.getResources().getString(R.string.share_recording);
+      context.startActivity(Intent.createChooser(share, shareRec));
+    }
+
+    private void handleRenameClick(ListPopupWindow window, int adapterPosition) {
+      final Recording sourceRecording = recordings.get(adapterPosition);
+      final FilenameInputDialog filenameInputDialog =
+          new FilenameInputDialog(context, sourceRecording.getPath());
+      filenameInputDialog.setOnDismissListener(
+          dialog -> {
+            Recording renamedRecording = filenameInputDialog.getRenamedRecording();
+            if (renamedRecording != null) {
+              sourceRecording.setName(renamedRecording.getName());
+              sourceRecording.setPath(renamedRecording.getPath());
+              notifyItemChanged(adapterPosition);
+            }
+          });
+      window.dismiss();
+      filenameInputDialog.show();
+    }
+
+    private void refreshRowSelection(int selectedRowPosition) {
+      int oldSelectedRowPosition = FileListAdapter.this.selectedRowPosition;
+      FileListAdapter.this.selectedRowPosition = selectedRowPosition;
+      if (oldSelectedRowPosition > -1) notifyItemChanged(oldSelectedRowPosition);
+      notifyItemChanged(selectedRowPosition);
+    }
+
+    private void deleteFile(int adapterPosition) {
+      FileUtils.deleteFile(recordings.get(adapterPosition).getPath());
+      recordings.remove(adapterPosition);
+      if (adapterPosition < selectedRowPosition) {
+        selectedRowPosition--;
+      } else if (adapterPosition == selectedRowPosition) {
+        selectedRowPosition = RecyclerView.NO_POSITION;
+      }
+      notifyItemRemoved(adapterPosition);
     }
 
     @Override

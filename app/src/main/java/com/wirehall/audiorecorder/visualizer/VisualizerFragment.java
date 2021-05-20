@@ -45,8 +45,8 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
     visualizerLayout =
         (LinearLayout) inflater.inflate(R.layout.visualizer_fragment, container, false);
     visualizerLayout.setOnClickListener(this);
-    mpVisualizerViews = Utils.getAllMPVisualizerViews(getContext());
-    recorderVisualizerView = Utils.getRecorderVisualizerView(getContext());
+    mpVisualizerViews = VisualizerUtils.getAllMPVisualizerViews(getContext());
+    recorderVisualizerView = VisualizerUtils.getRecorderVisualizerView(getContext());
     visualizerViewIndex = 0;
     setMPVisualizerView();
 
@@ -124,7 +124,9 @@ public class VisualizerFragment extends Fragment implements OnClickListener {
             }
 
             @Override
-            public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {}
+            public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
+              // No implementation required
+            }
           },
           Visualizer.getMaxCaptureRate() / 2,
           true,

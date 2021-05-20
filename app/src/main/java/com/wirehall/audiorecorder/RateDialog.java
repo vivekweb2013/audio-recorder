@@ -60,6 +60,8 @@ public class RateDialog extends Dialog implements View.OnClickListener {
           editor.apply();
         }
         break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + viewId);
     }
     dismiss();
   }

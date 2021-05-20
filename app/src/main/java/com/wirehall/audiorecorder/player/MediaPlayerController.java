@@ -74,10 +74,14 @@ public class MediaPlayerController {
     seekBar.setOnSeekBarChangeListener(
         new SeekBar.OnSeekBarChangeListener() {
           @Override
-          public void onStopTrackingTouch(SeekBar seekBar) {}
+          public void onStopTrackingTouch(SeekBar seekBar) {
+            // No implementation required
+          }
 
           @Override
-          public void onStartTrackingTouch(SeekBar seekBar) {}
+          public void onStartTrackingTouch(SeekBar seekBar) {
+            // No implementation required
+          }
 
           @Override
           public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

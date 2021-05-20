@@ -67,7 +67,7 @@ public class RecordingController {
   public void startPauseRecording(AppCompatActivity activity) {
     Intent serviceIntent = new Intent(activity, AudioRecorderLocalService.class);
 
-    switch (AudioRecorderLocalService.MEDIA_REC_STATE) {
+    switch (AudioRecorderLocalService.mediaRecorderState) {
       case RECORDING:
       case RESUMED:
         // Pause the Recording
@@ -137,12 +137,14 @@ public class RecordingController {
   }
 
   private void mapUIToState(AppCompatActivity activity) {
-    ImageButton btnRecordPause, btnDelete, btnStop;
+    ImageButton btnRecordPause;
+    ImageButton btnDelete;
+    ImageButton btnStop;
     btnRecordPause = activity.findViewById(R.id.ib_record);
     btnDelete = activity.findViewById(R.id.ib_delete);
     btnStop = activity.findViewById(R.id.ib_stop);
 
-    switch (AudioRecorderLocalService.MEDIA_REC_STATE) {
+    switch (AudioRecorderLocalService.mediaRecorderState) {
       case RECORDING:
         // New recording
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -240,7 +242,7 @@ public class RecordingController {
           @Override
           public void run() {
             if (AudioRecorderLocalService.mediaRecorder != null
-                && AudioRecorderLocalService.MEDIA_REC_STATE.isRecording()) {
+                && AudioRecorderLocalService.mediaRecorderState.isRecording()) {
               int x =
                   AudioRecorderLocalService.mediaRecorder
                       .getMaxAmplitude(); // get the current amplitude

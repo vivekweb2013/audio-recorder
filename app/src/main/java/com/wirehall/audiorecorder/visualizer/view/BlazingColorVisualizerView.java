@@ -26,7 +26,9 @@ public class BlazingColorVisualizerView extends BaseVisualizerView {
   }
 
   @Override
-  protected void init(@Nullable AttributeSet attrs) {}
+  protected void init(@Nullable AttributeSet attrs) {
+    // No initialization required
+  }
 
   @Override
   protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld) {

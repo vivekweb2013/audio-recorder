@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +16,7 @@ import com.wirehall.audiorecorder.explorer.model.Recording;
 
 import java.io.File;
 
-public class FilenameInputDialog extends Dialog implements android.view.View.OnClickListener {
+public class FilenameInputDialog extends Dialog implements OnClickListener {
   private static final String TAG = FilenameInputDialog.class.getName();
 
   private final String filePath;

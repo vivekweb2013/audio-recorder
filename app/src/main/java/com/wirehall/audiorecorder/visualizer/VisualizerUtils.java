@@ -18,7 +18,11 @@ import com.wirehall.audiorecorder.visualizer.view.RecorderVisualizerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Utils {
+public final class VisualizerUtils {
+
+  private VisualizerUtils() {
+    throw new IllegalStateException("Utility class");
+  }
 
   /**
    * This utility method is used to instantiate and get the media player visualizer views

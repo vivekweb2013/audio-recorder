@@ -70,10 +70,10 @@ public class MainActivity extends AppCompatActivity
               new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                  MediaRecorderState MEDIA_REC_STATE = AudioRecorderLocalService.MEDIA_REC_STATE;
+                  MediaRecorderState mediaRecState = AudioRecorderLocalService.mediaRecorderState;
                   String recordingFilePath =
                       intent.getStringExtra(AudioRecorderLocalService.KEY_RECORDING_FILE_PATH);
-                  switch (MEDIA_REC_STATE) {
+                  switch (mediaRecState) {
                     case RECORDING:
                       recordingController.onRecordingStarted(MainActivity.this);
                       break;
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity
   @Override
   public void onFileItemClicked(Recording recording) {
     try {
-      if (!AudioRecorderLocalService.MEDIA_REC_STATE.isStopped()) {
+      if (!AudioRecorderLocalService.mediaRecorderState.isStopped()) {
         Toast.makeText(
                 getApplicationContext(),
                 getResources().getString(R.string.warn_stop_rec_to_play_audio),

@@ -38,7 +38,12 @@ public class BarVisualizerView extends BaseVisualizerView {
    * @param density density of the bar visualizer
    */
   public void setDensity(float density) {
-    this.density = density > 256 ? 256 : (density < 10) ? 10 : density;
+    if (density > 256) {
+      this.density = 256;
+    } else {
+      if (density < 10) this.density = 10;
+      else this.density = density;
+    }
   }
 
   @Override

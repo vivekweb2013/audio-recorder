@@ -14,19 +14,19 @@ public abstract class BaseVisualizerView extends View {
   protected byte[] bytes;
   protected int color = Color.BLUE;
 
-  public BaseVisualizerView(Context context) {
+  protected BaseVisualizerView(Context context) {
     super(context);
     setContentDescription(null);
     init(null);
   }
 
-  public BaseVisualizerView(Context context, @Nullable AttributeSet attrs) {
+  protected BaseVisualizerView(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
     setContentDescription(null);
     init(attrs);
   }
 
-  public BaseVisualizerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+  protected BaseVisualizerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     setContentDescription(null);
     init(attrs);

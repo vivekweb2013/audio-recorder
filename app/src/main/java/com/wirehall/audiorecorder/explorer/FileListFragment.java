@@ -2,7 +2,6 @@ package com.wirehall.audiorecorder.explorer;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +22,9 @@ import java.util.List;
 
 public class FileListFragment extends Fragment {
   public static final String DEFAULT_STORAGE_PATH =
-      Environment.getExternalStorageDirectory().getAbsolutePath() + "/Audio/Recordings";
+      FileUtils.getBaseStoragePath() + "/Audio/Recordings";
   private static final String TAG = FileListFragment.class.getName();
-  private FileListFragmentListener activity;
+  private FileListFragmentListener context;
   private FileListAdapter fileListAdapter;
 
   /** @return The singleton instance of FileListFragment */
@@ -36,7 +35,7 @@ public class FileListFragment extends Fragment {
   @Override
   public void onAttach(@NonNull Context context) {
     super.onAttach(context);
-    activity = (FileListFragmentListener) context;
+    this.context = (FileListFragmentListener) context;
   }
 
   @Override
@@ -57,7 +56,7 @@ public class FileListFragment extends Fragment {
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
     recyclerView.setLayoutManager(linearLayoutManager);
     RecyclerViewClickListener recyclerViewClickListener =
-        (view, position) -> activity.onFileItemClicked(recordings.get(position));
+        (view, position) -> context.onFileItemClicked(recordings.get(position));
     fileListAdapter = new FileListAdapter(getContext(), recordings, recyclerViewClickListener);
     recyclerView.setAdapter(fileListAdapter);
   }

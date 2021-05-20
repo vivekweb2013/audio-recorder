@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import com.wirehall.audiorecorder.R;
+import com.wirehall.audiorecorder.explorer.FileUtils;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -35,15 +37,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import static android.content.DialogInterface.BUTTON_POSITIVE;
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+
 public class PathPrefDialog extends PreferenceDialogFragmentCompat {
-  private final String TAG = PathPrefDialog.class.getName();
-  private final boolean isNewFolderEnabled = true;
+  private static final String TAG = PathPrefDialog.class.getName();
+  private static final boolean IS_NEW_FOLDER_ENABLED = true;
   private final List<StorageItem> storageItemList = new ArrayList<>();
   private final List<StorageVolumeItem> storageVolumeItems = new ArrayList<>();
   private StorageItem dir =
-      new StorageItem(
-          Environment.getExternalStorageDirectory().getName(),
-          Environment.getExternalStorageDirectory().getAbsolutePath());
+      new StorageItem(FileUtils.getBaseStorageName(), FileUtils.getBaseStoragePath());
   private ArrayAdapter<StorageItem> listAdapter;
   private TextView titleView;
   private Button newFolderButton;
@@ -68,17 +72,13 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
 
     titleView = new TextView(getContext());
     titleView.setText("⌂");
-    titleView.setLayoutParams(
-        new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+    titleView.setLayoutParams(new LayoutParams(MATCH_PARENT, WRAP_CONTENT));
     TextViewCompat.setTextAppearance(titleView, android.R.style.TextAppearance_Large);
     titleView.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
     titleView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
     newFolderButton = new Button(getContext());
-    newFolderButton.setLayoutParams(
-        new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+    newFolderButton.setLayoutParams(new LayoutParams(MATCH_PARENT, WRAP_CONTENT));
     newFolderButton.setText(R.string.pref_path_new_folder);
     newFolderButton.setEnabled(false);
 
@@ -99,7 +99,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
                         Editable newDir = input.getText();
                         String newDirName = newDir.toString();
                         // Create new directory
-                        String newDirPath = dir.getPath() + "/" + newDirName;
+                        String newDirPath = dir.getPath() + File.separator + newDirName;
                         if (createSubDir(newDirPath)) {
                           // Navigate into the new directory
                           dir.setPath(newDirPath);
@@ -117,20 +117,24 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
 
           newFolderDialog.setOnShowListener(
               dialog -> {
-                newFolderDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                newFolderDialog.getButton(BUTTON_POSITIVE).setEnabled(false);
                 input.addTextChangedListener(
                     new TextWatcher() {
                       @Override
                       public void beforeTextChanged(
-                          CharSequence s, int start, int count, int after) {}
+                          CharSequence s, int start, int count, int after) {
+                        // No implementation required
+                      }
 
                       @Override
-                      public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                      public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        // No implementation required
+                      }
 
                       @Override
                       public void afterTextChanged(Editable s) {
                         newFolderDialog
-                            .getButton(AlertDialog.BUTTON_POSITIVE)
+                            .getButton(BUTTON_POSITIVE)
                             .setEnabled(
                                 s != null
                                     && !s.toString().equals("..")
@@ -143,7 +147,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
           newFolderDialog.show();
         });
 
-    if (!isNewFolderEnabled) {
+    if (!IS_NEW_FOLDER_ENABLED) {
       newFolderButton.setVisibility(View.GONE);
     }
 
@@ -257,9 +261,8 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
     }
 
     if (storageVolumeItems.isEmpty()) {
-      File storageDir = Environment.getExternalStorageDirectory();
       storageVolumeItems.add(
-          new StorageVolumeItem(storageDir.getName(), storageDir.getAbsolutePath()));
+          new StorageVolumeItem(FileUtils.getBaseStorageName(), FileUtils.getBaseStoragePath()));
     }
   }
 
@@ -321,7 +324,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
     titleView.setText(isShowingVolumes ? "⌂" : dir.getPath());
     newFolderButton.setEnabled(!isShowingVolumes);
     ((AlertDialog) Objects.requireNonNull(getDialog()))
-        .getButton(AlertDialog.BUTTON_POSITIVE)
+        .getButton(BUTTON_POSITIVE)
         .setEnabled(!isShowingVolumes);
   }
 }

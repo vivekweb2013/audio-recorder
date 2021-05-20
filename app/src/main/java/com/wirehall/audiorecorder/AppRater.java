@@ -14,6 +14,10 @@ public class AppRater {
   private static final int DAYS_UNTIL_PROMPT = 3; // Min number of days
   private static final int LAUNCHES_UNTIL_PROMPT = 5; // Min number of launches
 
+  private AppRater() {
+    throw new IllegalStateException("Utility class");
+  }
+
   public static void launchIfRequired(Context context) {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
     if (prefs.getBoolean(KEY_PREF_RATE_DIALOG_DO_NOT_SHOW, false)) {

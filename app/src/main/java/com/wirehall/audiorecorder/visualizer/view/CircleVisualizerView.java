@@ -24,7 +24,9 @@ public class CircleVisualizerView extends BaseVisualizerView {
   }
 
   @Override
-  protected void init(@Nullable AttributeSet attrs) {}
+  protected void init(@Nullable AttributeSet attrs) {
+    // No initialization required
+  }
 
   /**
    * set stroke width for your visualizer takes input between 1-10
@@ -32,8 +34,15 @@ public class CircleVisualizerView extends BaseVisualizerView {
    * @param strokeWidth stroke width between 1-10
    */
   public void setStrokeWidth(int strokeWidth) {
-    this.strokeWidth =
-        (strokeWidth < 1) ? 0.005f : (strokeWidth > 10) ? 10 * 0.005f : strokeWidth * 0.005f;
+    if ((strokeWidth < 1)) {
+      this.strokeWidth =
+              0.005f;
+    } else {
+      if (strokeWidth > 10) this.strokeWidth =
+              10 * 0.005f;
+      else this.strokeWidth =
+              strokeWidth * 0.005f;
+    }
   }
 
   /**

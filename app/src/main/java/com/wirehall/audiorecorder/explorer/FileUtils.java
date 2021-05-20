@@ -3,6 +3,7 @@ package com.wirehall.audiorecorder.explorer;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaMetadataRetriever;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,10 @@ public class FileUtils {
   public static final String DEFAULT_REC_FILENAME_EXTENSION = ".3gp";
   private static final String TAG = FileUtils.class.getName();
   private static final String DEFAULT_REC_FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss";
+
+  private FileUtils() {
+    throw new IllegalStateException("Utility class");
+  }
 
   /** @return The current time string in "yyyy-MM-dd-HH-mm-ss" format */
   public static String generateFileName() {
@@ -218,5 +223,17 @@ public class FileUtils {
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
     return prefs.getString(
         MainActivity.KEY_PREF_RECORDING_STORAGE_PATH, FileListFragment.DEFAULT_STORAGE_PATH);
+  }
+
+  public static String getBaseStoragePath() {
+    return getExternalStorageDirectory().getAbsolutePath();
+  }
+
+  public static String getBaseStorageName() {
+    return getExternalStorageDirectory().getName();
+  }
+
+  private static File getExternalStorageDirectory() {
+    return Environment.getExternalStorageDirectory();
   }
 }

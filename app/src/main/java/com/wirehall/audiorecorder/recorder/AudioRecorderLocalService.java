@@ -44,7 +44,7 @@ public class AudioRecorderLocalService extends Service {
       "com.wirehall.audiorecorder.ACTION_RESUME_RECORDING";
   private static final String TAG = AudioRecorderLocalService.class.getName();
   private static final int SERVICE_ID = 1;
-  public static MediaRecorderState MEDIA_REC_STATE = MediaRecorderState.STOPPED;
+  public static MediaRecorderState mediaRecorderState = MediaRecorderState.STOPPED;
   public static MediaRecorder mediaRecorder;
   public static RecordingTime recordingTime;
   private final IBinder binder = new LocalBinder();
@@ -102,7 +102,7 @@ public class AudioRecorderLocalService extends Service {
           stopRecording(isDiscardRecording);
           broadcastRecorderStateChange();
         } catch (Exception e) {
-          Log.e(TAG, "ERROR: " + e.getMessage());
+          Log.e(TAG, e.getMessage());
         }
         stopForeground(true);
         stopSelf();
@@ -113,7 +113,7 @@ public class AudioRecorderLocalService extends Service {
           pauseRecording();
           broadcastRecorderStateChange();
         } catch (Exception e) {
-          Log.e(TAG, "ERROR: " + e.getMessage());
+          Log.e(TAG, e.getMessage());
         }
         break;
       case ACTION_RESUME_RECORDING:
@@ -122,7 +122,7 @@ public class AudioRecorderLocalService extends Service {
           resumeRecording();
           broadcastRecorderStateChange();
         } catch (Exception e) {
-          Log.e(TAG, "ERROR: " + e.getMessage());
+          Log.e(TAG, e.getMessage());
         }
         break;
       default:
@@ -163,7 +163,7 @@ public class AudioRecorderLocalService extends Service {
       mediaRecorder.prepare();
       mediaRecorder.start();
       recordingTime.setRecStartTime(SystemClock.uptimeMillis());
-      MEDIA_REC_STATE = MediaRecorderState.RECORDING;
+      mediaRecorderState = MediaRecorderState.RECORDING;
       Toast.makeText(
               context, context.getString(R.string.message_recording_started), Toast.LENGTH_SHORT)
           .show();
@@ -177,7 +177,7 @@ public class AudioRecorderLocalService extends Service {
       mediaRecorder.reset();
       return false;
     } catch (Exception e) {
-      Log.e(TAG, "ERROR: " + e.getMessage());
+      Log.e(TAG, e.getMessage());
       mediaRecorder.reset();
       return false;
     }
@@ -187,7 +187,7 @@ public class AudioRecorderLocalService extends Service {
   @RequiresApi(api = Build.VERSION_CODES.N)
   private void pauseRecording() {
     mediaRecorder.pause();
-    MEDIA_REC_STATE = MediaRecorderState.PAUSED;
+    mediaRecorderState = MediaRecorderState.PAUSED;
   }
 
   @TargetApi(Build.VERSION_CODES.N)
@@ -195,7 +195,7 @@ public class AudioRecorderLocalService extends Service {
   private void resumeRecording() {
     mediaRecorder.resume();
     recordingTime.autoSetRecPauseTime();
-    MEDIA_REC_STATE = MediaRecorderState.RESUMED;
+    mediaRecorderState = MediaRecorderState.RESUMED;
   }
 
   private void stopRecording(boolean isDiscardRecording) {
@@ -203,15 +203,15 @@ public class AudioRecorderLocalService extends Service {
       try {
         mediaRecorder.stop();
       } catch (Exception e) {
-        Log.e(TAG, "ERROR: " + e.getMessage());
+        Log.e(TAG, e.getMessage());
       }
       mediaRecorder.reset();
     }
     if (isDiscardRecording) {
       FileUtils.deleteFile(recordingFilePath);
-      MEDIA_REC_STATE = MediaRecorderState.DISCARDED;
+      mediaRecorderState = MediaRecorderState.DISCARDED;
     } else {
-      MEDIA_REC_STATE = MediaRecorderState.STOPPED;
+      mediaRecorderState = MediaRecorderState.STOPPED;
     }
     // Reset Timer
     recordingTime.reset();
@@ -221,16 +221,16 @@ public class AudioRecorderLocalService extends Service {
   public void onDestroy() {
     try {
       if (mediaRecorder != null) {
-        if (!MEDIA_REC_STATE.isStopped()) {
+        if (!mediaRecorderState.isStopped()) {
           mediaRecorder.stop();
           mediaRecorder.reset();
         }
         mediaRecorder.release();
         mediaRecorder = null;
       }
-      MEDIA_REC_STATE = MediaRecorderState.STOPPED;
+      mediaRecorderState = MediaRecorderState.STOPPED;
     } catch (Exception e) {
-      Log.e(TAG, "ERROR: " + e.getMessage());
+      Log.e(TAG, e.getMessage());
     }
     super.onDestroy();
   }
