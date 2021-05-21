@@ -13,7 +13,8 @@ jobs:
     name: Run Tests on API-${{ matrix.api-level }}
     strategy:
       matrix:
-        api-level: [ 23, 25, 28 ] # Exclude api-level already executed in ci workflow
+        #api-level: [ 23, 25, 28 ] # Exclude api-level already executed in ci workflow
+        api-level: [ 28 ] # Temporarily skip 23 & 25 until this resolves - https://issuetracker.google.com/issues/188971998
         target: [ default ]
     steps:
       - uses: actions/checkout@v2

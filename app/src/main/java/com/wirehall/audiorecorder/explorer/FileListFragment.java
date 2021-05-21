@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,8 +46,8 @@ public class FileListFragment extends Fragment {
   }
 
   @Override
-  public void onActivityCreated(Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
     String recordingStoragePath = FileUtils.getRecordingStoragePath(getContext());
     List<Recording> recordings =
         FileUtils.getAllFilesFromDirectory(
@@ -56,7 +57,7 @@ public class FileListFragment extends Fragment {
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
     recyclerView.setLayoutManager(linearLayoutManager);
     RecyclerViewClickListener recyclerViewClickListener =
-        (view, position) -> context.onFileItemClicked(recordings.get(position));
+        (v, position) -> context.onFileItemClicked(recordings.get(position));
     fileListAdapter = new FileListAdapter(getContext(), recordings, recyclerViewClickListener);
     recyclerView.setAdapter(fileListAdapter);
   }

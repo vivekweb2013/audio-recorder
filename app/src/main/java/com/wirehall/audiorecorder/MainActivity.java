@@ -1,6 +1,5 @@
 package com.wirehall.audiorecorder;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -9,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,10 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -38,6 +36,9 @@ import com.wirehall.audiorecorder.recorder.RecordingController;
 import com.wirehall.audiorecorder.setting.SettingActivity;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
+import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 public class MainActivity extends AppCompatActivity
     implements VisualizerFragment.VisualizerMPSession, FileListFragment.FileListFragmentListener {
   public static final String APP_PACKAGE_NAME = "com.wirehall.audiorecorder";
@@ -45,10 +46,16 @@ public class MainActivity extends AppCompatActivity
   private static final String TAG = MainActivity.class.getName();
   private static final String PLAY_STORE_URL = "market://details?id=" + APP_PACKAGE_NAME;
 
-  private static final int PERMISSION_REQUEST_CODE = 111;
-  private static final String[] APP_PERMS = {
-    Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE
-  };
+  private final ActivityResultLauncher<String[]> requestPermissionLauncher =
+      registerForActivityResult(
+          new ActivityResultContracts.RequestMultiplePermissions(),
+          permissions -> {
+            for (boolean isGranted : permissions.values()) {
+              if (!isGranted) {
+                finish();
+              }
+            }
+          });
 
   private final RecordingController recordingController = RecordingController.getInstance();
   private final MediaPlayerController mediaPlayerController = MediaPlayerController.getInstance();
@@ -126,7 +133,11 @@ public class MainActivity extends AppCompatActivity
       FragmentTransaction ft = fm.beginTransaction();
       ft.add(R.id.visualizer_fragment_container, VisualizerFragment.newInstance());
       ft.commit();
-      ActivityCompat.requestPermissions(this, APP_PERMS, PERMISSION_REQUEST_CODE);
+
+      if (!Helper.hasPermissions(getApplicationContext(), RECORD_AUDIO, WRITE_EXTERNAL_STORAGE)) {
+        requestPermissionLauncher.launch(new String[] {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE});
+      }
+
       mediaPlayerController.init(this);
 
       setDefaultPreferenceValues();
@@ -178,22 +189,6 @@ public class MainActivity extends AppCompatActivity
   @Override
   public int getAudioSessionIdOfMediaPlayer() {
     return mediaPlayerController.getAudioSessionId();
-  }
-
-  @Override
-  public void onRequestPermissionsResult(
-      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    boolean isPermissionAccepted = false;
-    if (requestCode == PERMISSION_REQUEST_CODE) {
-      for (int result : grantResults) {
-        isPermissionAccepted = (result == PackageManager.PERMISSION_GRANTED);
-        if (!isPermissionAccepted) break;
-      }
-    }
-    if (!isPermissionAccepted) {
-      finish();
-    }
   }
 
   @Override
