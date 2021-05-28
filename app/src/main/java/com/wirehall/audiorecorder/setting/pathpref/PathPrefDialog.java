@@ -43,6 +43,8 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class PathPrefDialog extends PreferenceDialogFragmentCompat {
   private static final String TAG = PathPrefDialog.class.getName();
+  public static final String TAG_NEW_FOLDER_BUTTON = "TAG_NEW_FOLDER_BUTTON";
+  public static final String TAG_NEW_FOLDER_INPUT = "TAG_NEW_FOLDER_INPUT";
   private static final boolean IS_NEW_FOLDER_ENABLED = true;
   private final List<StorageItem> storageItemList = new ArrayList<>();
   private final List<StorageVolumeItem> storageVolumeItems = new ArrayList<>();
@@ -78,6 +80,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
     titleView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
     newFolderButton = new Button(getContext());
+    newFolderButton.setTag(TAG_NEW_FOLDER_BUTTON);
     newFolderButton.setLayoutParams(new LayoutParams(MATCH_PARENT, WRAP_CONTENT));
     newFolderButton.setText(R.string.pref_path_new_folder);
     newFolderButton.setEnabled(false);
@@ -85,6 +88,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
     newFolderButton.setOnClickListener(
         v -> {
           final EditText input = new EditText(getContext());
+          input.setTag(TAG_NEW_FOLDER_INPUT);
           input.setSingleLine();
           input.setMinHeight((int) getResources().getDimension(R.dimen.size_standard_min_height));
 

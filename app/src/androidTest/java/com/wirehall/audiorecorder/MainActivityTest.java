@@ -4,8 +4,6 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.NoMatchingViewException;
-import androidx.test.espresso.UiController;
-import androidx.test.espresso.ViewAction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.GrantPermissionRule;
@@ -28,13 +26,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.wirehall.audiorecorder.helper.EspressoTestsMatchers.withDrawable;
 import static com.wirehall.audiorecorder.helper.RecyclerViewItemCountAssertion.withItemCount;
+import static com.wirehall.audiorecorder.helper.Utils.WAIT_3_SEC;
+import static com.wirehall.audiorecorder.helper.Utils.waitFor;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
-  public static final int WAIT_MILLIS = 3000;
 
   @Rule
   public ActivityScenarioRule<MainActivity> rule = new ActivityScenarioRule<>(MainActivity.class);
@@ -61,13 +60,13 @@ public class MainActivityTest {
     onView(withId(R.id.ib_record)).perform(click());
     validateRecordBtnState(R.drawable.ic_pause_white, isEnabled(), isEnabled());
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Delete the recording
     onView(withId(R.id.ib_delete)).perform(click());
     validateRecordBtnState(R.drawable.ic_mic, not(isEnabled()), not(isEnabled()));
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Validate that no file is created
     validateNoFileCreated(count);
@@ -85,13 +84,13 @@ public class MainActivityTest {
     onView(withId(R.id.ib_record)).perform(click());
     validateRecordBtnState(R.drawable.ic_pause_white, isEnabled(), isEnabled());
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Stop the recording
     onView(withId(R.id.ib_stop)).perform(click());
     validateRecordBtnState(R.drawable.ic_mic, not(isEnabled()), not(isEnabled()));
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Validate that the file is saved
     onView(allOf(isDisplayed(), withId(R.id.recycler_view)))
@@ -108,19 +107,19 @@ public class MainActivityTest {
     // The record icon should change to pause
     validateRecordBtnState(R.drawable.ic_pause_white, isEnabled(), isEnabled());
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Pause the recording
     onView(withId(R.id.ib_record)).perform(click());
     validateRecordBtnState(R.drawable.ic_mic, isEnabled(), isEnabled());
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Stop the recording
     onView(withId(R.id.ib_stop)).perform(click());
     validateRecordBtnState(R.drawable.ic_mic, not(isEnabled()), not(isEnabled()));
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Validate that the file is saved
     onView(allOf(isDisplayed(), withId(R.id.recycler_view)))
@@ -137,25 +136,25 @@ public class MainActivityTest {
     // The record icon should change to pause
     validateRecordBtnState(R.drawable.ic_pause_white, isEnabled(), isEnabled());
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Pause the recording
     onView(withId(R.id.ib_record)).perform(click());
     validateRecordBtnState(R.drawable.ic_mic, isEnabled(), isEnabled());
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Start recording again
     onView(withId(R.id.ib_record)).perform(click());
     validateRecordBtnState(R.drawable.ic_pause_white, isEnabled(), isEnabled());
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Stop the recording
     onView(withId(R.id.ib_stop)).perform(click());
     validateRecordBtnState(R.drawable.ic_mic, not(isEnabled()), not(isEnabled()));
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Validate that the file is saved
     onView(allOf(isDisplayed(), withId(R.id.recycler_view)))
@@ -172,26 +171,26 @@ public class MainActivityTest {
     // The record icon should change to pause
     validateRecordBtnState(R.drawable.ic_pause_white, isEnabled(), isEnabled());
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Pause the recording
     onView(withId(R.id.ib_record)).perform(click());
     validateRecordBtnState(R.drawable.ic_mic, isEnabled(), isEnabled());
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Start recording again
     onView(withId(R.id.ib_record)).perform(click());
     // The record icon should change to pause
     validateRecordBtnState(R.drawable.ic_pause_white, isEnabled(), isEnabled());
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Delete the recording
     onView(withId(R.id.ib_delete)).perform(click());
     validateRecordBtnState(R.drawable.ic_mic, not(isEnabled()), not(isEnabled()));
     // Wait for few seconds
-    onView(isRoot()).perform(waitFor(WAIT_MILLIS));
+    onView(isRoot()).perform(waitFor(WAIT_3_SEC));
 
     // Validate that no file is created
     validateNoFileCreated(count);
@@ -226,25 +225,5 @@ public class MainActivityTest {
                       .getAdapter()
                       .getItemCount());
             });
-  }
-
-  /** Perform action of waiting for a specific time. */
-  public static ViewAction waitFor(final long millis) {
-    return new ViewAction() {
-      @Override
-      public Matcher<View> getConstraints() {
-        return isRoot();
-      }
-
-      @Override
-      public String getDescription() {
-        return "Wait for " + millis + " milliseconds.";
-      }
-
-      @Override
-      public void perform(UiController uiController, final View view) {
-        uiController.loopMainThreadForAtLeast(millis);
-      }
-    };
   }
 }
