@@ -3,7 +3,6 @@ package com.wirehall.audiorecorder.setting.pathpref;
 import androidx.annotation.NonNull;
 
 import java.io.File;
-import java.util.Objects;
 
 public class StorageItem {
   public static final String PARENT_DIR_NAME = "..";
@@ -37,15 +36,6 @@ public class StorageItem {
 
   public String getParent() {
     return getPath() != null ? new File(getPath()).getParent() : null;
-  }
-
-  public StorageItem getParentStorageItem() {
-    if (getPath() == null) {
-      return null;
-    }
-
-    File parentFile = new File(getPath()).getParentFile();
-    return new StorageItem(Objects.requireNonNull(parentFile).getName(), parentFile.getPath());
   }
 
   @NonNull

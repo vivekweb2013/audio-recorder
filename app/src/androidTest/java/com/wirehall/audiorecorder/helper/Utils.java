@@ -13,7 +13,10 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 
 public class Utils {
 
-  public static final int WAIT_3_SEC = 3000;
+  public static final int WAIT_1_SEC = 1000;
+  public static final int SEC_3 = 3000;
+  public static final int SEC_5 = 5000;
+  public static final int SEC_10 = 10000;
 
   /** Perform action of waiting for a specific time. */
   public static ViewAction waitFor(final long millis) {

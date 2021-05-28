@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,18 +96,22 @@ public class RecordingController {
 
   public void onRecordingStarted(AppCompatActivity activity) {
     mapUIToState(activity);
+    Log.d(TAG, "Recording started");
   }
 
   public void onRecordingPaused(AppCompatActivity activity) {
     mapUIToState(activity);
+    Log.d(TAG, "Recording paused");
   }
 
   public void onRecordingResumed(AppCompatActivity activity) {
     mapUIToState(activity);
+    Log.d(TAG, "Recording resumed");
   }
 
   public void onRecordingStopped(
       AppCompatActivity activity, boolean isDiscardRecording, String recordingFilePath) {
+    Log.d(TAG, "Recording stopped");
     mapUIToState(activity);
 
     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(activity);

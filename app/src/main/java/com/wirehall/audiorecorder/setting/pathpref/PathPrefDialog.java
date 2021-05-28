@@ -1,11 +1,7 @@
 package com.wirehall.audiorecorder.setting.pathpref;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.storage.StorageManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -31,7 +27,6 @@ import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.FileUtils;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -65,7 +60,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
   @Override
   protected void onPrepareDialogBuilder(AlertDialog.Builder dialogBuilder) {
     super.onPrepareDialogBuilder(dialogBuilder);
-    initVolumes(false); // TODO: false till the SAF is used
+    initVolumes();
     // Create custom view for AlertDialog title containing
     // current directory TextView and possible 'New folder' button.
     // Current directory TextView allows long directory path to be wrapped to multiple lines.
@@ -240,30 +235,7 @@ public class PathPrefDialog extends PreferenceDialogFragmentCompat {
     return false;
   }
 
-  private void initVolumes(boolean scanExternalStorageVolumes) {
-    if (scanExternalStorageVolumes
-        && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-      // get the list of all storage StorageVolumeItem
-      StorageManager storageManager =
-          (StorageManager) requireContext().getSystemService(Context.STORAGE_SERVICE);
-      for (android.os.storage.StorageVolume storageVolume : storageManager.getStorageVolumes()) {
-        if (storageVolume.getState().equals(Environment.MEDIA_MOUNTED)) {
-          String desc = storageVolume.getDescription(getContext());
-          try {
-            @SuppressLint("PrivateApi")
-            Method getPath = android.os.storage.StorageVolume.class.getDeclaredMethod("getPath");
-            String path = (String) getPath.invoke(storageVolume);
-            StorageVolumeItem storageVolumeItem = new StorageVolumeItem(desc, path);
-            storageVolumeItems.add(
-                storageVolume.isPrimary() ? 0 : storageVolumeItems.size(), storageVolumeItem);
-          } catch (Exception e) {
-            storageVolumeItems.clear();
-            break;
-          }
-        }
-      }
-    }
-
+  private void initVolumes() {
     if (storageVolumeItems.isEmpty()) {
       storageVolumeItems.add(
           new StorageVolumeItem(FileUtils.getBaseStorageName(), FileUtils.getBaseStoragePath()));

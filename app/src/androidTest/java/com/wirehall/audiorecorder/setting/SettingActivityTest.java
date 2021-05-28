@@ -23,7 +23,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.wirehall.audiorecorder.RecyclerViewPositionMatcher.atPosition;
+import static com.wirehall.audiorecorder.helper.RecyclerViewHelper.atPosition;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 

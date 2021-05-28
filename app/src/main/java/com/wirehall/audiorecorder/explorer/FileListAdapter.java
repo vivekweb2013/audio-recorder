@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +22,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wirehall.audiorecorder.R;
 import com.wirehall.audiorecorder.explorer.model.Recording;
-import com.wirehall.audiorecorder.setting.SettingActivity;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+import static com.wirehall.audiorecorder.setting.SettingActivity.KEY_PREF_CONFIRM_DELETE;
 
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
   private static final String TAG = FileListAdapter.class.getName();
+  public static final String INTENT_AUDIO_TYPE = "audio/*";
   private final List<Recording> recordings;
   private final Context context;
   private final RecyclerViewClickListener recyclerViewClickListener;
@@ -84,6 +86,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
    * @param newRecordings The list of recordings to use in file list view
    */
   public void updateData(List<Recording> newRecordings) {
+    Log.d(TAG, "Update the file list");
     resetRowSelection();
     recordings.clear();
     recordings.addAll(newRecordings);
@@ -92,6 +95,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
 
   /** Clears any row selection */
   public void resetRowSelection() {
+    Log.d(TAG, "Clear the file row selection");
     int oldSelectedRowPosition = this.selectedRowPosition;
     this.selectedRowPosition = RecyclerView.NO_POSITION;
     if (oldSelectedRowPosition > -1) notifyItemChanged(oldSelectedRowPosition);
@@ -141,6 +145,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
       fileOptionsMenuButton = itemView.findViewById(R.id.ib_file_menu);
       fileOptionsMenuButton.setOnClickListener(
           v -> {
+            Log.d(TAG, "Clicked on the file row options menu");
             final ListPopupWindow window;
             window = new ListPopupWindow(context);
             final List<String> data = new ArrayList<>();
@@ -183,12 +188,14 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
 
     private void handleDeleteClick(
         String deleteDialogTitle, ListPopupWindow window, int adapterPosition) {
+      Log.d(TAG, "Clicked on the file row delete option menu");
+
       final String deleteDialogMessage =
           context
               .getResources()
               .getString(R.string.dialog_delete_message, recordings.get(adapterPosition).getPath());
       SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-      boolean confirmDelete = sharedPref.getBoolean(SettingActivity.KEY_PREF_CONFIRM_DELETE, false);
+      boolean confirmDelete = sharedPref.getBoolean(KEY_PREF_CONFIRM_DELETE, true);
       if (confirmDelete) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder
@@ -205,6 +212,8 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     }
 
     private void handleInfoClick(ListPopupWindow window, int adapterPosition) {
+      Log.d(TAG, "Clicked on the file row info option menu");
+
       FileInformationDialog fileInformationDialog =
           new FileInformationDialog(context, recordings.get(adapterPosition));
       window.dismiss();
@@ -212,13 +221,15 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     }
 
     private void handleShareClick(ListPopupWindow window, int adapterPosition) {
+      Log.d(TAG, "Clicked on the file row share option menu");
+
       Uri uri =
           FileProvider.getUriForFile(
               context,
               "com.wirehall.fileprovider",
               new File(recordings.get(adapterPosition).getPath()));
       Intent share = new Intent(Intent.ACTION_SEND);
-      share.setType("audio/*");
+      share.setType(INTENT_AUDIO_TYPE);
       share.putExtra(Intent.EXTRA_STREAM, uri);
       share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
       window.dismiss();
@@ -227,6 +238,8 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     }
 
     private void handleRenameClick(ListPopupWindow window, int adapterPosition) {
+      Log.d(TAG, "Clicked on the file row rename option menu");
+
       final Recording sourceRecording = recordings.get(adapterPosition);
       final FilenameInputDialog filenameInputDialog =
           new FilenameInputDialog(context, sourceRecording.getPath());

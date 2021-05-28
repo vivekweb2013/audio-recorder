@@ -48,4 +48,11 @@ public abstract class BaseVisualizerView extends View {
   }
 
   protected abstract void init(@Nullable AttributeSet attributeSet);
+
+  protected float computeStroke(int strokeWidth) {
+    if ((strokeWidth < 1)) {
+      return 0.005f;
+    } else if (strokeWidth > 10) return 10 * 0.005f;
+    else return strokeWidth * 0.005f;
+  }
 }
