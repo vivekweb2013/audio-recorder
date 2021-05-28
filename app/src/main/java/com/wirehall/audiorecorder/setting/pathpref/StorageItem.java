@@ -6,6 +6,7 @@ import java.io.File;
 
 public class StorageItem {
   public static final String PARENT_DIR_NAME = "..";
+  public static final String CHILD_DIR_PREFIX = "❐ ";
   private String name;
   private String path;
 
@@ -23,7 +24,7 @@ public class StorageItem {
   }
 
   public String getStylishName() {
-    return getName().equals(PARENT_DIR_NAME) ? getName() : "❐ " + getName();
+    return getName().equals(PARENT_DIR_NAME) ? getName() : CHILD_DIR_PREFIX + getName();
   }
 
   public String getPath() {

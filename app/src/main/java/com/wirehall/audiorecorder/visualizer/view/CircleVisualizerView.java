@@ -34,7 +34,7 @@ public class CircleVisualizerView extends BaseVisualizerView {
    * @param strokeWidth stroke width between 1-10
    */
   public void setStrokeWidth(int strokeWidth) {
-    this.strokeWidth = super.computeStroke(strokeWidth);
+    this.strokeWidth = computeStroke(strokeWidth);
   }
 
   /**
