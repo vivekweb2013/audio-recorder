@@ -31,8 +31,8 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.wirehall.audiorecorder.setting.SettingActivity.KEY_PREF_CONFIRM_DELETE;
 
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
-  private static final String TAG = FileListAdapter.class.getName();
   public static final String INTENT_AUDIO_TYPE = "audio/*";
+  private static final String TAG = FileListAdapter.class.getName();
   private final List<Recording> recordings;
   private final Context context;
   private final RecyclerViewClickListener recyclerViewClickListener;

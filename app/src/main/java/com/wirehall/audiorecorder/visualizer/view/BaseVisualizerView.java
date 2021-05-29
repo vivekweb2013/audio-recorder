@@ -32,6 +32,13 @@ public abstract class BaseVisualizerView extends View {
     init(attrs);
   }
 
+  public static float computeStroke(int strokeWidth) {
+    if ((strokeWidth < 1)) {
+      return 0.005f;
+    } else if (strokeWidth > 10) return 0.05f;
+    else return strokeWidth * 0.005f;
+  }
+
   /**
    * Set the color for visualizer view
    *
@@ -48,11 +55,4 @@ public abstract class BaseVisualizerView extends View {
   }
 
   protected abstract void init(@Nullable AttributeSet attributeSet);
-
-  public static float computeStroke(int strokeWidth) {
-    if ((strokeWidth < 1)) {
-      return 0.005f;
-    } else if (strokeWidth > 10) return 0.05f;
-    else return strokeWidth * 0.005f;
-  }
 }

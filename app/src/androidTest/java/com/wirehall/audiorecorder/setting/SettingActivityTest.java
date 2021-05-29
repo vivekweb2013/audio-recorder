@@ -26,7 +26,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.wirehall.audiorecorder.helper.RecyclerViewHelper.atPosition;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
@@ -46,27 +45,19 @@ public class SettingActivityTest {
     onView(withId(androidx.preference.R.id.recycler_view))
         .check(
             matches(
-                atPosition(
-                    0,
-                    hasDescendant(
-                        allOf(
-                            withText(R.string.pref_confirm_delete_summary),
-                            withText(R.string.pref_confirm_delete_summary))))));
+                hasDescendant(
+                    allOf(
+                        withText(R.string.pref_confirm_delete_summary),
+                        withText(R.string.pref_confirm_delete_summary)))));
 
     onView(withId(androidx.preference.R.id.recycler_view))
-        .check(
-            matches(atPosition(1, hasDescendant(withText(R.string.pref_request_filename_title)))));
+        .check(matches(hasDescendant(withText(R.string.pref_request_filename_title))));
 
     onView(withId(androidx.preference.R.id.recycler_view))
-        .check(
-            matches(
-                atPosition(2, hasDescendant(withText(R.string.pref_list_audio_quality_title)))));
+        .check(matches(hasDescendant(withText(R.string.pref_list_audio_quality_title))));
 
     onView(withId(androidx.preference.R.id.recycler_view))
-        .check(
-            matches(
-                atPosition(
-                    3, hasDescendant(withText(R.string.pref_recording_storage_path_title)))));
+        .check(matches(hasDescendant(withText(R.string.pref_recording_storage_path_title))));
   }
 
   @Test

@@ -1,6 +1,9 @@
 package com.wirehall.audiorecorder;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import androidx.preference.PreferenceManager;
@@ -9,7 +12,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.GrantPermissionRule;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -23,11 +25,17 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.init;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.Intents.intending;
+import static androidx.test.espresso.intent.Intents.release;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static com.wirehall.audiorecorder.AppRater.KEY_PREF_RATE_DIALOG_DO_NOT_SHOW;
 import static com.wirehall.audiorecorder.AppRater.KEY_PREF_RATE_DIALOG_FIRST_LAUNCH_TIME;
 import static com.wirehall.audiorecorder.AppRater.KEY_PREF_RATE_DIALOG_LAUNCH_COUNT;
+import static org.hamcrest.Matchers.equalTo;
 
 public class AppRaterTest {
   @Rule
@@ -52,13 +60,20 @@ public class AppRaterTest {
   }
 
   @Test
-  @Ignore("There is no play store app on emulator. So rate action causes failure")
   public void testClick_rate_button() {
     setSharedPrefsForTest(context);
-
     ActivityScenario.launch(MainActivity.class);
+
+    init();
+    // Before triggering the sharing intent chooser, stub it out to avoid leaving system UI open
+    // after the test is finished.
+    intending(hasAction(equalTo(Intent.ACTION_VIEW)))
+        .respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
     onView(withId(R.id.btn_rate_dialog_rate)).perform(click());
-    onView(withId(R.id.btn_rate_dialog_no_thx)).check(doesNotExist());
+    intended(hasAction(Intent.ACTION_VIEW));
+    release();
+
+    onView(withId(R.id.btn_rate_dialog_rate)).check(doesNotExist());
 
     resetSharedPrefs(context);
   }

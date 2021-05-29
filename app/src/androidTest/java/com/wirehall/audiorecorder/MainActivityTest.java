@@ -2,7 +2,6 @@ package com.wirehall.audiorecorder;
 
 import android.app.Activity;
 import android.app.Instrumentation;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
@@ -23,7 +22,6 @@ import java.util.stream.IntStream;
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
@@ -39,7 +37,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static com.wirehall.audiorecorder.helper.EspressoTestsMatchers.withDrawable;
 import static com.wirehall.audiorecorder.helper.RecyclerViewHelper.atPosition;
 import static com.wirehall.audiorecorder.helper.RecyclerViewHelper.clickChildViewWithId;
@@ -63,8 +60,6 @@ public class MainActivityTest {
   public GrantPermissionRule permissionRule =
       GrantPermissionRule.grant(RECORD_AUDIO, WRITE_EXTERNAL_STORAGE);
 
-  private static final Context context = getInstrumentation().getTargetContext();
-
   @Test
   public void testLaunch_main_activity() {
     onView(withId(R.id.recorder_container)).check(matches(isDisplayed()));
@@ -72,14 +67,6 @@ public class MainActivityTest {
     onView(withId(R.id.sb_mp_seek_bar)).check(matches(isDisplayed()));
     onView(withId(R.id.explorer_parent_container)).check(matches(isDisplayed()));
     validateRecordBtnState(R.drawable.ic_mic, not(isEnabled()), not(isEnabled()));
-  }
-
-  @Test
-  public void testLaunch_about_dialog() {
-    openActionBarOverflowOrOptionsMenu(context);
-    onView(withText(R.string.about)).perform(click());
-    onView(withId(R.id.tv_privacy_policy_link)).check(matches(isDisplayed()));
-    onView(withId(R.id.btn_about_dialog_close)).perform(click());
   }
 
   @Test
@@ -270,9 +257,6 @@ public class MainActivityTest {
 
   @Test
   public void testScenario_record_pause_record_stop() {
-    AtomicInteger count = new AtomicInteger();
-    storeInitialRVItemCount(count);
-
     // Start the recording
     onView(withId(R.id.ib_record)).perform(click());
     // The record icon should change to pause
@@ -285,10 +269,6 @@ public class MainActivityTest {
     validateRecordBtnState(R.drawable.ic_mic, isEnabled(), isEnabled());
     // Start recording again
     recordForSeconds(SEC_3);
-
-    // Validate that the file is saved
-    onView(allOf(isDisplayed(), withId(R.id.recycler_view)))
-        .check(withItemCount(greaterThan(count.get())));
   }
 
   @Test

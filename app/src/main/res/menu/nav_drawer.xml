@@ -33,7 +33,7 @@
         <item
             android:id="@+id/nav_rate"
             android:icon="@drawable/ic_rate"
-            android:title="@string/rate" />
+            android:title="@string/rate_this_app" />
         <item
             android:id="@+id/nav_twitter"
             android:icon="@drawable/ic_twitter"

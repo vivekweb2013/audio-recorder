@@ -37,9 +37,9 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class PathPrefDialog extends PreferenceDialogFragmentCompat {
-  private static final String TAG = PathPrefDialog.class.getName();
   public static final String TAG_NEW_FOLDER_BUTTON = "TAG_NEW_FOLDER_BUTTON";
   public static final String TAG_NEW_FOLDER_INPUT = "TAG_NEW_FOLDER_INPUT";
+  private static final String TAG = PathPrefDialog.class.getName();
   private static final boolean IS_NEW_FOLDER_ENABLED = true;
   private final List<StorageItem> storageItemList = new ArrayList<>();
   private final List<StorageVolumeItem> storageVolumeItems = new ArrayList<>();
