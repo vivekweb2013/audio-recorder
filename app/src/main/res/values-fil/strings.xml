@@ -5,11 +5,13 @@
     <string name="audio_quality_high">Mataas</string>
     <string name="audio_quality_normal">Normal</string>
     <string name="btn_stop_recording">Itigil ang Pagre-record</string>
+    <string name="bug_report">Mag-ulat ng isang bug</string>
     <string name="button_delete_description">Tanggalin ang Pagre-record</string>
     <string name="button_rec_file_menu_description">File Menu</string>
     <string name="button_rec_play_pause_description">I-play / I-pause ang Pag-record</string>
     <string name="button_record_description">Simulan / I-pause ang Pagre-record</string>
     <string name="button_stop_description">Itigil ang Pagre-record</string>
+    <string name="buy_me_a_coffee">Bilhan mo ako ng kape</string>
     <string name="by_wirehall">sa pamamagitan ng <xliff:g id="organization_name">WIREHALL</xliff:g></string>
     <string name="close">Isara</string>
     <string name="dialog_delete_message">Gusto mo bang tanggalin ang recording na ito? <xliff:g id="file_path">%1$s</xliff:g></string>
@@ -26,9 +28,12 @@
     <string name="file_menu_option_share"><xliff:g id="share_symbol">✈ </xliff:g>Ibahagi</string>
     <string name="label_dev_name">Developer: <xliff:g id="developer_name">Vivek L</xliff:g></string>
     <string name="label_version">Bersyon: <xliff:g example="1.3.0" id="version">%1$s</xliff:g></string>
+    <string name="message_recording_fail_io_error">Nabigo ang Pag-record. Problema sa pag-access ng imbakan. Paki-update ang path ng imbakan</string>
     <string name="message_recording_saved">Pag-record ng Matagumpay na Pag-record!</string>
     <string name="message_recording_started">Nagsimula ang Pag-record</string>
-    <string name="message_recording_fail_io_error">Nabigo ang Pag-record. Problema sa pag-access ng imbakan. Paki-update ang path ng imbakan</string>
+    <string name="nav_drawer_close_description">"Isara ang drawer ng nabigasyon "</string>
+    <string name="nav_drawer_open_description">"Buksan ang drawer ng nabigasyon "</string>
+    <string name="nav_header_title">@string/app_name</string>
     <string name="no_thanks">Salamat nalang</string>
     <string name="pref_confirm_delete_summary">Ipakita ang dialog ng kumpirmasyon kapag tinatanggal ang file</string>
     <string name="pref_confirm_delete_title">Kumpirmasyon para sa Tanggalin</string>
@@ -40,6 +45,7 @@
     <string name="pref_request_filename_summary">Humiling ng pangalan ng file pagkatapos makumpleto ang pag-record</string>
     <string name="pref_request_filename_title">Humiling ng pangalan ng File</string>
     <string name="privacy_policy">Patakaran sa Pagkapribado</string>
+    <string name="progress_bar">progressbar</string>
     <string name="rate">I-rate ang App na ito</string>
     <string name="rate_dialog_info">Kung masiyahan ka gamit ang app na ito, mangyaring maglaan ng ilang sandali upang i-rate ito. Salamat sa iyong suporta!</string>
     <string name="rate_this_app">I-rate ang App na ito</string>
@@ -47,10 +53,10 @@
     <string name="remind_me_later">Paalalahanan mo ako mamaya</string>
     <string name="settings">Mga Setting</string>
     <string name="share_recording">Ibahagi ang Pagre-record</string>
+    <string name="source_code">Source Code</string>
     <string name="toast_folder_creation_failed">Nabigong lumikha ng folder: <xliff:g id="directory_path">%1$s</xliff:g></string>
     <string name="toast_recording_storage_path_updated">Na-update ang Lokasyon ng Imbakan</string>
     <string name="tv_file_info"><![CDATA[<b>Pangalan: </b>%1$s<br /><b>Sukat: </b>%2$s<br /><b>Tagal: </b>%3$s<br /><b>Lokasyon: </b>%4$s]]></string>
     <string name="tv_list_empty">Natagpuan Walang Pag-record. I-click ang Pindutan ng Rekord upang Simulan ang Pag-record</string>
     <string name="warn_stop_rec_to_play_audio">Hindi mai-play ang audio habang nagre-record. Itigil ang pag-record muna!</string>
-    <string name="progress_bar">progressbar</string>
 </resources>

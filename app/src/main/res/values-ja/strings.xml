@@ -5,11 +5,13 @@
     <string name="audio_quality_high">高い</string>
     <string name="audio_quality_normal">普通</string>
     <string name="btn_stop_recording">記録を停止</string>
+    <string name="bug_report">バグを報告</string>
     <string name="button_delete_description">記録を削除</string>
     <string name="button_rec_file_menu_description">録音ファイルメニュー</string>
     <string name="button_rec_play_pause_description">記録の再生/一時停止</string>
     <string name="button_record_description">記録開始/一時停止</string>
     <string name="button_stop_description">記録を停止</string>
+    <string name="buy_me_a_coffee">私のために一杯のコーヒーを買う</string>
     <string name="by_wirehall">によって <xliff:g id="organization_name">WIREHALL</xliff:g></string>
     <string name="close">閉じる</string>
     <string name="dialog_delete_message">この記録を削除しますか？ <xliff:g id="file_path">%1$s</xliff:g></string>
@@ -26,8 +28,12 @@
     <string name="file_menu_option_share"><xliff:g id="share_symbol">✈ </xliff:g>シェア</string>
     <string name="label_dev_name">開発者: <xliff:g id="developer_name">Vivek L</xliff:g></string>
     <string name="label_version">バージョン: <xliff:g example="1.3.0" id="version">%1$s</xliff:g></string>
+    <string name="message_recording_fail_io_error">記録に失敗しました。ストレージへのアクセスに問題があります。ストレージパスを更新してください</string>
     <string name="message_recording_saved">レコードは正常に保存されました。</string>
     <string name="message_recording_started">記録開始</string>
+    <string name="nav_drawer_close_description">ナビゲーションドロワーを閉じる</string>
+    <string name="nav_drawer_open_description">ナビゲーションドロワーを開</string>
+    <string name="nav_header_title">@string/app_name</string>
     <string name="no_thanks">結構です</string>
     <string name="pref_confirm_delete_summary">ファイル削除時に確認ダイアログを表示</string>
     <string name="pref_confirm_delete_title">削除の確認</string>
@@ -39,6 +45,7 @@
     <string name="pref_request_filename_summary">記録完了後にファイル名を要求する</string>
     <string name="pref_request_filename_title">ファイル名を要求する</string>
     <string name="privacy_policy">個人情報保護方針</string>
+    <string name="progress_bar">プログレスバー</string>
     <string name="rate">アプリを評価する</string>
     <string name="rate_dialog_info">あなたがこのアプリを使うのを楽しむならば、それを評価するために少し時間をかけてください。ご協力ありがとうございました！</string>
     <string name="rate_this_app">このアプリを評価する</string>
@@ -46,11 +53,10 @@
     <string name="remind_me_later">後で思い出させる</string>
     <string name="settings">設定</string>
     <string name="share_recording">共有レコーディング</string>
+    <string name="source_code">ソースコード</string>
     <string name="toast_folder_creation_failed">フォルダを作成できませんでした: <xliff:g id="directory_path">%1$s</xliff:g></string>
     <string name="toast_recording_storage_path_updated">保管場所が更新されました</string>
     <string name="tv_file_info"><![CDATA[<b>名: </b>%1$s<br /><b>サイズ: </b>%2$s<br /><b>期間: </b>%3$s<br /><b>パス: </b>%4$s]]></string>
     <string name="tv_list_empty">録音は見つかりませんでした。録音ボタンをクリックして録音を開始します</string>
     <string name="warn_stop_rec_to_play_audio">録音中は音声を再生できません。最初に録音を停止してください。</string>
-    <string name="message_recording_fail_io_error">記録に失敗しました。ストレージへのアクセスに問題があります。ストレージパスを更新してください</string>
-    <string name="progress_bar">プログレスバー</string>
 </resources>

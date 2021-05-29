@@ -1,141 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_app_bg"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:padding="@dimen/standard_gap"
-    tools:context=".MainActivity">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <FrameLayout
-        android:id="@+id/explorer_parent_container"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/standard_gap"
-        android:layout_marginRight="@dimen/standard_gap"
-        android:layout_weight="6"
-        android:background="@drawable/view_segment"
-        android:orientation="vertical">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <!--The trick here is the use of FrameLayout to show text-message/recycler-view -->
-        <!--FrameLayout is designed to block out an area on the screen to display a single item. Priority given to last item -->
-        <!--When the recycler view is empty its height will become zero(due to wrap_content) and the text message will appear -->
-        <!--When the recycler view is not empty it will be rendered on top of text view, blocking the text view -->
-        <TextView
-            android:id="@+id/tv_empty_list_message"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/tv_list_empty"
-            android:textColor="@color/color_text_timer"
-            android:textSize="@dimen/size_tv_empty_list_message" />
+            android:theme="@style/Theme.AppTheme.AppBarOverlay">
 
-        <FrameLayout
-            android:id="@+id/list_fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/view_segment"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_list_fragment_container" />
-    </FrameLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/Theme.AppTheme.PopupOverlay" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/recorder_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_recorder_container"
-            android:layout_marginBottom="@dimen/margin_sub_container"
-            android:background="@drawable/view_segment"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/ib_stop"
-                android:layout_width="@dimen/size_recorder_secondary_button"
-                android:layout_height="@dimen/size_recorder_secondary_button"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/margin_recorder_secondary_button"
-                android:layout_marginLeft="@dimen/margin_recorder_secondary_button"
-                android:background="@drawable/round_button"
-                android:contentDescription="@string/button_stop_description"
-                android:onClick="stopBtnClicked"
-                android:padding="@dimen/padding_ib_rec_stop_del"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_stop_white" />
-
-            <ImageButton
-                android:id="@+id/ib_record"
-                android:layout_width="@dimen/size_recorder_primary_button"
-                android:layout_height="@dimen/size_recorder_primary_button"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/round_button"
-                android:contentDescription="@string/button_record_description"
-                android:onClick="recordPauseBtnClicked"
-                android:padding="@dimen/padding_ib_rec_stop_del"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_mic" />
-
-            <ImageButton
-                android:id="@+id/ib_delete"
-                android:layout_width="@dimen/size_recorder_secondary_button"
-                android:layout_height="@dimen/size_recorder_secondary_button"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/margin_recorder_secondary_button"
-                android:layout_marginRight="@dimen/margin_recorder_secondary_button"
-                android:background="@drawable/round_button"
-                android:contentDescription="@string/button_delete_description"
-                android:onClick="deleteBtnClicked"
-                android:padding="@dimen/padding_ib_rec_stop_del"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_delete_white" />
-
-        </RelativeLayout>
-        <!--Ignore warning and keep thumbTint in SeekBar as we need this for newer APIs, older APIs already handled in progressDrawable-->
-        <SeekBar
-            android:id="@+id/sb_mp_seek_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_sub_container"
-            android:progressDrawable="@drawable/seek_bar_progress"
-            android:theme="@style/MySeekBar"
-            android:thumbTint="@color/color_seek_bar_progress" />
-
-        <FrameLayout
-            android:id="@+id/vis_timer_container"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/view_segment"
-            android:orientation="vertical">
+            android:layout_marginTop="?attr/actionBarSize"
+            android:background="@color/color_app_bg"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="@dimen/standard_gap"
+            tools:context=".MainActivity">
 
             <FrameLayout
-                android:id="@+id/visualizer_fragment_container"
-                android:layout_width="match_parent"
+                android:id="@+id/explorer_parent_container"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/standard_gap"
+                android:layout_marginRight="@dimen/standard_gap"
+                android:layout_weight="6"
                 android:background="@drawable/view_segment"
-                android:orientation="vertical" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|center"
-                android:gravity="center"
-                android:textColor="@color/color_text_timer"
-                android:textSize="@dimen/size_tv_vis_timer" />
-        </FrameLayout>
+                <!--The trick here is the use of FrameLayout to show text-message/recycler-view -->
+                <!--FrameLayout is designed to block out an area on the screen to display a single item. Priority given to last item -->
+                <!--When the recycler view is empty its height will become zero(due to wrap_content) and the text message will appear -->
+                <!--When the recycler view is not empty it will be rendered on top of text view, blocking the text view -->
+                <TextView
+                    android:id="@+id/tv_empty_list_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/tv_list_empty"
+                    android:textColor="@color/color_text_timer"
+                    android:textSize="@dimen/size_tv_empty_list_message" />
 
-    </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/list_fragment_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/view_segment"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_list_fragment_container" />
+            </FrameLayout>
 
-</LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/recorder_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_recorder_container"
+                    android:layout_marginBottom="@dimen/margin_sub_container"
+                    android:background="@drawable/view_segment"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/ib_stop"
+                        android:layout_width="@dimen/size_recorder_secondary_button"
+                        android:layout_height="@dimen/size_recorder_secondary_button"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_recorder_secondary_button"
+                        android:layout_marginLeft="@dimen/margin_recorder_secondary_button"
+                        android:background="@drawable/round_button"
+                        android:contentDescription="@string/button_stop_description"
+                        android:onClick="stopBtnClicked"
+                        android:padding="@dimen/padding_ib_rec_stop_del"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_stop_white" />
+
+                    <ImageButton
+                        android:id="@+id/ib_record"
+                        android:layout_width="@dimen/size_recorder_primary_button"
+                        android:layout_height="@dimen/size_recorder_primary_button"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/round_button"
+                        android:contentDescription="@string/button_record_description"
+                        android:onClick="recordPauseBtnClicked"
+                        android:padding="@dimen/padding_ib_rec_stop_del"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_mic" />
+
+                    <ImageButton
+                        android:id="@+id/ib_delete"
+                        android:layout_width="@dimen/size_recorder_secondary_button"
+                        android:layout_height="@dimen/size_recorder_secondary_button"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/margin_recorder_secondary_button"
+                        android:layout_marginRight="@dimen/margin_recorder_secondary_button"
+                        android:background="@drawable/round_button"
+                        android:contentDescription="@string/button_delete_description"
+                        android:onClick="deleteBtnClicked"
+                        android:padding="@dimen/padding_ib_rec_stop_del"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_delete_white" />
+
+                </RelativeLayout>
+                <!--Ignore warning and keep thumbTint in SeekBar as we need this for newer APIs, older APIs already handled in progressDrawable-->
+                <SeekBar
+                    android:id="@+id/sb_mp_seek_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_sub_container"
+                    android:contentDescription="@string/progress_bar"
+                    android:progressDrawable="@drawable/seek_bar_progress"
+                    android:theme="@style/MySeekBar"
+                    android:thumbTint="@color/color_seek_bar_progress" />
+
+                <FrameLayout
+                    android:id="@+id/vis_timer_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/view_segment"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:id="@+id/visualizer_fragment_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/view_segment"
+                        android:orientation="vertical" />
+
+                    <TextView
+                        android:id="@+id/tv_timer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center"
+                        android:gravity="center"
+                        android:textColor="@color/color_text_timer"
+                        android:textSize="@dimen/size_tv_vis_timer" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_drawer" />
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -20,31 +19,37 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 
+import com.google.android.material.navigation.NavigationView;
 import com.wirehall.audiorecorder.explorer.FileListFragment;
 import com.wirehall.audiorecorder.explorer.model.Recording;
 import com.wirehall.audiorecorder.player.MediaPlayerController;
 import com.wirehall.audiorecorder.recorder.AudioRecorderLocalService;
 import com.wirehall.audiorecorder.recorder.MediaRecorderState;
 import com.wirehall.audiorecorder.recorder.RecordingController;
-import com.wirehall.audiorecorder.setting.SettingActivity;
 import com.wirehall.audiorecorder.visualizer.VisualizerFragment;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity
-    implements VisualizerFragment.VisualizerMPSession, FileListFragment.FileListFragmentListener {
-  public static final String APP_PACKAGE_NAME = "com.wirehall.audiorecorder";
+    implements VisualizerFragment.VisualizerMPSession,
+        FileListFragment.FileListFragmentListener,
+        NavigationView.OnNavigationItemSelectedListener {
+
   public static final String KEY_PREF_RECORDING_STORAGE_PATH = "recording_storage_path";
   private static final String TAG = MainActivity.class.getName();
-  private static final String PLAY_STORE_URL = "market://details?id=" + APP_PACKAGE_NAME;
 
   private final ActivityResultLauncher<String[]> requestPermissionLauncher =
       registerForActivityResult(
@@ -129,6 +134,8 @@ public class MainActivity extends AppCompatActivity
     super.onCreate(savedInstanceState);
     try {
       setContentView(R.layout.main_activity);
+      setupNavDrawer();
+
       FragmentManager fm = getSupportFragmentManager();
       FragmentTransaction ft = fm.beginTransaction();
       ft.add(R.id.visualizer_fragment_container, VisualizerFragment.newInstance());
@@ -145,6 +152,26 @@ public class MainActivity extends AppCompatActivity
     } catch (Exception e) {
       Log.e(TAG, e.getMessage());
     }
+  }
+
+  private void setupNavDrawer() {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar); // set the toolbar
+
+    DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+    NavigationView navView = findViewById(R.id.nav_view);
+    navView.setItemIconTintList(null);
+
+    ActionBarDrawerToggle toggle =
+        new ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.nav_drawer_open_description,
+            R.string.nav_drawer_close_description);
+    drawerLayout.addDrawerListener(toggle);
+    toggle.syncState();
+    navView.setNavigationItemSelectedListener(this);
   }
 
   private void setDefaultPreferenceValues() {
@@ -210,27 +237,17 @@ public class MainActivity extends AppCompatActivity
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
-    switch (id) {
-      case R.id.menu_item_settings:
-        Intent intent = new Intent(this, SettingActivity.class);
-        startActivity(intent);
-        return true;
-      case R.id.menu_item_about:
-        AboutDialog aboutDialog = new AboutDialog(this);
-        aboutDialog.show();
-        return true;
-      case R.id.menu_item_rate:
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = prefs.edit();
-        this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PLAY_STORE_URL)));
-        if (editor != null) {
-          editor.putBoolean(AppRater.KEY_PREF_RATE_DIALOG_DO_NOT_SHOW, true);
-          editor.apply();
-        }
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
+    if (id == R.id.menu_item_settings) {
+      Helper.openSettings(this);
+      return true;
+    } else if (id == R.id.menu_item_about) {
+      Helper.openAboutDialog(this);
+      return true;
+    } else if (id == R.id.menu_item_rate) {
+      Helper.openRateIntent(this);
+      return true;
     }
+    return super.onOptionsItemSelected(item);
   }
 
   @TargetApi(Build.VERSION_CODES.N)
@@ -286,5 +303,30 @@ public class MainActivity extends AppCompatActivity
       Log.e(TAG, e.getMessage());
     }
     super.onDestroy();
+  }
+
+  @Override
+  public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+    int itemId = item.getItemId();
+
+    if (itemId == R.id.nav_settings) {
+      Helper.openSettings(this);
+    } else if (itemId == R.id.nav_privacy_policy) {
+      Helper.openPrivacyPolicyIntent(this);
+    } else if (itemId == R.id.nav_source_code) {
+      Helper.openSourceCodeIntent(this);
+    } else if (itemId == R.id.nav_bug_report) {
+      Helper.openBugReportIntent(this);
+    } else if (itemId == R.id.nav_bmc) {
+      Helper.openBMCIntent(this);
+    } else if (itemId == R.id.nav_rate) {
+      Helper.openRateIntent(this);
+    } else if (itemId == R.id.nav_twitter) {
+      Helper.openTwitterIntent(this);
+    }
+
+    drawerLayout.closeDrawer(GravityCompat.START);
+    return false;
   }
 }

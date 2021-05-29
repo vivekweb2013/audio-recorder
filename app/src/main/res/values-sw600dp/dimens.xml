@@ -1,33 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-    <dimen name="width_seek_bar_line">4dp</dimen>
-    <dimen name="size_text_file_row_footer">15sp</dimen>
-    <dimen name="size_text_file_row_header">25sp</dimen>
-    <dimen name="standard_gap">25dp</dimen>
-    <dimen name="margin_sub_container">25dp</dimen>
+    <dimen name="distance_standard_dialog">8dp</dimen>
+
     <dimen name="height_recorder_container">150dp</dimen>
     <dimen name="height_vis_and_timer_container">150dp</dimen>
-    <dimen name="size_recorder_secondary_button">85dp</dimen>
-    <dimen name="size_recorder_primary_button">110dp</dimen>
+
     <dimen name="margin_recorder_secondary_button">30dp</dimen>
+    <dimen name="margin_sub_container">25dp</dimen>
+    <dimen name="margin_top_about_dialog_info_text">10dp</dimen>
+
+    <dimen name="padding_file_menu">8dp</dimen>
+    <dimen name="padding_h_ib_file_row">20dp</dimen>
+    <dimen name="padding_ib_rec_stop_del">15dp</dimen>
     <dimen name="padding_list_fragment_container">1dp</dimen>
-    <dimen name="distance_standard_dialog">8dp</dimen>
+    <dimen name="padding_v_ib_file_row">10dp</dimen>
+
     <dimen name="size_file_info_text_view">25sp</dimen>
     <dimen name="size_file_menu">30sp</dimen>
-    <dimen name="padding_file_menu">8dp</dimen>
+    <dimen name="size_rate_dialog_info">30sp</dimen>
+    <dimen name="size_recorder_primary_button">110dp</dimen>
+    <dimen name="size_recorder_secondary_button">85dp</dimen>
+    <dimen name="size_standard_min_height">48dp</dimen>
+    <dimen name="size_text_file_row_footer">15sp</dimen>
+    <dimen name="size_text_file_row_header">25sp</dimen>
     <dimen name="size_tv_about_dialog_app_name">30sp</dimen>
+    <dimen name="size_tv_by_wirehall">15sp</dimen>
     <dimen name="size_tv_dev_name">20sp</dimen>
+    <dimen name="size_tv_empty_list_message">22sp</dimen>
+    <dimen name="size_tv_privacy_policy">20sp</dimen>
     <dimen name="size_tv_usage_notice">15sp</dimen>
     <dimen name="size_tv_version">15sp</dimen>
-    <dimen name="size_tv_privacy_policy">20sp</dimen>
-    <dimen name="size_rate_dialog_info">30sp</dimen>
-    <dimen name="margin_top_about_dialog_info_text">10dp</dimen>
-    <dimen name="size_tv_by_wirehall">15sp</dimen>
-    <dimen name="padding_ib_rec_stop_del">15dp</dimen>
-    <dimen name="padding_h_ib_file_row">20dp</dimen>
-    <dimen name="padding_v_ib_file_row">10dp</dimen>
     <dimen name="size_tv_vis_timer">30sp</dimen>
-    <dimen name="size_tv_empty_list_message">22sp</dimen>
-    <dimen name="size_standard_min_height">48dp
-    </dimen> <!-- This is to avoid 'Touch target size' warnings -->
+
+    <dimen name="standard_gap">25dp</dimen>
+
+    <dimen name="width_seek_bar_line">4dp</dimen>
 </resources>

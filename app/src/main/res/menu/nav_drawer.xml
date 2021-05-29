@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/nav_privacy_policy"
+            android:icon="@drawable/ic_privacy_policy"
+            android:title="@string/privacy_policy" />
+    </group>
+
+    <group
+        android:id="@+id/open_source_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_source_code"
+            android:icon="@drawable/ic_source_code"
+            android:title="@string/source_code" />
+        <item
+            android:id="@+id/nav_bug_report"
+            android:icon="@drawable/ic_bug_report"
+            android:title="@string/bug_report" />
+    </group>
+
+    <group
+        android:id="@+id/support_us_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/ic_rate"
+            android:title="@string/rate" />
+        <item
+            android:id="@+id/nav_twitter"
+            android:icon="@drawable/ic_twitter"
+            android:title="@string/twitter_handle" />
+        <item
+            android:id="@+id/nav_bmc"
+            android:icon="@drawable/ic_bmc"
+            android:title="@string/buy_me_a_coffee" />
+    </group>
+</menu>

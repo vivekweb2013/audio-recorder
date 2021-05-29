@@ -5,11 +5,13 @@
     <string name="audio_quality_high">alto</string>
     <string name="audio_quality_normal">Normale</string>
     <string name="btn_stop_recording">Interrompi registrazione</string>
+    <string name="bug_report">Segnalare un bug</string>
     <string name="button_delete_description">Elimina registrazione</string>
     <string name="button_rec_file_menu_description">Menu File</string>
     <string name="button_rec_play_pause_description">Riproduzione / pausa della registrazione</string>
     <string name="button_record_description">Avvia / Sospendi registrazione</string>
     <string name="button_stop_description">Interrompi registrazione</string>
+    <string name="buy_me_a_coffee">Offrimi un caffè</string>
     <string name="by_wirehall">di <xliff:g id="organization_name">WIREHALL</xliff:g></string>
     <string name="close">Vicino</string>
     <string name="dialog_delete_message">Vuoi cancellare questa registrazione? <xliff:g id="file_path">%1$s</xliff:g></string>
@@ -26,8 +28,12 @@
     <string name="file_menu_option_share"><xliff:g id="share_symbol">✈ </xliff:g>Condividere</string>
     <string name="label_dev_name">Sviluppatore: <xliff:g id="developer_name">Vivek L</xliff:g></string>
     <string name="label_version">Versione: <xliff:g example="1.3.0" id="version">%1$s</xliff:g></string>
+    <string name="message_recording_fail_io_error">Registrazione fallita. Problema di accesso alla memoria. Si prega di aggiornare il percorso di archiviazione</string>
     <string name="message_recording_saved">Registrazione salvata con successo!</string>
     <string name="message_recording_started">Registrazione iniziata</string>
+    <string name="nav_drawer_close_description">Chiudi il cassetto di navigazione</string>
+    <string name="nav_drawer_open_description">Aperto cassetto di navigazione</string>
+    <string name="nav_header_title">@string/app_name</string>
     <string name="no_thanks">No grazie</string>
     <string name="pref_confirm_delete_summary">Mostra la finestra di dialogo di conferma quando si elimina il file</string>
     <string name="pref_confirm_delete_title">Conferma per l\'eliminazione</string>
@@ -39,6 +45,7 @@
     <string name="pref_request_filename_summary">Richiedi il nome del file dopo aver completato la registrazione</string>
     <string name="pref_request_filename_title">Richiedi nome file</string>
     <string name="privacy_policy">politica sulla riservatezza</string>
+    <string name="progress_bar">barra di avanzamento</string>
     <string name="rate">Vota</string>
     <string name="rate_dialog_info">Se ti piace usare questa app, per favore prenditi un momento per valutarla. Grazie per il vostro sostegno!</string>
     <string name="rate_this_app">Valuta questa applicazione</string>
@@ -46,11 +53,10 @@
     <string name="remind_me_later">Ricordamelo più tardi</string>
     <string name="settings">impostazioni</string>
     <string name="share_recording">Condividi la registrazione</string>
+    <string name="source_code">Codice sorgente</string>
     <string name="toast_folder_creation_failed">Impossibile creare la cartella: <xliff:g id="directory_path">%1$s</xliff:g></string>
     <string name="toast_recording_storage_path_updated">La posizione di archiviazione è stata aggiornata</string>
     <string name="tv_file_info"><![CDATA[<b>Nome: </b>%1$s<br /><b>dimensione del file: </b>%2$s<br /><b>Durata: </b>%3$s<br /><b>percorso: </b>%4$s]]></string>
     <string name="tv_list_empty">Nessuna registrazione trovata. Fare clic sul pulsante Registra per avviare la registrazione</string>
     <string name="warn_stop_rec_to_play_audio">L\'audio non può essere riprodotto durante la registrazione. Fermare prima la registrazione!</string>
-    <string name="message_recording_fail_io_error">Registrazione fallita. Problema di accesso alla memoria. Si prega di aggiornare il percorso di archiviazione</string>
-    <string name="progress_bar">barra di avanzamento</string>
 </resources>

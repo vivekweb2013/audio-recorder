@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class AboutDialog extends Dialog implements View.OnClickListener {
-  private static final String PRIVACY_POLICY_URL =
-      "https://sites.google.com/view/audio-recorder-privacy-policy";
 
   public AboutDialog(Context context) {
     super(context);
@@ -42,7 +40,7 @@ public class AboutDialog extends Dialog implements View.OnClickListener {
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.tv_privacy_policy_link) {
-      getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_POLICY_URL)));
+      Helper.openPrivacyPolicyIntent(getContext());
     } else {
       dismiss();
     }

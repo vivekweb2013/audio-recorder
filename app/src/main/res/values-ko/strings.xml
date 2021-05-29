@@ -5,11 +5,13 @@
     <string name="audio_quality_high">높은</string>
     <string name="audio_quality_normal">표준</string>
     <string name="btn_stop_recording">녹음 중지</string>
+    <string name="bug_report">버그 신고</string>
     <string name="button_delete_description">녹화 삭제</string>
     <string name="button_rec_file_menu_description">녹음 파일 메뉴</string>
     <string name="button_rec_play_pause_description">녹음 재생 / 일시 중지</string>
     <string name="button_record_description">녹음 시작 / 일시 중지</string>
     <string name="button_stop_description">녹음 중지</string>
+    <string name="buy_me_a_coffee">나에게 커피 사줘</string>
     <string name="by_wirehall">에 의해 <xliff:g id="organization_name">WIREHALL</xliff:g></string>
     <string name="close">닫기</string>
     <string name="dialog_delete_message">이 녹음을 삭제 하시겠습니까? <xliff:g id="file_path">%1$s</xliff:g></string>
@@ -26,8 +28,12 @@
     <string name="file_menu_option_share"><xliff:g id="share_symbol">✈ </xliff:g>몫</string>
     <string name="label_dev_name">개발자: <xliff:g id="developer_name">Vivek L</xliff:g></string>
     <string name="label_version">번역: <xliff:g example="1.3.0" id="version">%1$s</xliff:g></string>
+    <string name="message_recording_fail_io_error">녹화가 실패했습니다. 저장소에 액세스하는 중 문제가 발생했습니다. 저장 경로를 업데이트하십시오.</string>
     <string name="message_recording_saved">녹화가 성공적으로 저장되었습니다!</string>
     <string name="message_recording_started">녹음 시작</string>
+    <string name="nav_drawer_close_description">드로어 닫기</string>
+    <string name="nav_drawer_open_description">드로어 열기</string>
+    <string name="nav_header_title">@string/app_name</string>
     <string name="no_thanks">괜찮습니다</string>
     <string name="pref_confirm_delete_summary">파일을 삭제할 때 확인 대화 상자 표시</string>
     <string name="pref_confirm_delete_title">삭제 확인</string>
@@ -39,6 +45,7 @@
     <string name="pref_request_filename_summary">녹음 완료 후 파일 이름 요청</string>
     <string name="pref_request_filename_title">요청 파일 이름</string>
     <string name="privacy_policy">개인 정보 정책</string>
+    <string name="progress_bar">진행 표시 줄</string>
     <string name="rate">평가</string>
     <string name="rate_dialog_info">이 앱을 사용하는 것을 즐긴다면 잠시 시간을내어 평가하십시오. 지원해 주셔서 감사합니다.</string>
     <string name="rate_this_app">이 앱을 평가 해주십시오</string>
@@ -46,11 +53,10 @@
     <string name="remind_me_later">나중에 상기시켜 줘</string>
     <string name="settings">설정</string>
     <string name="share_recording">녹음 내용 공유</string>
+    <string name="source_code">소스 코드</string>
     <string name="toast_folder_creation_failed">폴더 생성 실패 : <xliff:g id="directory_path">%1$s</xliff:g></string>
     <string name="toast_recording_storage_path_updated">녹음 경로가 업데이트되었습니다.</string>
     <string name="tv_file_info"><![CDATA[<b>이름: </b>%1$s<br /><b>크기: </b>%2$s<br /><b>지속: </b>%3$s<br /><b>위치: </b>%4$s]]></string>
     <string name="tv_list_empty">기록이 없습니다. 녹음 버튼을 클릭하여 녹음을 시작하십시오.</string>
     <string name="warn_stop_rec_to_play_audio">녹음 중에는 오디오를 재생할 수 없습니다. 먼저 녹음을 중지하십시오!</string>
-    <string name="message_recording_fail_io_error">녹화가 실패했습니다. 저장소에 액세스하는 중 문제가 발생했습니다. 저장 경로를 업데이트하십시오.</string>
-    <string name="progress_bar">진행 표시 줄</string>
 </resources>
