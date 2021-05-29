@@ -8,7 +8,7 @@ plugins {
 play {
     defaultToAppBundles = true
     serviceAccountCredentials = file("google-services.json")
-    track = "alpha"
+    track = "production"
     releaseStatus = com.github.triplet.gradle.androidpublisher.ReleaseStatus.DRAFT
 }
 
