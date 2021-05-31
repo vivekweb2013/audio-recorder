@@ -11,7 +11,6 @@
     <string name="button_rec_play_pause_description">Riproduzione / pausa della registrazione</string>
     <string name="button_record_description">Avvia / Sospendi registrazione</string>
     <string name="button_stop_description">Interrompi registrazione</string>
-    <string name="buy_me_a_coffee">Offrimi un caffè</string>
     <string name="by_wirehall">di <xliff:g id="organization_name">WIREHALL</xliff:g></string>
     <string name="close">Vicino</string>
     <string name="dialog_delete_message">Vuoi cancellare questa registrazione? <xliff:g id="file_path">%1$s</xliff:g></string>

@@ -15,7 +15,6 @@ import com.wirehall.audiorecorder.setting.SettingActivity;
 public class Helper {
   private static final String PRIVACY_POLICY_URL =
       "https://sites.google.com/view/audio-recorder-privacy-policy";
-  private static final String BMC_URL = "https://www.buymeacoffee.com/vivekweb2013";
   private static final String SOURCE_CODE_URL = "https://github.com/vivekweb2013/audio-recorder";
   private static final String BUG_REPORT_URL =
       "https://github.com/vivekweb2013/audio-recorder/issues";
@@ -65,10 +64,6 @@ public class Helper {
 
   public static void openBugReportIntent(Context context) {
     context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.BUG_REPORT_URL)));
-  }
-
-  public static void openBMCIntent(Context context) {
-    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.BMC_URL)));
   }
 
   public static void openRateIntent(Context context) {

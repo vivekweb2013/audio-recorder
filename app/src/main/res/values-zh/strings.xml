@@ -11,7 +11,6 @@
     <string name="button_rec_play_pause_description">播放/暂停录制</string>
     <string name="button_record_description">开始/暂停录制</string>
     <string name="button_stop_description">停止录音</string>
-    <string name="buy_me_a_coffee">给我买杯咖啡</string>
     <string name="by_wirehall">由WIREHALL创建</string>
     <string name="close">关</string>
     <string name="dialog_delete_message">

@@ -11,7 +11,6 @@
     <string name="button_rec_play_pause_description">Reproduzir / Pausar Gravação</string>
     <string name="button_record_description">Iniciar / Pausar Gravação</string>
     <string name="button_stop_description">Pare de gravar</string>
-    <string name="buy_me_a_coffee">Me compra um café</string>
     <string name="by_wirehall">por <xliff:g id="organization_name">WIREHALL</xliff:g></string>
     <string name="close">Perto</string>
     <string name="dialog_delete_message">Você quer apagar esta gravação? <xliff:g id="file_path">%1$s</xliff:g></string>

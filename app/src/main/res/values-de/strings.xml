@@ -11,7 +11,6 @@
     <string name="button_rec_play_pause_description">Aufnahme abspielen/anhalten</string>
     <string name="button_record_description">Aufnahme starten/anhalten</string>
     <string name="button_stop_description">Aufnahme stoppen</string>
-    <string name="buy_me_a_coffee">Spendiere mir einen Kaffee</string>
     <string name="by_wirehall">von <xliff:g id="organization_name">WIREHALL</xliff:g></string>
     <string name="close">Schließen</string>
     <string name="dialog_delete_message">Möchten Sie diese Aufnahme löschen?<xliff:g id="file_path">%1$s</xliff:g>"</string>

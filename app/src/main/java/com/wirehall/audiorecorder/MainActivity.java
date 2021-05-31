@@ -318,8 +318,6 @@ public class MainActivity extends AppCompatActivity
       Helper.openSourceCodeIntent(this);
     } else if (itemId == R.id.nav_bug_report) {
       Helper.openBugReportIntent(this);
-    } else if (itemId == R.id.nav_bmc) {
-      Helper.openBMCIntent(this);
     } else if (itemId == R.id.nav_rate) {
       Helper.openRateIntent(this);
     } else if (itemId == R.id.nav_twitter) {

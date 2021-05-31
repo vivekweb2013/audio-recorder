@@ -38,9 +38,5 @@
             android:id="@+id/nav_twitter"
             android:icon="@drawable/ic_twitter"
             android:title="@string/twitter_handle" />
-        <item
-            android:id="@+id/nav_bmc"
-            android:icon="@drawable/ic_bmc"
-            android:title="@string/buy_me_a_coffee" />
     </group>
 </menu>

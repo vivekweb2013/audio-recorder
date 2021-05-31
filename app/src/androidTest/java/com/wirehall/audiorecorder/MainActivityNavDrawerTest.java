@@ -151,22 +151,6 @@ public class MainActivityNavDrawerTest {
     release();
   }
 
-  @Test
-  public void testNav_launch_bmc() {
-    openNavDrawer();
-    onView(withId(R.id.nav_twitter)).check(matches(isDisplayed()));
-
-    // Validate share option
-    init();
-    // Before triggering the sharing intent chooser, stub it out to avoid leaving system UI open
-    // after the test is finished.
-    intending(hasAction(equalTo(Intent.ACTION_VIEW)))
-        .respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
-    onView(allOf(withId(R.id.nav_bmc), isDisplayed())).perform(click());
-    intended(hasAction(Intent.ACTION_VIEW));
-    release();
-  }
-
   private void openNavDrawer() {
     onView(
             allOf(

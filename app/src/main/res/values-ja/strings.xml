@@ -11,7 +11,6 @@
     <string name="button_rec_play_pause_description">記録の再生/一時停止</string>
     <string name="button_record_description">記録開始/一時停止</string>
     <string name="button_stop_description">記録を停止</string>
-    <string name="buy_me_a_coffee">私のために一杯のコーヒーを買う</string>
     <string name="by_wirehall">によって <xliff:g id="organization_name">WIREHALL</xliff:g></string>
     <string name="close">閉じる</string>
     <string name="dialog_delete_message">この記録を削除しますか？ <xliff:g id="file_path">%1$s</xliff:g></string>

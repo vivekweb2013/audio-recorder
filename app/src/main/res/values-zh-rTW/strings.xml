@@ -11,7 +11,6 @@
     <string name="button_rec_play_pause_description">播放/暫停錄製</string>
     <string name="button_record_description">開始/暫停錄製</string>
     <string name="button_stop_description">停止錄音</string>
-    <string name="buy_me_a_coffee">給我買杯咖啡</string>
     <string name="by_wirehall">由WIREHALL創建</string>
     <string name="close">關</string>
     <string name="dialog_delete_message">要刪除此錄音嗎 <xliff:g id="file_path">%1$s</xliff:g></string>
