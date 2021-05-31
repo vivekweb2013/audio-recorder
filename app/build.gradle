@@ -30,8 +30,8 @@ android {
         applicationId "com.wirehall.audiorecorder"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 161
-        versionName "1.6.1"
+        versionCode 162
+        versionName "1.6.2"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
