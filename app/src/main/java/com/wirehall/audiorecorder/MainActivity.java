@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity
       ft.add(R.id.visualizer_fragment_container, VisualizerFragment.newInstance());
       ft.commit();
 
-      if (!Helper.hasPermissions(getApplicationContext(), RECORD_AUDIO, WRITE_EXTERNAL_STORAGE)) {
+      if (!HelperUtils.hasPermissions(getApplicationContext(), RECORD_AUDIO, WRITE_EXTERNAL_STORAGE)) {
         requestPermissionLauncher.launch(new String[] {RECORD_AUDIO, WRITE_EXTERNAL_STORAGE});
       }
 
@@ -289,19 +288,19 @@ public class MainActivity extends AppCompatActivity
     int itemId = item.getItemId();
 
     if (itemId == R.id.nav_settings) {
-      Helper.openSettings(this);
+      HelperUtils.openSettings(this);
     } else if (itemId == R.id.nav_privacy_policy) {
-      Helper.openPrivacyPolicyIntent(this);
+      HelperUtils.openPrivacyPolicyIntent(this);
     } else if (itemId == R.id.nav_source_code) {
-      Helper.openSourceCodeIntent(this);
+      HelperUtils.openSourceCodeIntent(this);
     } else if (itemId == R.id.nav_bug_report) {
-      Helper.openBugReportIntent(this);
+      HelperUtils.openBugReportIntent(this);
     } else if (itemId == R.id.nav_rate) {
-      Helper.openRateIntent(this);
+      HelperUtils.openRateIntent(this);
     } else if (itemId == R.id.nav_twitter) {
-      Helper.openTwitterIntent(this);
+      HelperUtils.openTwitterIntent(this);
     } else if (itemId == R.id.nav_about) {
-      Helper.openAboutDialog(this);
+      HelperUtils.openAboutDialog(this);
     }
 
     drawerLayout.closeDrawer(GravityCompat.START);

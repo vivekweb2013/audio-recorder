@@ -39,7 +39,7 @@ public class RateDialog extends Dialog implements View.OnClickListener {
 
     int viewId = v.getId();
     if (viewId == R.id.btn_rate_dialog_rate) {
-      Helper.openRateIntent(getContext());
+      HelperUtils.openRateIntent(getContext());
     } else if (viewId == R.id.btn_rate_dialog_remind_me_later) {
       // Do nothing
     } else if (viewId == R.id.btn_rate_dialog_no_thx) {

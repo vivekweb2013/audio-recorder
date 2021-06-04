@@ -38,7 +38,7 @@ public class AboutDialog extends Dialog implements View.OnClickListener {
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.tv_privacy_policy_link) {
-      Helper.openPrivacyPolicyIntent(getContext());
+      HelperUtils.openPrivacyPolicyIntent(getContext());
     } else {
       dismiss();
     }

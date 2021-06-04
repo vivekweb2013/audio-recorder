@@ -12,7 +12,7 @@ import androidx.preference.PreferenceManager;
 
 import com.wirehall.audiorecorder.setting.SettingActivity;
 
-public class Helper {
+public class HelperUtils {
   private static final String PRIVACY_POLICY_URL =
       "https://sites.google.com/view/audio-recorder-privacy-policy";
   private static final String SOURCE_CODE_URL = "https://github.com/vivekweb2013/audio-recorder";
@@ -28,7 +28,7 @@ public class Helper {
   private static final String TWITTER_ACCOUNT_URL1 = "twitter://user?screen_name=" + USERNAME;
   private static final String TWITTER_ACCOUNT_URL2 = "https://twitter.com/" + USERNAME;
 
-  private Helper() {
+  private HelperUtils() {
     throw new IllegalStateException("Utility class");
   }
 
@@ -55,15 +55,15 @@ public class Helper {
   }
 
   public static void openPrivacyPolicyIntent(Context context) {
-    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.PRIVACY_POLICY_URL)));
+    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HelperUtils.PRIVACY_POLICY_URL)));
   }
 
   public static void openSourceCodeIntent(Context context) {
-    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.SOURCE_CODE_URL)));
+    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HelperUtils.SOURCE_CODE_URL)));
   }
 
   public static void openBugReportIntent(Context context) {
-    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.BUG_REPORT_URL)));
+    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HelperUtils.BUG_REPORT_URL)));
   }
 
   public static void openRateIntent(Context context) {
@@ -71,9 +71,9 @@ public class Helper {
     SharedPreferences.Editor editor = prefs.edit();
 
     try {
-      context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.PLAY_STORE_URL1)));
+      context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HelperUtils.PLAY_STORE_URL1)));
     } catch (ActivityNotFoundException e) {
-      context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Helper.PLAY_STORE_URL2)));
+      context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HelperUtils.PLAY_STORE_URL2)));
     }
 
     if (editor != null) {
