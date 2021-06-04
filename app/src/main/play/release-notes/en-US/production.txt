@@ -1,1 +1,1 @@
-Added navigation drawer
+Menu is removed since the app now has navigation drawer.
