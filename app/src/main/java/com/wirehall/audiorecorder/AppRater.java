@@ -6,10 +6,12 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 public class AppRater {
-  public static final String KEY_PREF_RATE_DIALOG_DO_NOT_SHOW = "rate_dialog_do_not_show";
+  public static final String KEY_PREF_RATE_DIALOG_DO_NOT_SHOW =
+      "rate_dialog_do_not_show_" + BuildConfig.VERSION_NAME;
   public static final String KEY_PREF_RATE_DIALOG_FIRST_LAUNCH_TIME =
-      "rate_dialog_first_launch_time";
-  public static final String KEY_PREF_RATE_DIALOG_LAUNCH_COUNT = "rate_dialog_launch_count";
+      "rate_dialog_first_launch_time_" + BuildConfig.VERSION_NAME;
+  public static final String KEY_PREF_RATE_DIALOG_LAUNCH_COUNT =
+      "rate_dialog_launch_count_" + BuildConfig.VERSION_NAME;
 
   private static final int DAYS_UNTIL_PROMPT = 3; // Min number of days
   private static final int LAUNCHES_UNTIL_PROMPT = 5; // Min number of launches
