@@ -39,4 +39,13 @@
             android:icon="@drawable/ic_twitter"
             android:title="@string/twitter_handle" />
     </group>
+
+    <group
+        android:id="@+id/info_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info"
+            android:title="@string/about" />
+    </group>
 </menu>

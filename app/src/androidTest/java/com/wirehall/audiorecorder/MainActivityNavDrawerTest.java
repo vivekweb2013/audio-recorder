@@ -151,6 +151,16 @@ public class MainActivityNavDrawerTest {
     release();
   }
 
+  @Test
+  public void testLaunch_about_dialog() {
+    openNavDrawer();
+    onView(withId(R.id.nav_about)).check(matches(isDisplayed()));
+
+    onView(allOf(withId(R.id.nav_about), isDisplayed())).perform(click());
+    onView(withId(R.id.tv_privacy_policy_link)).check(matches(isDisplayed()));
+    onView(withId(R.id.btn_about_dialog_close)).perform(click());
+  }
+
   private void openNavDrawer() {
     onView(
             allOf(

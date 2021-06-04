@@ -228,28 +228,6 @@ public class MainActivity extends AppCompatActivity
     ft.commit();
   }
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.main_menu, menu);
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    if (id == R.id.menu_item_settings) {
-      Helper.openSettings(this);
-      return true;
-    } else if (id == R.id.menu_item_about) {
-      Helper.openAboutDialog(this);
-      return true;
-    } else if (id == R.id.menu_item_rate) {
-      Helper.openRateIntent(this);
-      return true;
-    }
-    return super.onOptionsItemSelected(item);
-  }
-
   @TargetApi(Build.VERSION_CODES.N)
   @RequiresApi(api = Build.VERSION_CODES.N)
   public void recordPauseBtnClicked(View view) {
@@ -322,6 +300,8 @@ public class MainActivity extends AppCompatActivity
       Helper.openRateIntent(this);
     } else if (itemId == R.id.nav_twitter) {
       Helper.openTwitterIntent(this);
+    } else if (itemId == R.id.nav_about) {
+      Helper.openAboutDialog(this);
     }
 
     drawerLayout.closeDrawer(GravityCompat.START);
