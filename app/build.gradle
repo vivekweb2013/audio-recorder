@@ -37,6 +37,14 @@ android {
 
     applicationVariants.all { variant ->
         variant.resValue "string", "versionName", variant.versionName
+        buildConfigField "String", "USERNAME", "\"vivekweb2013\""
+        buildConfigField "String", "SOURCE_CODE_URL", "\"https://github.com/vivekweb2013/audio-recorder\""
+        buildConfigField "String", "BUG_REPORT_URL", "\"https://github.com/vivekweb2013/audio-recorder/issues\""
+        buildConfigField "String", "PLAY_STORE_APP_URL", "\"market://details?id=${applicationId}\""
+        buildConfigField "String", "PLAY_STORE_WEB_URL", "\"https://play.google.com/store/apps/details?id=${applicationId}\""
+        buildConfigField "String", "TWITTER_ACCOUNT_APP_URL", "\"twitter://user?screen_name=vivekweb2013\""
+        buildConfigField "String", "TWITTER_ACCOUNT_WEB_URL", "\"https://twitter.com/vivekweb2013\""
+        buildConfigField "String", "PRIVACY_POLICY_URL", "\"https://sites.google.com/view/audio-recorder-privacy-policy\""
     }
 
     signingConfigs {
