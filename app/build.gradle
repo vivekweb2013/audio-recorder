@@ -44,7 +44,7 @@ android {
         buildConfigField "String", "PLAY_STORE_WEB_URL", "\"https://play.google.com/store/apps/details?id=${applicationId}\""
         buildConfigField "String", "TWITTER_ACCOUNT_APP_URL", "\"twitter://user?screen_name=vivekweb2013\""
         buildConfigField "String", "TWITTER_ACCOUNT_WEB_URL", "\"https://twitter.com/vivekweb2013\""
-        buildConfigField "String", "PRIVACY_POLICY_URL", "\"https://sites.google.com/view/audio-recorder-privacy-policy\""
+        buildConfigField "String", "PRIVACY_POLICY_URL", "\"https://github.com/vivekweb2013/audio-recorder/wiki/Privacy-Policy\""
     }
 
     signingConfigs {
